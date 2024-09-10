@@ -1,5 +1,10 @@
 #include "scene.h"
 #include "quadtree.h"
+#include "hashstr.h"
+
+typedef struct{
+	int (*system_update)(Scene *);
+} SystemHandler;
 
 static int RenderPackage_Compare(const void *p1, const void *p2);
 static void Scene_UpdateEntities(Scene *scene);
@@ -18,7 +23,49 @@ Scene * Scene_Create(Context *context, Game *game){
 
 	scene->render_packages = CHeap_Create(RenderPackage, MAX_RENDER_PACKAGE, RenderPackage_Compare);
 
+	scene->components_arrays = CHash_Create(HashStr, CArray *, MAX_COMPONENTS_ARRAYS);
+	scene->systems = CList_Create();
+
 	return scene;
+}
+
+int Scene_AddSystemHandler(Scene *scene, int (*system_update)(Scene *)){
+	SystemHandler *handler;
+
+	handler = (SystemHandler *) malloc(sizeof(SystemHandler));
+
+	handler->system_update = system_update;
+
+	CList_PushBack(scene->systems, handler);
+
+	return 1;
+}
+
+void Scene_UpdateSystems(Scene *scene){
+	SystemHandler *handler;
+
+	CList_ForEach(item, scene->systems){
+		handler = (SystemHandler *) CItem_GetKey(item);
+
+		handler->system_update(scene);
+	}
+}
+
+int Scene_AddComponentArrayStr(Scene *scene, const char *component_name, size_t component_size){
+	CArray *arr = CArray_CreateBytes(component_size, MAX_COMPONENTS_PER_ARRAY);
+	HashStr str = HashStr_Create(component_name);
+
+	return CHash_Insert(scene->components_arrays, &str, &arr);
+}
+
+CArray * Scene_GetComponentArrayStr(Scene *scene, const char *component_name){
+	CArray *arr;
+	HashStr str = HashStr_Create(component_name);
+
+	if(CHash_Get(scene->components_arrays, &str, &arr))
+		return arr;
+
+	return NULL;
 }
 
 Texture * Scene_GetTexture(Scene *scene, const char *filename){
@@ -38,12 +85,11 @@ void Scene_AddEntity(Scene *scene, Entity *entity){
 }
 
 void Scene_Update(Scene *scene){
-	Scene_UpdateEntities(scene);
-	Scene_SolveCollisions(scene);
-	Scene_UpdateRenderQueue(scene);
+	Scene_UpdateSystems(scene);
 }
 
 void Scene_Render(Scene *scene){
+	/*
 	RenderPackage package;
 
 	while(!CHeap_IsEmpty(scene->render_packages)){
@@ -57,6 +103,7 @@ void Scene_Render(Scene *scene){
 				package.id
 				);
 	}
+	*/
 }
 
 void Scene_AddToRenderQueue(Scene *scene, RenderPackage *package){

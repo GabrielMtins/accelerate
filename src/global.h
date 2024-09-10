@@ -10,6 +10,8 @@
 #include "datas/cheap.h"
 #include "datas/chash.h"
 
+#define MAX_COMPONENTS_PER_ARRAY 1024
+#define MAX_COMPONENTS_ARRAYS 256
 #define MAX_TEXTURES 256
 #define MAX_SFX 256
 #define MAX_RENDER_PACKAGE 4096
@@ -34,6 +36,9 @@ struct scene_s{
 	CList *entities;
 	CHeap *render_packages;
 	Vec2 camera_position;
+
+	CHash *components_arrays;
+	CList *systems;
 };
 
 #endif
