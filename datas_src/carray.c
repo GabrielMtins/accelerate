@@ -12,8 +12,10 @@ CArray * CArray_CreateBytes(size_t smemb, size_t nmemb){
 	arr->nmemb = nmemb;
 	arr->smemb = smemb;
 
-	if(nmemb != 0)
+	if(nmemb != 0){
 		arr->data = (uint8_t *) malloc(smemb * nmemb);
+		memset(arr->data, 0, smemb * nmemb);
+	}
 	else
 		arr->data = NULL;
 

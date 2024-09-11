@@ -6,19 +6,16 @@
 #include "global.h"
 #include "vec2.h"
 #include "texture.h"
-#include "entity.h"
 
-#define Scene_AddComponentArray(scene, type) Scene_GetComponentArrayStr(scene, #type, sizeof(type))
+#define Entity_GetComponent(scene, id, type) Entity_GetComponentStr(scene, id, #type)
+#define Scene_AddComponentArray(scene, type) Scene_AddComponentArrayStr(scene, #type, sizeof(type))
 #define Scene_GetComponentArray(scene, type) Scene_GetComponentArrayStr(scene, #type)
 
-typedef struct{
-	Texture *texture;
-	Vec2 position;
-	int id;
-	int layer;
-} RenderPackage;
+void * Entity_GetComponentStr(Scene *scene, size_t id, const char *type);
 
 Scene * Scene_Create(Context *context, Game *game);
+
+size_t Scene_AddEntity(Scene *scene);
 
 int Scene_AddSystemHandler(Scene *scene, int (*system_update)(Scene *));
 
@@ -32,15 +29,9 @@ Texture * Scene_GetTexture(Scene *scene, const char *filename);
 
 uint64_t Scene_GetTicks(Scene *scene);
 
-void Scene_SetCameraPosition(Scene *scene, Vec2 position);
-
-void Scene_AddEntity(Scene *scene, Entity *entity);
-
 void Scene_Update(Scene *scene);
 
 void Scene_Render(Scene *scene);
-
-void Scene_AddToRenderQueue(Scene *scene, RenderPackage *package);
 
 CList * Scene_FindRadius(Scene *scene, Vec2 origin, double radius);
 

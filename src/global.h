@@ -33,12 +33,13 @@ struct game_s{
 struct scene_s{
 	Context *context;
 	Game *game;
-	CList *entities;
-	CHeap *render_packages;
-	Vec2 camera_position;
 
 	CHash *components_arrays;
 	CList *systems;
+
+	CHeap *next_entity;
+
+	size_t max_entity;
 };
 
 #endif

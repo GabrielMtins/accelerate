@@ -1,7 +1,9 @@
 #include "game.h"
 #include "scene.h"
-#include "testent.h"
 #include "hashstr.h"
+
+#include "TransformComponent.h"
+#include "SpriteComponent.h"
 
 #include <time.h>
 
@@ -28,23 +30,26 @@ Game * Game_Create(const char *title, int internal_width, int internal_height){
 
 	Game_LoadTexture(game, "player.png", 32, 32);
 
-	Scene_AddEntity(game->current_scene, Testent_Create(game->current_scene));
-	Scene_AddEntity(game->current_scene, Testent2_Create(game->current_scene));
+	Scene_AddComponentArray(game->current_scene, TransformComponent);
+	Scene_AddComponentArray(game->current_scene, SpriteComponent);
+
+	size_t id = Scene_AddEntity(game->current_scene);
+
+	SpriteComponent *sprite = Entity_GetComponent(game->current_scene, id, SpriteComponent);
+
+	sprite->texture = Game_GetTexture(game, "player.png");
+	sprite->id = 2;
+	sprite->used = 1;
+	sprite->position.x = sprite->position.y = 2;
 	
 	return game;
 }
 
 void Game_Update(Game *game){
-	Context_UpdateTime(game->context);
-
-	Scene_Update(game->current_scene);
-}
-
-void Game_Render(Game *game){
 	SDL_SetRenderDrawColor(game->context->renderer, 0x10, 0x10, 0x10, 0xff);
 	SDL_RenderClear(game->context->renderer);
 
-	Scene_Render(game->current_scene);
+	Scene_Update(game->current_scene);
 
 	SDL_RenderPresent(game->context->renderer);
 }
@@ -53,7 +58,6 @@ void Game_Loop(Game *game){
 	Context_PollEvent(game->context);
 		
 	Game_Update(game);
-	Game_Render(game);
 		
 	Context_UpdateTime(game->context);
 }
