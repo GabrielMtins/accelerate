@@ -3,43 +3,48 @@
 namespace acc {
 
 Texture::Texture(Context *context, std::string filename, int cell_width, int cell_height){
+	setName(filename);
+
 	SDL_Surface *surface = IMG_Load(filename.c_str());
 
 	if(surface == NULL){
 		fprintf(stderr, "Failed to load texture: %s\n", filename.c_str());
+		texture = NULL;
+	}
+	else{
+		texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
+
+		texture_width = surface->w;
+		texture_height = surface->h;
+
+		this->cell_width = cell_width;
+		this->cell_height = cell_height;
+
+		SDL_FreeSurface(surface);
 	}
 
-	setName(filename);
-
-	texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
-
-	texture_width = surface->w;
-	texture_height = surface->h;
-
-	this->cell_width = cell_width;
-	this->cell_height = cell_height;
-
-	SDL_FreeSurface(surface);
 }
 
 Texture::Texture(Context *context, std::string filename){
+	setName(filename);
+
 	SDL_Surface *surface = IMG_Load(filename.c_str());
 
 	if(surface == NULL){
 		fprintf(stderr, "Failed to load texture: %s\n", filename.c_str());
+		texture = NULL;
 	}
+	else{
+		texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
 
-	setName(filename);
+		texture_width = surface->w;
+		texture_height = surface->h;
 
-	texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
+		cell_width = surface->w;
+		cell_height = surface->h;
 
-	texture_width = surface->w;
-	texture_height = surface->h;
-
-	cell_width = surface->w;
-	cell_height = surface->h;
-
-	SDL_FreeSurface(surface);
+		SDL_FreeSurface(surface);
+	}
 }
 
 void Texture::renderCell(Context *context, int x, int y, int id){
@@ -111,7 +116,8 @@ int Texture::getCellHeight(void){
 }
 
 Texture::~Texture(void){
-	SDL_DestroyTexture(texture);
+	if(texture != NULL)
+		SDL_DestroyTexture(texture);
 }
 
 };
