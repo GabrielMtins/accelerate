@@ -16,35 +16,28 @@
 #    along with Neschgui.  If not, see <https://www.gnu.org/licenses/>.
 
 
-CC = gcc
+CC = g++
 EXEC ?= main
 
-CCFLAGS := -g -O2 -std=c99 -Wall -Wextra -pedantic
+CCFLAGS := -g -O2 -std='c++11' -Wall -Wextra -pedantic
 
 LIBFLAGS := -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lm
 
 SRC_DIR := src
 INCLUDE_DIR := include
-SRC_DATAS := datas_src
-SRC_GAME := game_src
 
 BUILD_DIR := ./build
 
-SRC := $(wildcard $(SRC_DIR)/*.c)
-#SRC := $(SRC_DIR)/main.c
-SRC += $(wildcard $(SRC_DATAS)/*.c)
-SRC += $(wildcard $(SRC_GAME)/*.c)
+SRC := $(wildcard $(SRC_DIR)/*.cpp)
 OBJECTS := $(addprefix $(BUILD_DIR)/, $(SRC))
 OBJECTS := $(addsuffix .o, $(OBJECTS))
 
-$(BUILD_DIR)/%.c.o: %.c
-	mkdir  -p $(BUILD_DIR)/$(SRC_DIR)
-	mkdir  -p $(BUILD_DIR)/$(SRC_DATAS)
-	mkdir  -p $(BUILD_DIR)/$(SRC_GAME)
-	$(CC) $(CCFLAGS) -c $< -o $@ $(CCFLAGS) -I$(INCLUDE_DIR) -I$(SRC_DIR)
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	mkdir -p $(BUILD_DIR)/$(SRC_DIR)
+	$(CC) -I$(INCLUDE_DIR) $(CCFLAGS) -c $< -o $@ $(CCFLAGS)
 
 $(EXEC): $(OBJECTS)
-	$(CC) -I$(INCLUDE_DIR) -I$(SRC_DIR) $(OBJECTS) $(CCFLAGS) $(LIBFLAGS) -o $(EXEC) $(CCFLAGS)
+	$(CC) -I$(INCLUDE_DIR) -I./src $(OBJECTS) $(CCFLAGS) $(LIBFLAGS) -o $(EXEC) $(CCFLAGS)
 
 clean:
 	rm -r build
