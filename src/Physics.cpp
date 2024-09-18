@@ -12,19 +12,16 @@ PhysicsSystem::PhysicsSystem(Scene *scene){
 }
 
 void PhysicsSystem::update(ComponentManager *component_manager){
+	updateCollisions(component_manager);
+	updateTileset(component_manager);
+	updatePhysics(component_manager);
+}
+
+void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
 	if(!component_manager->hasComponentArray<BodyComponent>())
 		return;
 
 	auto arr = component_manager->getComponentArray<BodyComponent>();
-
-	float dt = scene->getGame()->getContext()->getDeltaTime();
-
-	for(size_t i = 0; i < arr->getSize(); i++){
-		auto& physics = arr->atIndex(i);
-
-		physics.velocity += physics.gravity * dt;
-		physics.position += physics.velocity * dt;
-	}
 
 	for(size_t i = 0; i < arr->getSize(); i++){
 		Entity entity = arr->indexToEntity(i);
@@ -45,11 +42,27 @@ void PhysicsSystem::update(ComponentManager *component_manager){
 				callCollisionFunction(component_manager, entity, other);
 			}
 		}
+	}
+}
+
+void PhysicsSystem::updatePhysics(ComponentManager *component_manager){
+	if(!component_manager->hasComponentArray<BodyComponent>())
+		return;
+
+	auto arr = component_manager->getComponentArray<BodyComponent>();
+
+	float dt = scene->getGame()->getContext()->getDeltaTime();
+
+	for(size_t i = 0; i < arr->getSize(); i++){
+		Entity entity = arr->indexToEntity(i);
+
+		auto& physics = arr->atIndex(i);
+
+		physics.position += physics.velocity * dt;
+		physics.velocity += physics.gravity * dt;
 
 		updateTransform(component_manager, entity);
 	}
-
-	updateTileset(component_manager);
 }
 
 void PhysicsSystem::updateTileset(ComponentManager *component_manager){

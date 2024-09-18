@@ -73,14 +73,22 @@ void BodyComponent::solveCollision(BodyComponent other){
 
 	std::sort(min_distance.begin(), min_distance.end(),
 			[](Vec3 a, Vec3 b){
-				if(a.lengthSqr() <= 0.01) return false;
+				if(a.length() == 0.0f) return false;
 				return a.lengthSqr() < b.lengthSqr();
 			}
 			);
 
 	Vec3 direction_hit = other.position - position;
 
-	position -= (min_distance[0]) * direction_hit.sign() * (1.5f);
+	position -= (min_distance[0]) * direction_hit.sign() * (1.1f);
+
+	velocity *= (Vec3(1.0f, 1.0f, 1.0f) - (min_distance[0] * direction_hit).sign()) * 1.0f;
+
+	/*
+	printf("\n");
+	min_distance[0].print();
+	min_distance[1].print();
+	*/
 }
 
 };
