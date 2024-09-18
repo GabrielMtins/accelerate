@@ -94,6 +94,9 @@ int Vec3::compareLength(float length_compared){
 Vec3 Vec3::normalize(void){
 	float l = length();
 
+	if(l == 0)
+		return Vec3();
+
 	return Vec3(x / l, y / l, z / l);
 }
 

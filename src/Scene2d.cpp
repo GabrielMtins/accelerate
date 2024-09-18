@@ -13,6 +13,7 @@ class TestBehavior : public BehaviorFunction {
 			printf("Hello World!\n");
 			timer = 0;
 
+			/*
 			std::vector<Entity> found = find<BodyComponent>([](BodyComponent& a){return a.gravity.length() == 0;});
 
 			for(auto i : found){
@@ -22,6 +23,7 @@ class TestBehavior : public BehaviorFunction {
 				body.size = Vec3(196, 64, 0);
 				sprite.id = -1;
 			}
+			*/
 
 			auto& body = getComponent<BodyComponent>();
 
@@ -48,11 +50,11 @@ class TestBehavior : public BehaviorFunction {
 
 			if(keys[SDL_SCANCODE_D]) dir_vel.x++;
 			if(keys[SDL_SCANCODE_A]) dir_vel.x--;
-			if(keys[SDL_SCANCODE_SPACE]) body.velocity.y = -120;
+			if(keys[SDL_SCANCODE_S]) dir_vel.y++;
+			if(keys[SDL_SCANCODE_W]) dir_vel.y--;
 
-			body.velocity.x = dir_vel.x * 40;
-
-			if(body.velocity.y > 1000.0f) body.velocity.y = 1000.0f;
+			body.velocity = dir_vel.normalize() * 60;
+			//body.velocity.x = dir_vel.x * 40;
 
 			timer += getContext()->getDeltaTime();
 
@@ -113,10 +115,10 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		transform.position.x = 32;
 		sprite.id = 0;
 
-		body.position = Vec3(32, 36, 0);
+		body.position = Vec3(32, 16, 0);
 		body.size = Vec3(64, 64, 0);
 		body.setOnCollisionMask(1, true);
-		body.gravity = Vec3(0, 100, 0);
+		body.gravity = Vec3(0, 0, 0);
 	}
 
 	/*

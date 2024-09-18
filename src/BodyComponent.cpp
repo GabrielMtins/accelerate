@@ -80,8 +80,7 @@ void BodyComponent::solveCollision(BodyComponent other){
 
 	Vec3 direction_hit = other.position - position;
 
-	position -= (min_distance[0]) * direction_hit.sign() * (1.02f);
-	velocity.y = 0;
+	position -= (min_distance[0]) * direction_hit.sign() * (1.5f);
 }
 
 };

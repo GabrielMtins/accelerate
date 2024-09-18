@@ -118,14 +118,17 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 				if(!body.is_trigger)
 					body.solveCollision(tile);
 
+				/*
 				final_position.push_back(body.position);
 				body.position = old_position;
+				*/
 
 				found_collision = true;
 			}
 		}
 	}
 
+	/*
 	if(found_collision){
 		std::sort(final_position.begin(), final_position.end(),
 				[old_position](Vec3 a, Vec3 b){
@@ -140,6 +143,7 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 
 		body.position = final_position[0];
 	}
+	*/
 
 	return found_collision;
 }
