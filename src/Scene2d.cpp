@@ -46,17 +46,27 @@ class TestBehavior : public BehaviorFunction {
 				getGame()->setScene((Scene *) new Scene2d(getGame()));
 			}
 
+			/*
 			if(keys[SDL_SCANCODE_D]) dir_vel.x++;
 			if(keys[SDL_SCANCODE_A]) dir_vel.x--;
 			if(keys[SDL_SCANCODE_S]) dir_vel.y++;
 			if(keys[SDL_SCANCODE_W]) dir_vel.y--;
+			*/
+
+			if(keys[SDL_SCANCODE_A]) body.velocity.x = -50;
+			if(keys[SDL_SCANCODE_D]) body.velocity.x = +50;
+			if(keys[SDL_SCANCODE_W]) body.velocity.y = -50;
+			if(keys[SDL_SCANCODE_S]) body.velocity.y = +50;
 
 			//body.velocity = dir_vel.normalize() * 60;
+		
+			/*
 			body.velocity.x = dir_vel.x * 40;
 
 			if(dir_vel.y != 0)
 				body.velocity.y = dir_vel.y * 100;
 
+				*/
 			timer += getContext()->getDeltaTime();
 
 			if(timer > 0.1){
@@ -116,7 +126,7 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		transform.position.x = 32;
 		sprite.id = 0;
 
-		body.position = Vec3(32, 0, 0);
+		body.position = Vec3(32, 32, 0);
 		body.size = Vec3(64, 64, 0);
 		body.setOnCollisionMask(1, true);
 		body.gravity = Vec3(0, 100, 0);
@@ -154,7 +164,8 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		auto& tile = getComponent<TilesetComponent>(next_entity);
 
 		for(int i = 0; i < 10; i++){
-			tile.setTile(i, 4, 0);
+			tile.setTile(i, 0, 0);
+			tile.setTile(i, 6, 0);
 		}
 		//tile.setTile(3, 5, 0);
 		//tile.setTile(3, 6, 0);

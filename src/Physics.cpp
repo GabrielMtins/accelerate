@@ -100,10 +100,10 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 
 	bool found_collision = false;
 
-	Vec3 old_position;
-	std::vector<Vec3> final_position;
+	BodyComponent old_body;
+	std::vector<BodyComponent> final_body;
 
-	old_position = body.position;
+	old_body = body;
 
 	Vec3 start = Vec3(
 			(int) body.position.x / tileset.width - 1,
@@ -128,13 +128,13 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 			tile.collision_layer = tileset.collision_layer;
 
 			if(body.checkCollision(tile)){
-				if(!body.is_trigger)
+				if(!body.is_trigger){
 					body.solveCollision(tile);
-
-				/*
-				final_position.push_back(body.position);
-				body.position = old_position;
-				*/
+					/*
+					final_body.push_back(body);
+					body = old_body;
+					*/
+				}
 
 				found_collision = true;
 			}
@@ -142,11 +142,11 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 	}
 
 	/*
-	if(found_collision){
-		std::sort(final_position.begin(), final_position.end(),
-				[old_position](Vec3 a, Vec3 b){
-					float da = (a - old_position).lengthSqr();
-					float db = (b - old_position).lengthSqr();
+	if(found_collision && !body.is_trigger){
+		std::sort(final_body.begin(), final_body.end(),
+				[old_body](BodyComponent a, BodyComponent b){
+					float da = (a.position - old_body.position).length();
+					float db = (b.position - old_body.position).length();
 
 					if(da == 0) return true;
 
@@ -154,7 +154,7 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 				}
 				);
 
-		body.position = final_position[0];
+		body = final_body[0];
 	}
 	*/
 
