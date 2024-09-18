@@ -1,5 +1,6 @@
 #include "Vec3.hpp"
 #include <cmath>
+#include <cstdio>
 
 namespace acc {
 
@@ -120,6 +121,10 @@ float Vec3::lengthSqr(void){
 
 float Vec3::length(void){
 	return sqrt(lengthSqr());
+}
+
+void Vec3::print(void){
+	printf("%f %f %f\n", x, y, z);
 }
 
 float Vec3::dotProduct(Vec3 a, Vec3 b){

@@ -6,5 +6,6 @@
 #include "Components/BehaviorComponent.hpp"
 #include "Components/LabelComponent.hpp"
 #include "Components/BodyComponent.hpp"
+#include "Components/TilesetComponent.hpp"
 
 #endif

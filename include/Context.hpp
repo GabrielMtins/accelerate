@@ -13,6 +13,8 @@ namespace acc {
 class Context {
 	public:
 		Context(const char *title, int internal_width, int internal_height);
+		int getWidth(void);
+		int getHeight(void);
 		bool isRunning(void);
 		float getDeltaTime(void);
 		void pollEvent(void);

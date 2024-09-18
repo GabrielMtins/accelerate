@@ -44,6 +44,14 @@ Context::Context(const char *title, int internal_width, int internal_height){
 	this->first_time = SDL_GetTicks64();
 }
 
+int Context::getWidth(void){
+	return internal_width;
+}
+
+int Context::getHeight(void){
+	return internal_height;
+}
+
 bool Context::isRunning(void){
 	return !quit;
 }

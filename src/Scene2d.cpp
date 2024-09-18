@@ -29,12 +29,15 @@ class TestBehavior : public BehaviorFunction {
 		}
 
 		void onUpdate(void){
+			Scene2d *scene = (Scene2d *) getScene();
 			auto& body = getComponent<BodyComponent>();
 			auto& sprite = getComponent<SpriteComponent>();
 
 			const uint8_t *keys = SDL_GetKeyboardState(NULL);
 
 			dir_vel = Vec3();
+
+			scene->setCameraPosition(body.position - Vec3(200, 100));
 
 			if(keys[SDL_SCANCODE_J]){
 				was_pressed = true;
@@ -78,6 +81,7 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 	registerComponent<BehaviorComponent>();
 	registerComponent<LabelComponent>();
 	registerComponent<BodyComponent>();
+	registerComponent<TilesetComponent>();
 
 	system_manager->addSystem(
 			(System *) new Render2dSystem(game->getContext(), &camera_position)
@@ -109,12 +113,13 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		transform.position.x = 32;
 		sprite.id = 0;
 
-		body.position = Vec3(32, 36, 32);
+		body.position = Vec3(32, 36, 0);
 		body.size = Vec3(64, 64, 0);
 		body.setOnCollisionMask(1, true);
 		body.gravity = Vec3(0, 100, 0);
 	}
 
+	/*
 	{
 		Entity next_entity = getNextEntity();
 	
@@ -129,6 +134,28 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		body.size = Vec3(32, 32, 0);
 		body.setOnCollisionLayer(1, true);
 		sprite.id = 0;
+	}
+	*/
+
+	{
+		Entity next_entity = getNextEntity();
+	
+		addComponent<TilesetComponent>(next_entity,
+				TilesetComponent(
+					(Texture *) game->getResource("texture.png"),
+					16,
+					16
+					)
+				);
+
+		auto& tile = getComponent<TilesetComponent>(next_entity);
+
+		for(int i = 0; i < 10; i++){
+			tile.setTile(i, 4, 0);
+		}
+		//tile.setTile(3, 5, 0);
+		//tile.setTile(3, 6, 0);
+		tile.setCollisionLayer(1);
 	}
 }
 

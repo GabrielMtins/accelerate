@@ -31,6 +31,8 @@ struct Vec3 {
 	float lengthSqr(void);
 	float length(void);
 
+	void print(void);
+
 	static float dotProduct(Vec3 a, Vec3 b);
 };
 

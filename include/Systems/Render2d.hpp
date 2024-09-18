@@ -2,8 +2,7 @@
 #define RENDER2D_SYSTEM_HPP
 
 #include "SystemManager.hpp"
-#include "Components/Sprite.hpp"
-#include "Components/Transform.hpp"
+#include "Components/Components.hpp"
 #include "Context.hpp"
 
 #include <vector>
@@ -16,9 +15,13 @@ class Render2dSystem : public System {
 		void update(ComponentManager *component_manager);
 	
 	private:
+		void updateSprites(ComponentManager *component_manager);
+		void updateTileset(ComponentManager *component_manager);
+		void renderTilesetComponent(TilesetComponent& tileset);
+		static bool customTextureLess(SpriteComponent *a, SpriteComponent *b);
+
 		Context *context;
 		Vec3 *camera_position;
-		static bool customTextureLess(SpriteComponent *a, SpriteComponent *b);
 };
 
 };

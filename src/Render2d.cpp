@@ -13,6 +13,11 @@ Render2dSystem::Render2dSystem(Context *context, Vec3 *camera_position){
 }
 
 void Render2dSystem::update(ComponentManager *component_manager){
+	updateTileset(component_manager);
+	updateSprites(component_manager);
+}
+
+void Render2dSystem::updateSprites(ComponentManager *component_manager){
 	if(!component_manager->hasComponentArray<SpriteComponent>())
 		return;
 
@@ -45,6 +50,42 @@ void Render2dSystem::update(ComponentManager *component_manager){
 				i->position.x - camera_position->x, i->position.y - camera_position->y,
 				i->id
 				);
+	}
+}
+
+void Render2dSystem::updateTileset(ComponentManager *component_manager){
+	if(!component_manager->hasComponentArray<TilesetComponent>())
+		return;
+
+	auto arr = component_manager->getComponentArray<TilesetComponent>();
+
+	for(size_t i = 0; i < arr->getSize(); i++){
+		auto& current_tileset = arr->atIndex(i);
+		renderTilesetComponent(current_tileset);
+	}
+}
+
+void Render2dSystem::renderTilesetComponent(TilesetComponent& tileset){
+	int min_x = (int) (camera_position->x / tileset.width) - 2;
+	int min_y = (int) (camera_position->y / tileset.height) - 2;
+	int max_x = min_x + context->getWidth() / tileset.width + 2;
+	int max_y = min_y + context->getHeight() / tileset.height + 2;
+
+	for(int i = min_x; i < max_x; i++){
+		for(int j = min_y; j < max_y; j++){
+			Vec3 tile_pos = Vec3(i * tileset.width, j * tileset.height, 0);
+			int tile_id = tileset.getTile(i, j);
+
+			if(tile_id == -1) continue;
+
+
+			tileset.tileset_texture->renderCell(
+					context,
+					tile_pos.x - camera_position->x,
+					tile_pos.y - camera_position->y,
+					tile_id
+					);
+		}
 	}
 }
 
