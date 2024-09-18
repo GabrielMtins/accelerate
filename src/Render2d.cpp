@@ -42,7 +42,7 @@ void Render2dSystem::update(ComponentManager *component_manager){
 
 		i->texture->renderCell(
 				context,
-				i->position.x, i->position.y,
+				i->position.x - camera_position->x, i->position.y - camera_position->y,
 				i->id
 				);
 	}

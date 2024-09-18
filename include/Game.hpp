@@ -21,6 +21,7 @@ class Game {
 		~Game(void);
 
 	private:
+		Scene *next_scene;
 		Scene *current_scene;
 		Context *context;
 		ResourceManager *resource_manager;

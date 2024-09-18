@@ -9,6 +9,7 @@ namespace acc {
 class TestBehavior : public BehaviorFunction {
 	public:
 		void onCreate(void){
+			was_pressed = false;
 			printf("Hello World!\n");
 			timer = 0;
 
@@ -34,6 +35,13 @@ class TestBehavior : public BehaviorFunction {
 			const uint8_t *keys = SDL_GetKeyboardState(NULL);
 
 			dir_vel = Vec3();
+
+			if(keys[SDL_SCANCODE_J]){
+				was_pressed = true;
+			}
+			else if(was_pressed){
+				getGame()->setScene((Scene *) new Scene2d(getGame()));
+			}
 
 			if(keys[SDL_SCANCODE_D]) dir_vel.x++;
 			if(keys[SDL_SCANCODE_A]) dir_vel.x--;
@@ -61,6 +69,7 @@ class TestBehavior : public BehaviorFunction {
 	private:
 		float timer;
 		Vec3 dir_vel;
+		bool was_pressed;
 };
 
 Scene2d::Scene2d(Game *game) : Scene(game){

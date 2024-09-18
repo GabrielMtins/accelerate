@@ -11,12 +11,13 @@ Game::Game(const char *title, int internal_width, int internal_height){
 	context = new Context(title, internal_width, internal_height);
 	resource_manager = new ResourceManager();
 	current_scene = NULL;
+	next_scene = NULL;
 
 	loadResource((Resource *) new Texture(context, "player.png", 32, 32));
 }
 
 void Game::setScene(Scene *scene){
-	this->current_scene = scene;
+	this->next_scene = scene;
 }
 
 void Game::loadResource(Resource *resource){
@@ -40,6 +41,14 @@ void Game::update(void){
 void Game::loop(void){
 	context->pollEvent();
 
+	if(next_scene != NULL){
+		if(current_scene != NULL)
+			delete current_scene;
+
+		current_scene = next_scene;
+		next_scene = NULL;
+	}
+
 	update();
 
 	context->updateTime();
@@ -58,6 +67,10 @@ Context * Game::getContext(void){
 Game::~Game(void){
 	if(current_scene != NULL)
 		delete current_scene;
+
+	if(next_scene != NULL)
+		delete next_scene;
+
 	delete context;
 	delete resource_manager;
 }
