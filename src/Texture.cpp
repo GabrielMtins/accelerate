@@ -166,6 +166,7 @@ static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex){
 	SDL_Vertex transformed = {
 		{vertex.position.x, vertex.position.y},
 		{(uint8_t) vertex.color.x, (uint8_t) vertex.color.y, (uint8_t) vertex.color.z, vertex.alpha},
+		//{(uint8_t) vertex.color.x, (uint8_t) vertex.color.y, (uint8_t) vertex.color.z, 255},
 		{vertex.uv.x, vertex.uv.y}
 	};
 

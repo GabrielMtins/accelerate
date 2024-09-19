@@ -28,6 +28,11 @@ class Mesh {
 
 		template <typename functon>
 		void applyTransformation(functon transform){
+			/*
+			for(size_t i = 0; i < vertices.size(); i++){
+				vertices[i] = transform(vertices[i]);
+			}
+			*/
 			for(auto& vertex : vertices){
 				vertex = transform(vertex);
 			}
