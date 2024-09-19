@@ -22,10 +22,6 @@ class TestBehavior : public BehaviorFunction {
 				body.size = Vec3(196, 64, 0);
 				sprite.id = -1;
 			}
-
-			auto& body = getComponent<BodyComponent>();
-
-			body.size = Vec3(32, 32, 0);
 		}
 
 		void onUpdate(void){
@@ -37,12 +33,17 @@ class TestBehavior : public BehaviorFunction {
 
 			dir_vel = Vec3();
 
-			//scene->setCameraPosition(body.position - Vec3(200, 100));
+			scene->setCameraPosition(body.position - Vec3(200, 100));
 
+			/*
 			if(keys[SDL_SCANCODE_J]){
 				was_pressed = true;
 			}
 			else if(was_pressed){
+				getGame()->setScene((Scene *) new Scene2d(getGame()));
+			}
+			*/
+			if(keys[SDL_SCANCODE_J]){
 				getGame()->setScene((Scene *) new Scene2d(getGame()));
 			}
 
@@ -97,7 +98,7 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 	registerComponent<TilesetComponent>();
 
 	system_manager->addSystem(
-			(System *) new Render2dSystem(game->getContext(), &camera_position)
+			(System *) new PhysicsSystem(this)
 			);
 
 	system_manager->addSystem(
@@ -105,7 +106,7 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 			);
 
 	system_manager->addSystem(
-			(System *) new PhysicsSystem(this)
+			(System *) new Render2dSystem(game->getContext(), &camera_position)
 			);
 
 	{
@@ -121,13 +122,14 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		auto& behavior = getComponent<BehaviorComponent>(next_entity);
 		auto& body = getComponent<BodyComponent>(next_entity);
 
-		behavior.setFunction((BehaviorFunction *) new TestBehavior());
+		behavior.setFunction((std::make_shared<TestBehavior>()));
 
 		transform.position.x = 32;
 		sprite.id = 0;
 
 		body.position = Vec3(32, 32, 0);
-		body.size = Vec3(64, 64, 0);
+		body.offset_from_transform = Vec3(12, 0, 0);
+		body.size = Vec3(10, 32, 0);
 		body.setOnCollisionMask(1, true);
 		body.gravity = Vec3(0, 100, 0);
 	}

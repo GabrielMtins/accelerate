@@ -5,6 +5,8 @@
 #include "Game.hpp"
 #include "Context.hpp"
 
+#include <memory>
+
 namespace acc {
 
 class BehaviorFunction {
@@ -70,10 +72,10 @@ class BehaviorFunction {
 };
 
 struct BehaviorComponent {
-	BehaviorFunction *behavior_function;
+	std::shared_ptr<BehaviorFunction> behavior_function;
 
 	BehaviorComponent();
-	void setFunction(BehaviorFunction *behavior_function);
+	void setFunction(std::shared_ptr<BehaviorFunction> behavior_function);
 	~BehaviorComponent(void);
 };
 

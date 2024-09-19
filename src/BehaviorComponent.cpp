@@ -46,17 +46,14 @@ Context * BehaviorFunction::getContext(void){
 }
 
 BehaviorComponent::BehaviorComponent(){
-	this->behavior_function = NULL;
+	this->behavior_function = nullptr;
 }
 
-void BehaviorComponent::setFunction(BehaviorFunction *behavior_function){
+void BehaviorComponent::setFunction(std::shared_ptr<BehaviorFunction> behavior_function){
 	this->behavior_function = behavior_function;
 }
 
 BehaviorComponent::~BehaviorComponent(void){
-	if(this->behavior_function != NULL){
-		delete this->behavior_function;
-	}
 }
 
 };
