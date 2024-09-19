@@ -91,6 +91,42 @@ int Vec3::compareLength(float length_compared){
 	return 0;
 }
 
+Vec3 Vec3::rotateX(float cos_angle, float sin_angle){
+	return Vec3(
+			x,
+			cos_angle * y - sin_angle * z,
+			sin_angle * y + cos_angle * z
+			);
+}
+
+Vec3 Vec3::rotateY(float cos_angle, float sin_angle){
+	return Vec3(
+			cos_angle * x + sin_angle * z,
+			y,
+			-sin_angle * x + cos_angle * z
+			);
+}
+
+Vec3 Vec3::rotateZ(float cos_angle, float sin_angle){
+	return Vec3(
+			cos_angle * x - sin_angle * y,
+			sin_angle * x + cos_angle * y,
+			z
+			);
+}
+
+Vec3 Vec3::rotateX(float angle){
+	return rotateX(cosf(angle), sinf(angle));
+}
+
+Vec3 Vec3::rotateY(float angle){
+	return rotateY(cosf(angle), sinf(angle));
+}
+
+Vec3 Vec3::rotateZ(float angle){
+	return rotateZ(cosf(angle), sinf(angle));
+}
+
 Vec3 Vec3::normalize(void){
 	float l = length();
 

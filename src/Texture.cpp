@@ -111,6 +111,27 @@ void Texture::renderRect(Context *context, int src[], int dst[]){
 
 }
 
+void Texture::renderTriangle(Context *context, Triangle &triangle){
+	std::vector<SDL_Vertex> sdl_vertices_vector;
+	sdl_vertices_vector.reserve(3);
+
+	std::transform(
+			triangle.vertices.begin(),
+			triangle.vertices.end(),
+			std::back_inserter(sdl_vertices_vector),
+			Vertex_ConvertToSDL
+			);
+
+	SDL_RenderGeometry(
+			context->getRenderer(),
+			texture,
+			sdl_vertices_vector.data(),
+			sdl_vertices_vector.size(),
+			NULL,
+			0
+			);
+}
+
 void Texture::renderMesh(Context *context, Mesh &mesh){
 	auto& vertices_vector = mesh.getVertices();
 	auto& indices_vector = mesh.getIndices();
