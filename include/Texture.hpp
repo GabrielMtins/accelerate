@@ -3,6 +3,7 @@
 
 #include "Resource.hpp"
 #include "Context.hpp"
+#include "Mesh.hpp"
 
 namespace acc {
 
@@ -13,6 +14,8 @@ class Texture : Resource{
 
 		void renderCell(Context *context, int x, int y, int id);
 		void renderRect(Context *context, int src[], int dst[]);
+
+		void renderMesh(Context *context, Mesh &mesh);
 
 		int getCellWidth(void);
 		int getCellHeight(void);

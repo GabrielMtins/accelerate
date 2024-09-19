@@ -1,6 +1,10 @@
 #include "Texture.hpp"
 
+#include <algorithm>
+
 namespace acc {
+
+static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex);
 
 Texture::Texture(Context *context, std::string filename, int cell_width, int cell_height){
 	setName(filename);
@@ -107,6 +111,30 @@ void Texture::renderRect(Context *context, int src[], int dst[]){
 
 }
 
+void Texture::renderMesh(Context *context, Mesh &mesh){
+	auto& vertices_vector = mesh.getVertices();
+	auto& indices_vector = mesh.getIndices();
+
+	std::vector<SDL_Vertex> sdl_vertices_vector;
+	sdl_vertices_vector.reserve(vertices_vector.size());
+
+	std::transform(
+			vertices_vector.begin(),
+			vertices_vector.end(),
+			std::back_inserter(sdl_vertices_vector),
+			Vertex_ConvertToSDL
+			);
+
+	SDL_RenderGeometry(
+			context->getRenderer(),
+			texture,
+			sdl_vertices_vector.data(),
+			sdl_vertices_vector.size(),
+			indices_vector.data(),
+			indices_vector.size()
+			);
+}
+
 int Texture::getCellWidth(void){
 	return cell_width;
 }
@@ -118,6 +146,18 @@ int Texture::getCellHeight(void){
 Texture::~Texture(void){
 	if(texture != NULL)
 		SDL_DestroyTexture(texture);
+}
+
+static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex){
+	vertex.color *= 255.0f;
+
+	SDL_Vertex transformed = {
+		{vertex.position.x, vertex.position.y},
+		{(uint8_t) vertex.color.x, (uint8_t) vertex.color.y, (uint8_t) vertex.color.z, vertex.alpha},
+		{vertex.uv.x, vertex.uv.y}
+	};
+
+	return transformed;
 }
 
 };
