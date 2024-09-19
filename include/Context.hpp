@@ -6,7 +6,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
-#define FPS_MAX 60
+#define FPS_MAX 180
 
 namespace acc {
 

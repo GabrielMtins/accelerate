@@ -28,7 +28,7 @@ template <typename T> class ComponentArray : public BaseComponentArray {
 
 			size_t new_index = size;
 
-			component_array[new_index] = component;
+			component_array.push_back(component);
 			entity_to_index[entity] = new_index;
 			index_to_entity[new_index] = entity;
 
@@ -61,6 +61,8 @@ template <typename T> class ComponentArray : public BaseComponentArray {
 
 			entity_to_index.erase(entity);
 			index_to_entity.erase(last_index);
+
+			component_array.pop_back();
 
 			size--;
 
@@ -96,7 +98,7 @@ template <typename T> class ComponentArray : public BaseComponentArray {
 		}
 
 	private:
-		std::array<T, MAX_ENTITIES> component_array;
+		std::vector<T> component_array;
 		std::unordered_map<Entity, size_t> entity_to_index;
 		std::unordered_map<size_t, Entity> index_to_entity;
 
