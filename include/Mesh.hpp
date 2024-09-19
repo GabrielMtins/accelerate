@@ -14,6 +14,7 @@ struct Vertex {
 	uint8_t alpha;
 
 	Vertex(Vec3 position, Vec3 uv, Vec3 color, uint8_t alpha);
+	Vertex(Vec3 position, Vec3 color, uint8_t alpha);
 	Vertex(Vec3 position, Vec3 uv);
 };
 

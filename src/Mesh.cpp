@@ -9,6 +9,12 @@ Vertex::Vertex(Vec3 position, Vec3 uv, Vec3 color, uint8_t alpha){
 	this->alpha = alpha;
 }
 
+Vertex::Vertex(Vec3 position, Vec3 color, uint8_t alpha){
+	this->position = position;
+	this->color = color;
+	this->alpha = alpha;
+}
+
 Vertex::Vertex(Vec3 position, Vec3 uv){
 	this->position = position;
 	this->uv = uv;

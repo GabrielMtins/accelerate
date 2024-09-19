@@ -125,14 +125,26 @@ void Texture::renderMesh(Context *context, Mesh &mesh){
 			Vertex_ConvertToSDL
 			);
 
-	SDL_RenderGeometry(
-			context->getRenderer(),
-			texture,
-			sdl_vertices_vector.data(),
-			sdl_vertices_vector.size(),
-			indices_vector.data(),
-			indices_vector.size()
-			);
+	if(indices_vector.size() != 0){
+		SDL_RenderGeometry(
+				context->getRenderer(),
+				texture,
+				sdl_vertices_vector.data(),
+				sdl_vertices_vector.size(),
+				indices_vector.data(),
+				indices_vector.size()
+				);
+	}
+	else{
+		SDL_RenderGeometry(
+				context->getRenderer(),
+				texture,
+				sdl_vertices_vector.data(),
+				sdl_vertices_vector.size(),
+				NULL,
+				0
+				);
+	}
 }
 
 int Texture::getCellWidth(void){
