@@ -19,7 +19,7 @@
 CC = g++
 EXEC ?= main
 
-CCFLAGS := -g -O2 -std='c++11' -Wall -Wextra -pedantic
+CCFLAGS := -g -O0 -std='c++11' -Wall -Wextra -pedantic
 
 LIBFLAGS := -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lm
 

@@ -48,8 +48,8 @@ class BehaviorFunction {
 		}
 
 		/* search by a check function */
-		template <typename T>
-		std::vector<Entity> find(bool (*check)(T&)){
+		template <typename T, typename Functor>
+		std::vector<Entity> find(Functor check){
 			std::vector<Entity> found;
 			auto arr = scene->getComponentManager()->getComponentArray<T>();
 

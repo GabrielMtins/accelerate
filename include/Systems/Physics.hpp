@@ -13,6 +13,8 @@ class PhysicsSystem : public System {
 		void update(ComponentManager *component_manager);
 
 	private:
+		void updateCollisions(ComponentManager *component_manager);
+		void updatePhysics(ComponentManager *component_manager);
 		void updateTileset(ComponentManager *component_manager);
 		bool solveCollisionBody(BodyComponent &body, TilesetComponent& tileset);
 		void updateTransform(ComponentManager *component_manager, Entity entity);
