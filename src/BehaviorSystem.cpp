@@ -19,7 +19,7 @@ void BehaviorSystem::update(ComponentManager *component_manager){
 		auto& behavior_component = arr->atIndex(i);
 		auto behavior_function = behavior_component.behavior_function;
 
-		if(behavior_function == NULL) return;
+		if(behavior_function == nullptr || behavior_function == NULL) return;
 
 		behavior_function->setScene(scene);
 		behavior_function->setEntity(entity);

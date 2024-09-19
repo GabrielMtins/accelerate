@@ -134,24 +134,6 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		body.gravity = Vec3(0, 100, 0);
 	}
 
-	/*
-	{
-		Entity next_entity = getNextEntity();
-	
-		addComponent<TransformComponent>(next_entity);
-		addComponent<SpriteComponent>(next_entity, SpriteComponent((Texture *) game->getResource("player.png")));
-		addComponent<BodyComponent>(next_entity);
-
-		auto& sprite = getComponent<SpriteComponent>(next_entity);
-		auto& body = getComponent<BodyComponent>(next_entity);
-
-		body.position = Vec3(32, 128, 32);
-		body.size = Vec3(32, 32, 0);
-		body.setOnCollisionLayer(1, true);
-		sprite.id = 0;
-	}
-	*/
-
 	{
 		Entity next_entity = getNextEntity();
 	
