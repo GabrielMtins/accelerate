@@ -3,6 +3,7 @@
 
 #include "Vec3.hpp"
 #include <vector>
+#include <array>
 #include <cstdint>
 
 namespace acc {
@@ -11,11 +12,38 @@ struct Vertex {
 	Vec3 position;
 	Vec3 uv;
 	Vec3 color;
-	uint8_t alpha;
+	float alpha;
 
-	Vertex(Vec3 position, Vec3 uv, Vec3 color, uint8_t alpha);
-	Vertex(Vec3 position, Vec3 color, uint8_t alpha);
+	Vertex(void);
+	Vertex(Vec3 position, Vec3 uv, Vec3 color, float alpha);
+	Vertex(Vec3 position, Vec3 color, float alpha);
 	Vertex(Vec3 position, Vec3 uv);
+
+	Vertex operator+(const Vertex& obj);
+	Vertex operator-(const Vertex& obj);
+	Vertex operator*(const float& r);
+	Vertex operator/(const float& r);
+};
+
+struct Triangle {
+	std::array<Vertex, 3> vertices;
+
+	Triangle(void);
+	Triangle(const Vertex& a, const Vertex& b, const Vertex& c);
+
+	template <typename functon>
+	void applyTransformation(functon transform){
+		for(auto& vertex : vertices){
+			vertex = transform(vertex);
+		}
+	}
+
+	void sortByUVx(void);
+	void sortByUVy(void);
+	void modOutUV(void);
+	float maxUVLengthSqr(void);
+
+	void subdivideForUVNormal(std::vector<Triangle> *list);
 };
 
 class Mesh {
@@ -28,11 +56,6 @@ class Mesh {
 
 		template <typename functon>
 		void applyTransformation(functon transform){
-			/*
-			for(size_t i = 0; i < vertices.size(); i++){
-				vertices[i] = transform(vertices[i]);
-			}
-			*/
 			for(auto& vertex : vertices){
 				vertex = transform(vertex);
 			}

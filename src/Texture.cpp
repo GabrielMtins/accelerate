@@ -51,6 +51,48 @@ Texture::Texture(Context *context, std::string filename){
 	}
 }
 
+Texture::Texture(Context *context, int dev_texture){
+	texture_width = 64;
+	texture_height = 64;
+	cell_width = 64;
+	cell_height = 64;
+
+	SDL_Surface *surface = SDL_CreateRGBSurface(0, texture_width, texture_height, 32, 0, 0, 0, 0);
+	uint32_t *pixels = (uint32_t *) surface->pixels;
+
+	switch(dev_texture){
+		case DEV_TEXTURE_WHITE:
+			setName("dev_texture_white");
+
+			SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, 255, 255, 255, 255));
+			break;
+
+		case DEV_TEXTURE_XOR:
+		default:
+			setName("dev_texture_xor");
+
+			for(int i = 0; i < texture_width; i++){
+				for(int j = 0; j < texture_height; j++){
+					int c = (i ^ j);
+					pixels[i + j * texture_width] = 
+						SDL_MapRGBA(
+								surface->format,
+								c * 160 / 64,
+								c * 32 / 64,
+								c * 240 / 64,
+								255
+								);
+				}
+			}
+				
+			break;
+	}
+
+	texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
+
+	SDL_FreeSurface(surface);
+}
+
 void Texture::renderCell(Context *context, int x, int y, int id){
 	if(context == NULL || texture == NULL) return;
 
@@ -168,6 +210,14 @@ void Texture::renderMesh(Context *context, Mesh &mesh){
 	}
 }
 
+int Texture::getTextureWidth(void){
+	return texture_width;
+}
+
+int Texture::getTextureHeight(void){
+	return texture_height;
+}
+
 int Texture::getCellWidth(void){
 	return cell_width;
 }
@@ -182,12 +232,12 @@ Texture::~Texture(void){
 }
 
 static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex){
+	uint8_t alpha = (uint8_t) (vertex.alpha * 255.0f);
 	vertex.color *= 255.0f;
 
 	SDL_Vertex transformed = {
 		{vertex.position.x, vertex.position.y},
-		{(uint8_t) vertex.color.x, (uint8_t) vertex.color.y, (uint8_t) vertex.color.z, vertex.alpha},
-		//{(uint8_t) vertex.color.x, (uint8_t) vertex.color.y, (uint8_t) vertex.color.z, 255},
+		{(uint8_t) vertex.color.x, (uint8_t) vertex.color.y, (uint8_t) vertex.color.z, alpha},
 		{vertex.uv.x, vertex.uv.y}
 	};
 

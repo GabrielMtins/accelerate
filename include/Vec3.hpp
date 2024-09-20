@@ -24,6 +24,14 @@ struct Vec3 {
 
 	int compareLength(float length_compared);
 
+	Vec3 rotateX(float cos_angle, float sin_angle);
+	Vec3 rotateY(float cos_angle, float sin_angle);
+	Vec3 rotateZ(float cos_angle, float sin_angle);
+
+	Vec3 rotateX(float angle);
+	Vec3 rotateY(float angle);
+	Vec3 rotateZ(float angle);
+
 	Vec3 normalize(void);
 	Vec3 sign(void);
 	Vec3 clamp(float new_size);
