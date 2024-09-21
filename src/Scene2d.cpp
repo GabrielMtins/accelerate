@@ -35,6 +35,7 @@ class TestBehavior : public BehaviorFunction {
 
 			if(getKeyDown("j")){
 				printf("teste\n");
+				destroy();
 				//getGame()->setScene((Scene *) new Scene2d(getGame()));
 			}
 

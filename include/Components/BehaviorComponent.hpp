@@ -32,6 +32,9 @@ class BehaviorFunction {
 		bool getKeyDown(std::string key);
 		bool getKey(std::string key);
 
+		void destroy(Entity entity);
+		void destroy(void);
+
 		template <typename T>
 		T& getComponent(void){
 			return scene->getComponentManager()->getComponent<T>(entity);

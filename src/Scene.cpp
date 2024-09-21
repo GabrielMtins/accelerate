@@ -21,6 +21,16 @@ ComponentManager * Scene::getComponentManager(void){
 
 void Scene::update(void){
 	system_manager->update(component_manager);
+
+	while(!destroyed_entities.empty()){
+		Entity entity = destroyed_entities.front();
+		removeEntity(entity);
+		destroyed_entities.pop();
+	}
+}
+
+void Scene::addToDestroyQueue(Entity entity){
+	destroyed_entities.push(entity);
 }
 
 Scene::~Scene(){

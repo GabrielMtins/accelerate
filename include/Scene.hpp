@@ -1,6 +1,7 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
+#include <queue>
 #include "Resource.hpp"
 #include "EntityManager.hpp"
 #include "ComponentManager.hpp"
@@ -16,6 +17,7 @@ class Scene {
 		Game * getGame(void);
 		ComponentManager * getComponentManager(void);
 		void update(void);
+		void addToDestroyQueue(Entity entity);
 		virtual ~Scene();
 
 	protected:
@@ -52,6 +54,7 @@ class Scene {
 		EntityManager *entity_manager;
 		ComponentManager *component_manager;
 		SystemManager *system_manager;
+		std::queue<Entity> destroyed_entities;
 };
 
 };

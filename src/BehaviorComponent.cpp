@@ -53,6 +53,14 @@ bool BehaviorFunction::getKey(std::string key){
 	return getContext()->getKey(key);
 }
 
+void BehaviorFunction::destroy(Entity entity){
+	getScene()->addToDestroyQueue(entity);
+}
+
+void BehaviorFunction::destroy(void){
+	getScene()->addToDestroyQueue(entity);
+}
+
 BehaviorComponent::BehaviorComponent(){
 	this->behavior_function = nullptr;
 }
