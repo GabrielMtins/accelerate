@@ -43,6 +43,7 @@ struct Triangle {
 	void modOutUV(void);
 	float maxUVLengthSqr(void);
 
+	bool clipOverZ(std::vector<Triangle> *list);
 	void subdivideForUVNormal(std::vector<Triangle> *list);
 };
 

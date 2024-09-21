@@ -117,6 +117,56 @@ float Triangle::maxUVLengthSqr(void){
 			 );
 }
 
+bool Triangle::clipOverZ(std::vector<Triangle> *list){
+	Triangle copy = *this;
+
+	std::sort(copy.vertices.begin(), copy.vertices.end(), 
+			[](Vertex a, Vertex b){
+				return a.position.z < b.position.z;
+			}
+			);
+
+	if(copy.vertices[2].position.z < 0) return false;
+	if(copy.vertices[0].position.z > 0) return false;
+
+	if(copy.vertices[1].position.z < 0){
+		Vertex m12, m02;
+
+		float step12 = (-0.01f - copy.vertices[1].position.z);
+		float side12 = (copy.vertices[2].position.z - copy.vertices[1].position.z);
+
+		m12 = (copy.vertices[2] - copy.vertices[1]) * step12 / side12 + copy.vertices[1];
+
+		float step02 = (-0.01f - copy.vertices[0].position.z);
+		float side02 = (copy.vertices[2].position.z - copy.vertices[0].position.z);
+
+		m02 = (copy.vertices[2] - copy.vertices[0]) * step02 / side02 + copy.vertices[0];
+
+		list->push_back(Triangle(m02, m12, copy.vertices[2]));
+	
+		return true;
+	}
+
+	if(copy.vertices[0].position.z < 0){
+		Vertex m01, m02;
+
+		float step = (-0.01f - copy.vertices[0].position.z);
+		float side01 = (copy.vertices[1].position.z - copy.vertices[0].position.z);
+		float side02 = (copy.vertices[2].position.z - copy.vertices[0].position.z);
+
+		m01 = (copy.vertices[1] - copy.vertices[0]) * step / side01 + copy.vertices[0];
+
+		m02 = (copy.vertices[2] - copy.vertices[0]) * step / side02 + copy.vertices[0];
+
+		list->push_back(Triangle(m01, m02, copy.vertices[2]));
+		list->push_back(Triangle(m01, copy.vertices[1], copy.vertices[2]));
+	
+		return true;
+	}
+
+	return false;
+}
+
 void Triangle::subdivideForUVNormal(std::vector<Triangle> *list){
 	Triangle current;
 	std::queue<Triangle> triangle_queue;
@@ -130,16 +180,16 @@ void Triangle::subdivideForUVNormal(std::vector<Triangle> *list){
 		
 		auto& vertices = current.vertices;
 
-		current.sortByUVx();
-
 		/* check if the length is greater than 1.0f, than
 		 * subdivide in 4 if it is. Otherwise, check
 		 * the limits of the vertices */
 
-		/* subdivide it in the x axis */
-		if(vertices[2].uv.x > 1.0f){
-			float step = 1.0f - vertices[0].uv.x;
-			float side = vertices[2].uv.x - vertices[0].uv.x;
+
+		current.sortByUVy();
+
+		if(vertices[2].uv.y > 1.0f){
+			float step = 1.0f - vertices[0].uv.y;
+			float side = vertices[2].uv.y - vertices[0].uv.y;
 
 			Vertex division_point = (vertices[2] - vertices[0]) * step / side + vertices[0];
 
@@ -149,11 +199,12 @@ void Triangle::subdivideForUVNormal(std::vector<Triangle> *list){
 			continue;
 		}
 
-		current.sortByUVy();
+		current.sortByUVx();
 
-		if(vertices[2].uv.y > 1.0f){
-			float step = 1.0f - vertices[0].uv.y;
-			float side = vertices[2].uv.y - vertices[0].uv.y;
+		/* subdivide it in the x axis */
+		if(vertices[2].uv.x > 1.0f){
+			float step = 1.0f - vertices[0].uv.x;
+			float side = vertices[2].uv.x - vertices[0].uv.x;
 
 			Vertex division_point = (vertices[2] - vertices[0]) * step / side + vertices[0];
 
