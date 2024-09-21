@@ -29,6 +29,9 @@ class BehaviorFunction {
 		Game * getGame(void);
 		Context * getContext(void);
 
+		bool getKeyDown(std::string key);
+		bool getKey(std::string key);
+
 		template <typename T>
 		T& getComponent(void){
 			return scene->getComponentManager()->getComponent<T>(entity);

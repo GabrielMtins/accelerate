@@ -45,6 +45,14 @@ Context * BehaviorFunction::getContext(void){
 	return scene->getGame()->getContext();
 }
 
+bool BehaviorFunction::getKeyDown(std::string key){
+	return getContext()->getKeyDown(key);
+}
+
+bool BehaviorFunction::getKey(std::string key){
+	return getContext()->getKey(key);
+}
+
 BehaviorComponent::BehaviorComponent(){
 	this->behavior_function = nullptr;
 }

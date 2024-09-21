@@ -42,6 +42,8 @@ Context::Context(const char *title, int internal_width, int internal_height){
 	this->quit = false;
 	this->delta_time = 0;
 	this->first_time = SDL_GetTicks64();
+
+	setUpKeys();
 }
 
 int Context::getWidth(void){
@@ -76,6 +78,21 @@ void Context::pollEvent(void){
 			}
 		}
 	}
+
+	const uint8_t *keys_pressed_on_frame = SDL_GetKeyboardState(NULL);
+
+	for(int i = 0; i < SDL_NUM_SCANCODES; i++){
+		if(keys_pressed_on_frame[i]){
+			if(key_state[i] == false){
+				key_tick_pressed[i] = getTicks();
+			}
+
+			key_state[i] = true;
+		}
+		else{
+			key_state[i] = false;
+		}
+	}
 }
 
 void Context::updateTime(void){
@@ -96,6 +113,31 @@ uint64_t Context::getTicks(void){
 	return first_time;
 }
 
+void Context::clearScreen(uint8_t r, uint8_t g, uint8_t b, uint8_t a){
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
+	SDL_RenderClear(renderer);
+}
+
+void Context::renderPresent(void){
+	SDL_RenderPresent(renderer);
+}
+
+bool Context::getKey(std::string key){
+	if(string_to_keys.find(key) == string_to_keys.end()) return false;
+
+	int index = string_to_keys[key];
+
+	return key_state[index];
+}
+
+bool Context::getKeyDown(std::string key){
+	if(string_to_keys.find(key) == string_to_keys.end()) return false;
+	
+	int index = string_to_keys[key];
+
+	return key_state[index] && (key_tick_pressed[index] == getTicks());
+}
+
 Context::~Context(void){
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -111,17 +153,58 @@ Context::~Context(void){
 	SDL_Quit();
 }
 
-void Context::clearScreen(uint8_t r, uint8_t g, uint8_t b, uint8_t a){
-	SDL_SetRenderDrawColor(renderer, r, g, b, a);
-	SDL_RenderClear(renderer);
-}
-
-void Context::renderPresent(void){
-	SDL_RenderPresent(renderer);
-}
-
 SDL_Renderer * Context::getRenderer(void){
 	return renderer;
+}
+
+void Context::setUpKeys(void){
+	/* set up letters */
+	for(int i = 0; i < 26; i++){
+		std::string letter;
+		letter += (char) ((int) 'a' + i);
+		string_to_keys[letter] = SDL_SCANCODE_A + i;
+
+		letter = "";
+		letter += (char) ((int) 'A' + i);
+		string_to_keys[letter] = SDL_SCANCODE_A + i;
+	}
+
+	/* set up numbers */
+	for(int i = 0; i < 10; i++){
+		std::string number;
+		number += (char) ((int) '0' + i);
+		string_to_keys[number] = SDL_SCANCODE_1 + i;
+	}
+
+	/* set up function keys */
+	for(int i = 1; i <= 12; i++){
+		std::string fkey = "f";
+		fkey += std::to_string(i);
+		string_to_keys[fkey] = SDL_SCANCODE_F1 + i - 1;
+
+		fkey = "F";
+		fkey += std::to_string(i);
+		string_to_keys[fkey] = SDL_SCANCODE_F1 + i - 1;
+	}
+
+	string_to_keys["return"] = SDL_SCANCODE_RETURN;
+	string_to_keys["escape"] = SDL_SCANCODE_ESCAPE;
+	string_to_keys["backspace"] = SDL_SCANCODE_BACKSPACE;
+	string_to_keys["tab"] = SDL_SCANCODE_TAB;
+	string_to_keys["space"] = SDL_SCANCODE_SPACE;
+
+	string_to_keys["lctrl"] = SDL_SCANCODE_LCTRL;
+	string_to_keys["lshift"] = SDL_SCANCODE_LSHIFT;
+	string_to_keys["lalt"] = SDL_SCANCODE_LALT;
+
+	string_to_keys["rctrl"] = SDL_SCANCODE_RCTRL;
+	string_to_keys["rshift"] = SDL_SCANCODE_RSHIFT;
+	string_to_keys["ralt"] = SDL_SCANCODE_RALT;
+
+	for(int i = 0; i < SDL_NUM_SCANCODES; i++){
+		key_state[i] = false;
+		key_tick_pressed[i] = 0;
+	}
 }
 
 };

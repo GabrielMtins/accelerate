@@ -29,45 +29,20 @@ class TestBehavior : public BehaviorFunction {
 			auto& body = getComponent<BodyComponent>();
 			auto& sprite = getComponent<SpriteComponent>();
 
-			const uint8_t *keys = SDL_GetKeyboardState(NULL);
-
 			dir_vel = Vec3();
 
 			scene->setCameraPosition(body.position - Vec3(200, 100));
 
-			/*
-			if(keys[SDL_SCANCODE_J]){
-				was_pressed = true;
-			}
-			else if(was_pressed){
-				getGame()->setScene((Scene *) new Scene2d(getGame()));
-			}
-			*/
-			if(keys[SDL_SCANCODE_J]){
-				getGame()->setScene((Scene *) new Scene2d(getGame()));
+			if(getKeyDown("j")){
+				printf("teste\n");
+				//getGame()->setScene((Scene *) new Scene2d(getGame()));
 			}
 
-			/*
-			if(keys[SDL_SCANCODE_D]) dir_vel.x++;
-			if(keys[SDL_SCANCODE_A]) dir_vel.x--;
-			if(keys[SDL_SCANCODE_S]) dir_vel.y++;
-			if(keys[SDL_SCANCODE_W]) dir_vel.y--;
-			*/
+			if(getKeyDown("a")) body.velocity.x = -50;
+			if(getKeyDown("d")) body.velocity.x = +50;
+			if(getKeyDown("w")) body.velocity.y = -50;
+			if(getKeyDown("s")) body.velocity.y = +50;
 
-			if(keys[SDL_SCANCODE_A]) body.velocity.x = -50;
-			if(keys[SDL_SCANCODE_D]) body.velocity.x = +50;
-			if(keys[SDL_SCANCODE_W]) body.velocity.y = -50;
-			if(keys[SDL_SCANCODE_S]) body.velocity.y = +50;
-
-			//body.velocity = dir_vel.normalize() * 60;
-		
-			/*
-			body.velocity.x = dir_vel.x * 40;
-
-			if(dir_vel.y != 0)
-				body.velocity.y = dir_vel.y * 100;
-
-				*/
 			timer += getContext()->getDeltaTime();
 
 			if(timer > 0.1){
