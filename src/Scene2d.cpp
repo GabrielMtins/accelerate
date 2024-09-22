@@ -1,5 +1,6 @@
 #include "Scene2d.hpp"
 #include "Game.hpp"
+#include "Font.hpp"
 
 #include "Components/Components.hpp"
 #include "Systems/Systems.hpp"
@@ -82,10 +83,6 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 			);
 
 	system_manager->addSystem(
-			(System *) new TextRender(this)
-			);
-
-	system_manager->addSystem(
 			(System *) new Render2dSystem(game->getContext(), &camera_position)
 			);
 
@@ -114,32 +111,20 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		body.gravity = Vec3(0, 100, 0);
 	}
 
-	/*
 	{
 		Entity next_entity = getNextEntity();
 	
 		addComponent<TransformComponent>(next_entity);
 		addComponent<SpriteComponent>(next_entity, SpriteComponent((Texture *) game->getResource("player.png")));
-		addComponent<BehaviorComponent>(next_entity);
-		addComponent<BodyComponent>(next_entity);
+		addComponent<TextComponent>(next_entity, TextComponent((Font *) game->getResource("default.ttf")));
 
 		auto& sprite = getComponent<SpriteComponent>(next_entity);
 		auto& transform = getComponent<TransformComponent>(next_entity);
-		auto& behavior = getComponent<BehaviorComponent>(next_entity);
-		auto& body = getComponent<BodyComponent>(next_entity);
+		auto& text_component = getComponent<TextComponent>(next_entity);
 
-		behavior.setFunction((std::make_shared<TestBehavior>()));
-
+		text_component.text = "oi";
 		transform.position.x = 32;
-		sprite.id = 0;
-
-		body.position = Vec3(32, 32, 0);
-		body.offset_from_transform = Vec3(12, 0, 0);
-		body.size = Vec3(10, 32, 0);
-		body.setOnCollisionMask(1, true);
-		body.gravity = Vec3(0, 100, 0);
 	}
-	*/
 
 	{
 		Entity next_entity = getNextEntity();

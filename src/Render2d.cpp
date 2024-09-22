@@ -13,8 +13,30 @@ Render2dSystem::Render2dSystem(Context *context, Vec3 *camera_position){
 }
 
 void Render2dSystem::update(ComponentManager *component_manager){
+	updateText(component_manager);
 	updateTileset(component_manager);
 	updateSprites(component_manager);
+}
+
+void Render2dSystem::updateText(ComponentManager *component_manager){
+	if(!component_manager->hasComponentArray<TextComponent>())
+		return;
+
+	auto arr = component_manager->getComponentArray<TextComponent>();
+
+	for(size_t i = 0; i < arr->getSize(); i++){
+		Entity entity = arr->indexToEntity(i);
+
+		if(!component_manager->hasComponent<SpriteComponent>(entity))
+			continue;
+
+		auto& text_component = arr->atIndex(i);
+		auto& sprite_component = component_manager->getComponent<SpriteComponent>(entity);
+
+		if(text_component.updateTexture(context)){
+			sprite_component.texture = text_component.texture.get();
+		}
+	}
 }
 
 void Render2dSystem::updateSprites(ComponentManager *component_manager){

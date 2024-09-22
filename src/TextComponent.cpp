@@ -9,7 +9,7 @@ TextComponent::TextComponent(Font *font){
 	old_text = "";
 
 	for(int i = 0; i < 4; i++)
-		color[i] = 4;
+		color[i] = 0xff;
 }
 
 bool TextComponent::updateTexture(Context *context){

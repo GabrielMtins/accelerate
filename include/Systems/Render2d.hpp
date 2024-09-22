@@ -15,6 +15,7 @@ class Render2dSystem : public System {
 		void update(ComponentManager *component_manager);
 	
 	private:
+		void updateText(ComponentManager *component_manager);
 		void updateSprites(ComponentManager *component_manager);
 		void updateTileset(ComponentManager *component_manager);
 		void renderTilesetComponent(TilesetComponent& tileset);
