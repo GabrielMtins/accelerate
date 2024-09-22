@@ -81,6 +81,7 @@ void Context::pollEvent(void){
 		}
 	}
 
+	/* update key state */
 	const uint8_t *keys_pressed_on_frame = SDL_GetKeyboardState(NULL);
 
 	for(int i = 0; i < SDL_NUM_SCANCODES; i++){
@@ -94,6 +95,33 @@ void Context::pollEvent(void){
 		else{
 			key_state[i] = false;
 		}
+	}
+
+	/* update mouse state */
+	int mouse_state = SDL_GetMouseState(NULL, NULL);
+
+	if(mouse_state & SDL_BUTTON(1)){
+		if(mouse_button_state["left"] == false){
+			mouse_button_tick_pressed["left"] = getTicks();
+		}
+
+		mouse_button_state["left"] = true;
+	}
+
+	if(mouse_state & SDL_BUTTON(2)){
+		if(mouse_button_state["middle"] == false){
+			mouse_button_tick_pressed["middle"] = getTicks();
+		}
+
+		mouse_button_state["middle"] = true;
+	}
+
+	if(mouse_state & SDL_BUTTON(3)){
+		if(mouse_button_state["right"] == false){
+			mouse_button_tick_pressed["right"] = getTicks();
+		}
+
+		mouse_button_state["right"] = true;
 	}
 }
 
@@ -142,6 +170,52 @@ bool Context::getKeyDown(std::string key){
 
 std::string Context::getTextInput(void){
 	return text_input;
+}
+
+void Context::getMousePosition(int *x, int *y){
+	int mx, my, board_x, board_y;
+	double scale = 0;
+
+	board_x = 0;
+	board_y = 0;
+
+	if(window_width > internal_width * window_height / internal_height){
+		board_x = window_width - internal_width * window_height / internal_height;
+		board_x /= 2;
+
+		scale = (double) internal_height / window_height;
+	}
+	else{
+		board_y = window_height - internal_height * window_width / internal_width;
+		board_y /= 2;
+
+		scale = (double) internal_width / window_width;
+	}
+
+	SDL_GetMouseState(&mx, &my);
+
+	mx -= board_x;
+	my -= board_y;
+	
+	mx = scale * mx;
+	my = scale * my;
+
+	*x = mx;
+	*y = my;
+}
+
+bool Context::getMouseButton(std::string mouse_button){
+	if(mouse_button_state.find(mouse_button) == mouse_button_state.end())
+		return false;
+
+	return mouse_button_state[mouse_button];
+}
+
+bool Context::getMouseButtonDown(std::string mouse_button){
+	if(mouse_button_state.find(mouse_button) == mouse_button_state.end())
+		return false;
+
+	return mouse_button_state[mouse_button] && (mouse_button_tick_pressed[mouse_button] == getTicks());
 }
 
 Context::~Context(void){
@@ -208,6 +282,10 @@ void Context::setUpKeys(void){
 		key_state[i] = false;
 		key_tick_pressed[i] = 0;
 	}
+
+	mouse_button_state["left"] = false;
+	mouse_button_state["right"] = false;
+	mouse_button_state["middle"] = false;
 }
 
 };

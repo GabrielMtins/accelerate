@@ -4,6 +4,7 @@
 #include "Scene.hpp"
 #include "Game.hpp"
 #include "Context.hpp"
+#include "Vec3.hpp"
 
 #include <memory>
 
@@ -31,6 +32,11 @@ class BehaviorFunction {
 
 		bool getKeyDown(std::string key);
 		bool getKey(std::string key);
+
+		bool getMouseButtonDown(std::string key);
+		bool getMouseButton(std::string key);
+
+		Vec3 getMousePosition(void);
 
 		void destroy(Entity entity);
 		void destroy(void);

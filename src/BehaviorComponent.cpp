@@ -53,6 +53,22 @@ bool BehaviorFunction::getKey(std::string key){
 	return getContext()->getKey(key);
 }
 
+bool BehaviorFunction::getMouseButtonDown(std::string key){
+	return getContext()->getMouseButtonDown(key);
+}
+
+bool BehaviorFunction::getMouseButton(std::string key){
+	return getContext()->getMouseButton(key);
+}
+
+Vec3 BehaviorFunction::getMousePosition(void){
+	int x, y;
+
+	getContext()->getMousePosition(&x, &y);
+
+	return Vec3(x, y);
+}
+
 void BehaviorFunction::destroy(Entity entity){
 	getScene()->addToDestroyQueue(entity);
 }
