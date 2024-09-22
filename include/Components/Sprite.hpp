@@ -12,6 +12,8 @@ struct SpriteComponent {
 	int id;
 	int layer;
 
+	bool follow_camera;
+
 	SpriteComponent(void);
 	SpriteComponent(Texture *texture);
 };

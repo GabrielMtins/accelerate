@@ -67,12 +67,22 @@ void Render2dSystem::updateSprites(ComponentManager *component_manager){
 	for(auto& i : render_array){
 		if(i->texture == NULL) continue;
 
-		i->texture->renderCell(
-				context,
-				round(i->position.x - camera_position->x),
-				round(i->position.y - camera_position->y),
-				i->id
-				);
+		if(i->follow_camera){
+			i->texture->renderCell(
+					context,
+					round(i->position.x - camera_position->x),
+					round(i->position.y - camera_position->y),
+					i->id
+					);
+		}
+		else{
+			i->texture->renderCell(
+					context,
+					round(i->position.x),
+					round(i->position.y),
+					i->id
+					);
+		}
 	}
 }
 

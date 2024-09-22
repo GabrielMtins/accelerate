@@ -118,12 +118,13 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		addComponent<SpriteComponent>(next_entity, SpriteComponent((Texture *) game->getResource("player.png")));
 		addComponent<TextComponent>(next_entity, TextComponent((Font *) game->getResource("default.ttf")));
 
-		auto& sprite = getComponent<SpriteComponent>(next_entity);
 		auto& transform = getComponent<TransformComponent>(next_entity);
 		auto& text_component = getComponent<TextComponent>(next_entity);
+		auto& sprite = getComponent<SpriteComponent>(next_entity);
 
 		text_component.text = "oi";
 		transform.position.x = 32;
+		sprite.follow_camera = false;
 	}
 
 	{
