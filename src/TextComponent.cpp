@@ -2,6 +2,16 @@
 
 namespace acc {
 
+TextComponent::TextComponent(void){
+	font = NULL;
+	texture = nullptr;
+	text = "";
+	old_text = "";
+
+	for(int i = 0; i < 4; i++)
+		color[i] = 0xff;
+}
+
 TextComponent::TextComponent(Font *font){
 	this->font = font;
 	texture = nullptr;

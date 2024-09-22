@@ -19,6 +19,7 @@ struct TextComponent {
 	
 	uint8_t color[4];
 
+	TextComponent(void);
 	TextComponent(Font *font);
 	bool updateTexture(Context *context);
 };

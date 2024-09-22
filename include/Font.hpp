@@ -9,6 +9,7 @@ namespace acc {
 class Font : public Resource {
 	public:
 		Font(std::string filename, int size);
+		void setSize(int size);
 		TTF_Font * getFont(void);
 		~Font(void);
 	

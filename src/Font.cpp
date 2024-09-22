@@ -13,6 +13,11 @@ Font::Font(std::string filename, int size){
 	}
 }
 
+void Font::setSize(int size){
+	if(font != NULL)
+		TTF_SetFontSize(font, size);
+}
+
 TTF_Font * Font::getFont(void){
 	return font;
 }
