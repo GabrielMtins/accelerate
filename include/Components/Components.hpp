@@ -7,5 +7,6 @@
 #include "Components/LabelComponent.hpp"
 #include "Components/BodyComponent.hpp"
 #include "Components/TilesetComponent.hpp"
+#include "Components/TextComponent.hpp"
 
 #endif

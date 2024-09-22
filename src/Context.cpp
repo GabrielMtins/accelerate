@@ -37,8 +37,6 @@ Context::Context(const char *title, int internal_width, int internal_height){
 
 	SDL_SetRenderDrawBlendMode(this->renderer, SDL_BLENDMODE_BLEND);
 
-	this->font = NULL;
-
 	this->quit = false;
 	this->delta_time = 0;
 	this->first_time = SDL_GetTicks64();
@@ -66,8 +64,9 @@ void Context::pollEvent(void){
 	SDL_Event event;
 
 	while(SDL_PollEvent(&event)){
-		if(event.type == SDL_QUIT)
+		if(event.type == SDL_QUIT){
 			quit = true;
+		}
 		else if(event.type == SDL_WINDOWEVENT){
 			if(event.window.event == SDL_WINDOWEVENT_RESIZED){
 				SDL_GetWindowSize(
@@ -76,6 +75,9 @@ void Context::pollEvent(void){
 						&window_height
 						);
 			}
+		}
+		else if(event.type == SDL_TEXTINPUT){
+			text_input = event.text.text;
 		}
 	}
 
@@ -138,12 +140,13 @@ bool Context::getKeyDown(std::string key){
 	return key_state[index] && (key_tick_pressed[index] == getTicks());
 }
 
+std::string Context::getTextInput(void){
+	return text_input;
+}
+
 Context::~Context(void){
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-
-	if(font != NULL)
-		TTF_CloseFont(font);
 
 	Mix_CloseAudio();
 

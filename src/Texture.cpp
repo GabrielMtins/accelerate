@@ -93,6 +93,33 @@ Texture::Texture(Context *context, int dev_texture){
 	SDL_FreeSurface(surface);
 }
 
+Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color){
+	if(text == ""){
+		texture = NULL;
+		return;
+	}
+
+	SDL_Surface *text_surface;
+	SDL_Color fg = {color[0], color[1], color[2], color[3]};
+
+	text_surface = TTF_RenderUTF8_Blended(font->getFont(), text.c_str(), fg);
+
+	if(text_surface == NULL){
+		texture = NULL;
+		return;
+	}
+
+	texture = SDL_CreateTextureFromSurface(context->getRenderer(), text_surface);
+	
+	texture_width = text_surface->w;
+	texture_height = text_surface->h;
+
+	cell_width = text_surface->w;
+	cell_height = text_surface->h;
+
+	SDL_FreeSurface(text_surface);
+}
+
 void Texture::renderCell(Context *context, int x, int y, int id){
 	if(context == NULL || texture == NULL) return;
 

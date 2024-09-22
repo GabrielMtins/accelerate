@@ -26,6 +26,7 @@ class Context {
 		void renderPresent(void);
 		bool getKey(std::string key);
 		bool getKeyDown(std::string key);
+		std::string getTextInput(void);
 		SDL_Renderer * getRenderer(void);
 		~Context(void);
 
@@ -34,10 +35,11 @@ class Context {
 
 		SDL_Window *window;
 		SDL_Renderer *renderer;
-		TTF_Font *font;
 
 		bool key_state[SDL_NUM_SCANCODES];
 		uint64_t key_tick_pressed[SDL_NUM_SCANCODES];
+
+		std::string text_input;
 
 		std::unordered_map<std::string, int> string_to_keys;
 

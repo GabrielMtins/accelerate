@@ -36,12 +36,11 @@ class TestBehavior : public BehaviorFunction {
 			if(getKeyDown("j")){
 				printf("teste\n");
 				destroy();
-				//getGame()->setScene((Scene *) new Scene2d(getGame()));
 			}
 
 			if(getKeyDown("a")) body.velocity.x = -50;
 			if(getKeyDown("d")) body.velocity.x = +50;
-			if(getKeyDown("w")) body.velocity.y = -50;
+			if(getKeyDown("w")) body.velocity.y = -75;
 			if(getKeyDown("s")) body.velocity.y = +50;
 
 			timer += getContext()->getDeltaTime();
@@ -72,6 +71,7 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 	registerComponent<LabelComponent>();
 	registerComponent<BodyComponent>();
 	registerComponent<TilesetComponent>();
+	registerComponent<TextComponent>();
 
 	system_manager->addSystem(
 			(System *) new PhysicsSystem(this)
@@ -79,6 +79,10 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 
 	system_manager->addSystem(
 			(System *) new BehaviorSystem(this)
+			);
+
+	system_manager->addSystem(
+			(System *) new TextRender(this)
 			);
 
 	system_manager->addSystem(
@@ -110,6 +114,33 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		body.gravity = Vec3(0, 100, 0);
 	}
 
+	/*
+	{
+		Entity next_entity = getNextEntity();
+	
+		addComponent<TransformComponent>(next_entity);
+		addComponent<SpriteComponent>(next_entity, SpriteComponent((Texture *) game->getResource("player.png")));
+		addComponent<BehaviorComponent>(next_entity);
+		addComponent<BodyComponent>(next_entity);
+
+		auto& sprite = getComponent<SpriteComponent>(next_entity);
+		auto& transform = getComponent<TransformComponent>(next_entity);
+		auto& behavior = getComponent<BehaviorComponent>(next_entity);
+		auto& body = getComponent<BodyComponent>(next_entity);
+
+		behavior.setFunction((std::make_shared<TestBehavior>()));
+
+		transform.position.x = 32;
+		sprite.id = 0;
+
+		body.position = Vec3(32, 32, 0);
+		body.offset_from_transform = Vec3(12, 0, 0);
+		body.size = Vec3(10, 32, 0);
+		body.setOnCollisionMask(1, true);
+		body.gravity = Vec3(0, 100, 0);
+	}
+	*/
+
 	{
 		Entity next_entity = getNextEntity();
 	
@@ -127,8 +158,6 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 			tile.setTile(i, 0, 0);
 			tile.setTile(i, 6, 0);
 		}
-		//tile.setTile(3, 5, 0);
-		//tile.setTile(3, 6, 0);
 		tile.setCollisionLayer(1);
 	}
 }
