@@ -89,7 +89,12 @@ void BodyComponent::solveCollision(BodyComponent other){
 	position += (min_distance[0]) * direction_hit.sign() * (-1.1f);
 
 	/* adjust velocity accordingly */
-	velocity += velocity * velocity.sign() * (min_distance[0] * direction_hit).sign() * (-1.0f);
+	Vec3 delta_vel = velocity * velocity.sign() * (min_distance[0] * direction_hit).sign() * (-0.99f);
+
+	/* check if the delta_vel isn't at the same direction as the velocity */
+	if(Vec3::dotProduct(delta_vel, velocity) < 0){
+		velocity += delta_vel;
+	}
 }
 
 };
