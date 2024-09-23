@@ -1,11 +1,11 @@
 CC = g++
-EXEC ?= libacc.a
+EXEC ?= main
 
 CCFLAGS := -g -O0 -std='c++11' -Wall -Wextra -pedantic
 
-LIBFLAGS := -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lm
+LIBFLAGS := lib/libacc.a -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lm
 
-SRC_DIR := src
+SRC_DIR := example_src
 INCLUDE_DIR := include
 
 BUILD_DIR := ./build
@@ -19,9 +19,8 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(CC) -I$(INCLUDE_DIR) $(CCFLAGS) -c $< -o $@ $(CCFLAGS)
 
 $(EXEC): $(OBJECTS)
-	mkdir -p lib
-	ar rcs lib/$(EXEC) $(OBJECTS)
+	$(CC) $(OBJECTS) $(CCFLAGS) $(LIBFLAGS) -o $(EXEC) $(CCFLAGS)
 
 clean:
 	rm -r build
-	rm lib/$(EXEC)
+	rm $(EXEC)
