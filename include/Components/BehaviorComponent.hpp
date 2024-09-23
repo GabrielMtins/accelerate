@@ -40,6 +40,9 @@ class BehaviorFunction {
 
 		Vec3 getMousePosition(void);
 
+		float getDeltaTime(void);
+		uint64_t getTicks(void);
+
 		void destroy(Entity entity);
 		void destroy(void);
 

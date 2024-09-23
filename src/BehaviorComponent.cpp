@@ -77,6 +77,14 @@ Vec3 BehaviorFunction::getMousePosition(void){
 	return Vec3(x, y);
 }
 
+float BehaviorFunction::getDeltaTime(void){
+	return getContext()->getDeltaTime();
+}
+
+uint64_t BehaviorFunction::getTicks(void){
+	return getContext()->getTicks();
+}
+
 void BehaviorFunction::destroy(Entity entity){
 	getScene()->addToDestroyQueue(entity);
 }
