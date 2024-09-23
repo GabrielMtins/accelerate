@@ -7,6 +7,9 @@
 #include "SystemManager.hpp"
 
 int main(int argc, char **argv){
+	(void) argc;
+	(void) argv;
+
 	acc::Game *game;
 	
 	game = new acc::Game("oi", 400, 240);
