@@ -26,10 +26,12 @@ class Context {
 		void renderPresent(void);
 		bool getKey(std::string key);
 		bool getKeyDown(std::string key);
+		bool getKeyUp(std::string key);
 		std::string getTextInput(void);
 		void getMousePosition(int *x, int *y);
 		bool getMouseButton(std::string mouse_button);
 		bool getMouseButtonDown(std::string mouse_button);
+		bool getMouseButtonUp(std::string mouse_button);
 		SDL_Renderer * getRenderer(void);
 		~Context(void);
 
@@ -41,8 +43,11 @@ class Context {
 
 		bool key_state[SDL_NUM_SCANCODES];
 		uint64_t key_tick_pressed[SDL_NUM_SCANCODES];
+		uint64_t key_tick_released[SDL_NUM_SCANCODES];
+
 		std::unordered_map<std::string, bool> mouse_button_state;
 		std::unordered_map<std::string, uint64_t> mouse_button_tick_pressed;
+		std::unordered_map<std::string, uint64_t> mouse_button_tick_released;
 
 		std::string text_input;
 

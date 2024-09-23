@@ -30,9 +30,11 @@ class BehaviorFunction {
 		Game * getGame(void);
 		Context * getContext(void);
 
+		bool getKeyUp(std::string key);
 		bool getKeyDown(std::string key);
 		bool getKey(std::string key);
 
+		bool getMouseButtonUp(std::string key);
 		bool getMouseButtonDown(std::string key);
 		bool getMouseButton(std::string key);
 

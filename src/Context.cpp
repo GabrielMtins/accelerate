@@ -93,6 +93,10 @@ void Context::pollEvent(void){
 			key_state[i] = true;
 		}
 		else{
+			if(key_state[i] == true){
+				key_tick_released[i] = getTicks();
+			}
+
 			key_state[i] = false;
 		}
 	}
@@ -107,7 +111,12 @@ void Context::pollEvent(void){
 
 		mouse_button_state["left"] = true;
 	}
-	else mouse_button_state["left"] = false;
+	else{
+		if(mouse_button_state["left"])
+			mouse_button_tick_released["left"] = getTicks();
+
+		mouse_button_state["left"] = false;
+	}
 
 	if(mouse_state & SDL_BUTTON(2)){
 		if(mouse_button_state["middle"] == false){
@@ -116,7 +125,12 @@ void Context::pollEvent(void){
 
 		mouse_button_state["middle"] = true;
 	}
-	else mouse_button_state["middle"] = false;
+	else{
+		if(mouse_button_state["middle"])
+			mouse_button_tick_released["middle"] = getTicks();
+
+		mouse_button_state["middle"] = false;
+	}
 
 	if(mouse_state & SDL_BUTTON(3)){
 		if(mouse_button_state["right"] == false){
@@ -125,7 +139,12 @@ void Context::pollEvent(void){
 
 		mouse_button_state["right"] = true;
 	}
-	else mouse_button_state["right"] = false;
+	else{
+		if(mouse_button_state["right"])
+			mouse_button_tick_released["right"] = getTicks();
+
+		mouse_button_state["right"] = false;
+	}
 }
 
 void Context::updateTime(void){
@@ -169,6 +188,14 @@ bool Context::getKeyDown(std::string key){
 	int index = string_to_keys[key];
 
 	return key_state[index] && (key_tick_pressed[index] == getTicks());
+}
+
+bool Context::getKeyUp(std::string key){
+	if(string_to_keys.find(key) == string_to_keys.end()) return false;
+	
+	int index = string_to_keys[key];
+
+	return !key_state[index] && (key_tick_released[index] == getTicks());
 }
 
 std::string Context::getTextInput(void){
@@ -221,6 +248,17 @@ bool Context::getMouseButtonDown(std::string mouse_button){
 	return mouse_button_state[mouse_button] && (mouse_button_tick_pressed[mouse_button] == getTicks());
 }
 
+bool Context::getMouseButtonUp(std::string mouse_button){
+	if(mouse_button_state.find(mouse_button) == mouse_button_state.end())
+		return false;
+
+	return !mouse_button_state[mouse_button] && (mouse_button_tick_released[mouse_button] == getTicks());
+}
+
+SDL_Renderer * Context::getRenderer(void){
+	return renderer;
+}
+
 Context::~Context(void){
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -231,10 +269,6 @@ Context::~Context(void){
 	IMG_Quit();
 	Mix_Quit();
 	SDL_Quit();
-}
-
-SDL_Renderer * Context::getRenderer(void){
-	return renderer;
 }
 
 void Context::setUpKeys(void){

@@ -45,12 +45,20 @@ Context * BehaviorFunction::getContext(void){
 	return scene->getGame()->getContext();
 }
 
+bool BehaviorFunction::getKeyUp(std::string key){
+	return getContext()->getKeyUp(key);
+}
+
 bool BehaviorFunction::getKeyDown(std::string key){
 	return getContext()->getKeyDown(key);
 }
 
 bool BehaviorFunction::getKey(std::string key){
 	return getContext()->getKey(key);
+}
+
+bool BehaviorFunction::getMouseButtonUp(std::string key){
+	return getContext()->getMouseButtonUp(key);
 }
 
 bool BehaviorFunction::getMouseButtonDown(std::string key){
