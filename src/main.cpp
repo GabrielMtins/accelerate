@@ -6,20 +6,7 @@
 #include "ComponentManager.hpp"
 #include "SystemManager.hpp"
 
-namespace acc {
-	class IntSystem : public System {
-		public:
-			void update(ComponentManager *component_manager) override{
-				auto arr = component_manager->getComponentArray<int>();
-
-				for(size_t i = 0; i < arr->getSize(); i++){
-					std::cout << arr->atIndex(i)++ << '\n';
-				}
-			}
-	};
-}
-
-int main(void){
+int main(int argc, char **argv){
 	acc::Game *game;
 	
 	game = new acc::Game("oi", 400, 240);
