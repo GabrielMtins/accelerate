@@ -18,6 +18,71 @@ void PhysicsSystem::update(ComponentManager *component_manager){
 }
 
 bool PhysicsSystem::raycast(ComponentManager *component_manager, Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection){
+	bool found_collision_body;
+	bool found_collision_tileset;
+
+	Entity return_entity_body, return_entity_tileset;
+	Vec3 return_intersection_body, return_intersection_tileset;
+
+	found_collision_body = raycastBody(
+			component_manager,
+			origin,
+			direction,
+			layer_mask,
+			&return_entity_body,
+			&return_intersection_tileset
+			);
+
+	found_collision_tileset = raycastTileset(
+			component_manager,
+			origin,
+			direction,
+			layer_mask,
+			&return_entity_tileset,
+			&return_intersection_tileset
+			);
+
+	if(found_collision_body && found_collision_tileset){
+		if((return_intersection_body - origin).lengthSqr() < (return_intersection_tileset - origin).lengthSqr()){
+			if(return_intersection != NULL)
+				*return_intersection = return_intersection_body;
+
+			if(return_entity != NULL)
+				*return_entity = return_entity_body;
+		}
+		else{
+			if(return_intersection != NULL)
+				*return_intersection = return_intersection_tileset;
+
+			if(return_entity != NULL)
+				*return_entity = return_entity_tileset;
+		}
+
+		return true;
+	}
+	else if(found_collision_body){
+		if(return_intersection != NULL)
+			*return_intersection = return_intersection_body;
+
+		if(return_entity != NULL)
+			*return_entity = return_entity_body;
+		
+		return true;
+	}
+	else if(found_collision_tileset){
+		if(return_intersection != NULL)
+			*return_intersection = return_intersection_tileset;
+
+		if(return_entity != NULL)
+			*return_entity = return_entity_tileset;
+
+		return true;
+	}
+
+	return false;
+}
+
+bool PhysicsSystem::raycastBody(ComponentManager *component_manager, Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection){
 	bool found_collision = false;
 	Vec3 closest_point = origin + direction * (1 << 16);
 
@@ -45,6 +110,43 @@ bool PhysicsSystem::raycast(ComponentManager *component_manager, Vec3 origin, Ve
 	}
 
 	if(found_collision && return_intersection != NULL){
+		*return_intersection = closest_point;
+	}
+
+	return found_collision;
+}
+
+bool PhysicsSystem::raycastTileset(ComponentManager *component_manager, Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection){
+	if(!component_manager->hasComponentArray<TilesetComponent>())
+		return false;
+
+	bool found_collision = false;
+	auto arr = component_manager->getComponentArray<TilesetComponent>();
+	Vec3 closest_point = origin + direction * (1 << 16);
+
+	for(size_t i = 0; i < arr->getSize(); i++){
+		Vec3 intersection;
+		auto& tileset = arr->atIndex(i);
+
+		/* continue if the collision layer and the layer mask
+		 * are compatible */
+		if((tileset.collision_layer & layer_mask) == 0)
+			continue;
+
+		
+		if(tileset.intersectsLine(origin, direction, &intersection)){
+			if((intersection - origin).lengthSqr() < (closest_point - origin).lengthSqr()){
+				closest_point = intersection;
+				found_collision = true;
+				
+				if(return_entity != NULL)
+					*return_entity = arr->indexToEntity(i);
+			}
+		}
+
+	}
+
+	if(found_collision){
 		*return_intersection = closest_point;
 	}
 

@@ -1,5 +1,7 @@
 #include "Components/TilesetComponent.hpp"
 
+#include <cmath>
+
 namespace acc {
 
 TilesetComponent::TilesetComponent(void){
@@ -36,6 +38,33 @@ void TilesetComponent::setTile(int x, int y, int id){
 	if(x < 0 || y < 0 || x >= TILESET_SIZE || y >= TILESET_SIZE) return;
 
 	tileset_tiles[x + y * TILESET_SIZE] = id;
+}
+
+bool TilesetComponent::intersectsLine(Vec3 origin, Vec3 dir, Vec3 *return_intersection){
+	bool found_intersection = false;
+
+	Vec3 new_origin = Vec3(floor(origin.x) / width, floor(origin.y) / height);
+	Vec3 new_dir = dir / fmaxf(fabsf(dir.x), fabsf(dir.y));
+
+	while(!found_intersection){
+		if(new_origin.x < 0 || new_origin.y < 0 || new_origin.x >= TILESET_SIZE || new_origin.y >= TILESET_SIZE){
+			found_intersection = false;
+			break;
+		}
+
+		if(getTile(new_origin.x, new_origin.y) != -1){
+			found_intersection = true;
+			break;
+		}
+
+		new_origin += new_dir;
+	}
+
+	if(found_intersection){
+		*return_intersection = (Vec3(floorf(new_origin.x), floorf(new_origin.y)) + Vec3(0.5, 0.5)) * Vec3(width, height);
+	}
+
+	return found_intersection;
 }
 
 };

@@ -139,7 +139,8 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		auto& body = getComponent<BodyComponent>(next_entity);
 
 		body.position = Vec3(64, 64);
-		body.size = Vec3(32, 32, 1);
+		body.offset_from_transform = Vec3(12, 0, 0);
+		body.size = Vec3(10, 32, 1);
 		sprite.follow_camera = true;
 		sprite.id = 2;
 		body.setOnCollisionLayer(1, true);

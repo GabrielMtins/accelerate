@@ -21,6 +21,8 @@ struct TilesetComponent {
 	void setCollisionLayer(int layer);
 	int getTile(int x, int y);
 	void setTile(int x, int y, int id);
+
+	bool intersectsLine(Vec3 origin, Vec3 dir, Vec3 *return_intersection);
 };
 	
 };

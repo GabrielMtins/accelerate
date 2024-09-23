@@ -14,7 +14,11 @@ class PhysicsSystem : public System {
 		
 		static bool raycast(ComponentManager *component_manager, Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection);
 
+
 	private:
+		static bool raycastBody(ComponentManager *component_manager, Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection);
+		static bool raycastTileset(ComponentManager *component_manager, Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection);
+
 		void updateCollisions(ComponentManager *component_manager);
 		void updatePhysics(ComponentManager *component_manager);
 		void updateTileset(ComponentManager *component_manager);
