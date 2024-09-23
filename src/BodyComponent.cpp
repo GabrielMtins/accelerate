@@ -77,6 +77,8 @@ void BodyComponent::solveCollision(BodyComponent other){
 		min_distance.push_back((tmp[2] - tmp[1]) * Vec3(0.0f, 0.0f, 1.0f));
 	}
 
+	if(min_distance.size() == 0) return;
+
 	std::sort(min_distance.begin(), min_distance.end(),
 			[](Vec3 a, Vec3 b){
 				if(a.length() == 0.0f) return false;
