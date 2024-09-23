@@ -59,6 +59,9 @@ void Render2dSystem::updateSprites(ComponentManager *component_manager){
 
 		current_sprite.position = current_transform.position;
 
+		/* if the sprite isn't on screen, we can just skip it */
+		if(!isSpriteOnCamera(current_sprite)) continue;
+
 		render_array.push_back(&current_sprite);
 	}
 
@@ -67,22 +70,16 @@ void Render2dSystem::updateSprites(ComponentManager *component_manager){
 	for(auto& i : render_array){
 		if(i->texture == NULL) continue;
 
-		if(i->follow_camera){
-			i->texture->renderCell(
-					context,
-					round(i->position.x - camera_position->x),
-					round(i->position.y - camera_position->y),
-					i->id
-					);
-		}
-		else{
-			i->texture->renderCell(
-					context,
-					round(i->position.x),
-					round(i->position.y),
-					i->id
-					);
-		}
+		Vec3 sprite_position = i->position;
+
+		if(i->follow_camera) sprite_position -= *camera_position;
+
+		i->texture->renderCell(
+				context,
+				floor(sprite_position.x),
+				floor(sprite_position.y),
+				i->id
+				);
 	}
 }
 
@@ -120,6 +117,25 @@ void Render2dSystem::renderTilesetComponent(TilesetComponent& tileset){
 					);
 		}
 	}
+}
+
+bool Render2dSystem::isSpriteOnCamera(const SpriteComponent &sprite){
+	Vec3 pos_min, pos_max;
+
+	pos_min = sprite.position;
+
+	if(sprite.follow_camera)
+		pos_min -= *camera_position;
+
+	pos_max = pos_min + Vec3(sprite.texture->getCellWidth(), sprite.texture->getCellHeight());
+
+	if(pos_max.x < 0) return false;
+	if(pos_min.x > context->getWidth()) return false;
+
+	if(pos_max.y < 0) return false;
+	if(pos_min.y > context->getHeight()) return false;
+
+	return true;
 }
 
 bool Render2dSystem::customTextureLess(SpriteComponent *a, SpriteComponent *b){

@@ -19,6 +19,7 @@ class Render2dSystem : public System {
 		void updateSprites(ComponentManager *component_manager);
 		void updateTileset(ComponentManager *component_manager);
 		void renderTilesetComponent(TilesetComponent& tileset);
+		bool isSpriteOnCamera(const SpriteComponent &sprite);
 		static bool customTextureLess(SpriteComponent *a, SpriteComponent *b);
 
 		Context *context;
