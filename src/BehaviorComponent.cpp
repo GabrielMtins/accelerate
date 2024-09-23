@@ -19,6 +19,11 @@ void BehaviorFunction::onCollision(Entity other){
 	(void) other;
 }
 
+void BehaviorFunction::onMessage(Entity sender, std::string message){
+	(void) sender;
+	(void) message;
+}
+
 bool BehaviorFunction::hasCreated(void){
 	return has_created;
 }
@@ -80,6 +85,20 @@ bool BehaviorFunction::raycast(Vec3 origin, Vec3 direction, uint32_t layer_mask,
 			return_entity,
 			return_intersection
 			);
+}
+
+bool BehaviorFunction::sendMessage(Entity receiver, std::string message){
+	if(!hasComponent<BehaviorComponent>(receiver))
+		return false;
+
+	auto& behavior = getComponent<BehaviorComponent>(receiver);
+
+	if(behavior.behavior_function == nullptr)
+		return false;
+
+	behavior.behavior_function->onMessage(this->entity, message);
+
+	return true;
 }
 
 Vec3 BehaviorFunction::getMousePosition(void){
