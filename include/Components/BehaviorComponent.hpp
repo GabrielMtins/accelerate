@@ -38,6 +38,8 @@ class BehaviorFunction {
 		bool getMouseButtonDown(std::string key);
 		bool getMouseButton(std::string key);
 
+		bool raycast(Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection);
+
 		Vec3 getMousePosition(void);
 
 		float getDeltaTime(void);

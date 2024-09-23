@@ -24,7 +24,9 @@ struct BodyComponent {
 	void setOnCollisionMask(size_t layer, bool is_on);
 
 	bool checkCollision(BodyComponent other);
+	bool checkCollision(Vec3 point);
 	void solveCollision(BodyComponent other);
+	bool checkLineIntersection(Vec3 start, Vec3 direction, Vec3 *return_intersection);
 };
 
 };

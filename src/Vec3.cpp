@@ -166,8 +166,32 @@ void Vec3::print(void){
 	printf("%f %f %f\n", x, y, z);
 }
 
-float Vec3::dotProduct(Vec3 a, Vec3 b){
+float Vec3::dot(Vec3 a, Vec3 b){
 	return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+Vec3 Vec3::cross(Vec3 a, Vec3 b){
+	return Vec3(
+		a.y * b.z - a.z * b.y,
+		a.z * b.x - a.x * b.z,
+		a.x * b.y - a.y * b.x
+		);
+}
+
+bool Vec3::rectPlaneIntersects(Vec3 start, Vec3 direction, Vec3 plane_normal, float plane_product){
+	if(Vec3::dot(plane_normal, direction) == 0) return false;
+
+	float u = (plane_product - Vec3::dot(plane_normal, start)) / Vec3::dot(plane_normal, direction);
+
+	if(u < 0) return false;
+
+	return true;
+}
+
+Vec3 Vec3::rectPlaneIntersection(Vec3 start, Vec3 direction, Vec3 plane_normal, float plane_product){
+	float u = (plane_product - Vec3::dot(plane_normal, start)) / Vec3::dot(plane_normal, direction);
+
+	return start + direction * u;
 }
 
 };

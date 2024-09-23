@@ -56,6 +56,10 @@ void Render2dSystem::updateSprites(ComponentManager *component_manager){
 		if(!component_manager->hasComponent<TransformComponent>(entity))
 			continue;
 
+		/* ignore if sprite doesn't have a texture */
+		if(current_sprite.texture == NULL)
+			continue;
+
 		auto& current_transform = component_manager->getComponent<TransformComponent>(entity);
 
 		current_sprite.position = current_transform.position;

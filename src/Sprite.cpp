@@ -10,14 +10,22 @@ SpriteComponent::SpriteComponent(void){
 }
 
 SpriteComponent::SpriteComponent(Resource *texture){
-	this->texture = (Texture *) texture;
+	if(texture == NULL)
+		this->texture = NULL;
+	else
+		this->texture = (Texture *) texture;
+
 	id = -1;
 	layer = 0;
 	follow_camera = true;
 }
 
 SpriteComponent::SpriteComponent(Texture *texture){
-	this->texture = texture;
+	if(texture == NULL)
+		this->texture = NULL;
+	else
+		this->texture = (Texture *) texture;
+
 	id = -1;
 	layer = 0;
 	follow_camera = true;

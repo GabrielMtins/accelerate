@@ -17,6 +17,40 @@ void PhysicsSystem::update(ComponentManager *component_manager){
 	updateTileset(component_manager);
 }
 
+bool PhysicsSystem::raycast(ComponentManager *component_manager, Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection){
+	bool found_collision = false;
+	Vec3 closest_point = origin + direction * (1 << 16);
+
+	if(!component_manager->hasComponentArray<BodyComponent>()) return false;
+
+	auto arr = component_manager->getComponentArray<BodyComponent>();
+
+	for(size_t i = 0; i < arr->getSize(); i++){
+		auto& body = arr->atIndex(i);
+		Vec3 intersection;
+
+		/* check if the collision mask is the same */
+		if((body.collision_layer & layer_mask) == 0) continue;
+
+		if(body.checkLineIntersection(origin, direction, &intersection)){
+			if((intersection - origin).lengthSqr() < (closest_point).lengthSqr()){
+				closest_point = intersection;
+			}
+			
+			found_collision = true;
+
+			if(return_entity != NULL)
+				*return_entity = arr->indexToEntity(i);
+		}
+	}
+
+	if(found_collision && return_intersection != NULL){
+		*return_intersection = closest_point;
+	}
+
+	return found_collision;
+}
+
 void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
 	if(!component_manager->hasComponentArray<BodyComponent>())
 		return;

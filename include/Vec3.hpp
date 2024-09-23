@@ -41,7 +41,11 @@ struct Vec3 {
 
 	void print(void);
 
-	static float dotProduct(Vec3 a, Vec3 b);
+	static float dot(Vec3 a, Vec3 b);
+	static Vec3 cross(Vec3 a, Vec3 b);
+
+	static bool rectPlaneIntersects(Vec3 start, Vec3 direction, Vec3 plane_normal, float plane_product);
+	static Vec3 rectPlaneIntersection(Vec3 start, Vec3 direction, Vec3 plane_normal, float plane_product);
 };
 
 };

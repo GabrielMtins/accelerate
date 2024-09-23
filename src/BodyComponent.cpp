@@ -51,6 +51,18 @@ bool BodyComponent::checkCollision(BodyComponent other){
 	return true;
 }
 
+bool BodyComponent::checkCollision(Vec3 point){
+	if(point.x < position.x) return false;
+	if(point.y < position.y) return false;
+	if(point.z < position.z) return false;
+
+	if(point.x > position.x + size.x) return false;
+	if(point.y > position.y + size.y) return false;
+	if(point.z > position.z + size.z) return false;
+
+	return true;
+}
+
 void BodyComponent::solveCollision(BodyComponent other){
 	if(!checkCollision(other))
 		return;
@@ -94,9 +106,63 @@ void BodyComponent::solveCollision(BodyComponent other){
 	Vec3 delta_vel = velocity * velocity.sign() * (min_distance[0] * direction_hit).sign() * (-1.0f);
 
 	/* check if the delta_vel isn't at the same direction as the velocity */
-	if(Vec3::dotProduct(delta_vel, velocity) < 0){
+	if(Vec3::dot(delta_vel, velocity) < 0){
 		velocity += delta_vel;
 	}
+}
+
+bool BodyComponent::checkLineIntersection(Vec3 start, Vec3 direction, Vec3 *return_intersection){
+	bool found_collision = false;
+	std::array<Vec3, 3> normals = {Vec3(1, 0, 0), Vec3(0, 1, 0), Vec3(0, 0, 1)};
+
+	Vec3 closest_point = start + direction * (1 << 16);
+
+	for(auto& plane_normal : normals){
+		float plane_product = Vec3::dot(plane_normal, position);
+
+		if(!Vec3::rectPlaneIntersects(start, direction, plane_normal, plane_product)) continue;
+
+		Vec3 intersection = Vec3::rectPlaneIntersection(
+				start,
+				direction,
+				plane_normal,
+				plane_product
+				);
+
+		if(checkCollision(intersection)){
+			if((intersection - start).lengthSqr() < (closest_point - start).lengthSqr()){
+				closest_point = intersection;
+			}
+
+			found_collision = true;
+		}
+	}
+
+	for(auto& plane_normal : normals){
+		float plane_product = Vec3::dot(plane_normal, position + size);
+
+		if(!Vec3::rectPlaneIntersects(start, direction, plane_normal, plane_product)) continue;
+
+		Vec3 intersection = Vec3::rectPlaneIntersection(
+				start,
+				direction,
+				plane_normal,
+				plane_product
+				);
+
+		if(checkCollision(intersection)){
+			if((intersection - start).lengthSqr() < (closest_point - start).lengthSqr()){
+				closest_point = intersection;
+			}
+
+			found_collision = true;
+		}
+	}
+
+	if(found_collision && return_intersection != NULL)
+		*return_intersection = closest_point;
+
+	return found_collision;
 }
 
 };

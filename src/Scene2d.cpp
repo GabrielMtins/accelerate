@@ -13,16 +13,6 @@ class TestBehavior : public BehaviorFunction {
 			was_pressed = false;
 			printf("Hello World!\n");
 			timer = 0;
-
-			std::vector<Entity> found = find<BodyComponent>([](BodyComponent& a){return a.gravity.length() == 0;});
-
-			for(auto i : found){
-				auto& sprite = getComponent<SpriteComponent>(i);
-				auto& body = getComponent<BodyComponent>(i);
-
-				body.size = Vec3(196, 64, 0);
-				sprite.id = -1;
-			}
 		}
 
 		void onUpdate(void){
@@ -35,19 +25,19 @@ class TestBehavior : public BehaviorFunction {
 			if(getMouseButtonUp("left"))
 				printf("hello\n");
 
-			//scene->setCameraPosition(body.position - Vec3(200, 100));
+			scene->setCameraPosition(body.position - Vec3(200, 100));
 
 			if(getKeyUp("j")){
 				printf("teste\n");
 				//destroy();
 			}
 
-			if(getKeyDown("a")) body.velocity.x = -50;
-			if(getKeyDown("d")) body.velocity.x = +50;
+			if(getKey("a")) body.velocity.x = -50;
+			if(getKey("d")) body.velocity.x = +50;
 			if(getKeyDown("w")) body.velocity.y = -75;
 			if(getKeyDown("s")) body.velocity.y = +50;
 
-			timer += getContext()->getDeltaTime();
+			timer += getDeltaTime();
 
 			if(timer > 0.1){
 				timer = 0;
@@ -55,10 +45,32 @@ class TestBehavior : public BehaviorFunction {
 				sprite.id %= 2;
 			}
 
-			if(dir_vel.lengthSqr() == 0)
+			if(body.velocity.lengthSqr() == 0)
 				sprite.id = 0;
 
-			body.position = getMousePosition();
+			//body.position = getMousePosition();
+
+			Entity found;
+			Vec3 pos;
+
+			if(raycast(body.position + body.size / 2, Vec3(1, 0, 0), body.collision_mask, &found, &pos)){
+				//printf("teste\n");
+				auto &sprite_found = getComponent<SpriteComponent>(found);
+
+				sprite_found.id = -1;
+
+				auto search = find<LabelComponent>([](LabelComponent& label){
+						if(label.class_name == "hora")
+							return true;
+						return false;
+						}
+
+						);
+
+				for(auto& i : search){
+					getComponent<TransformComponent>(i).position = pos;
+				}
+			}
 		}
 
 		void onCollision(Entity other){
@@ -111,9 +123,9 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 
 		body.position = Vec3(32, 32, 0);
 		body.offset_from_transform = Vec3(12, 0, 0);
-		body.size = Vec3(10, 32, 0);
+		body.size = Vec3(10, 32, 1);
 		body.setOnCollisionMask(1, true);
-		//body.gravity = Vec3(0, 100, 0);
+		body.gravity = Vec3(0, 100, 0);
 	}
 
 	{
@@ -121,15 +133,16 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 	
 		addComponent<TransformComponent>(next_entity);
 		addComponent<SpriteComponent>(next_entity, SpriteComponent(game->getResource("player.png")));
-		addComponent<TextComponent>(next_entity, TextComponent(game->getResource("default.ttf")));
+		addComponent<BodyComponent>(next_entity);
 
-		auto& transform = getComponent<TransformComponent>(next_entity);
-		auto& text_component = getComponent<TextComponent>(next_entity);
 		auto& sprite = getComponent<SpriteComponent>(next_entity);
+		auto& body = getComponent<BodyComponent>(next_entity);
 
-		text_component.text = "oi";
-		transform.position.x = 32;
-		sprite.follow_camera = false;
+		body.position = Vec3(64, 64);
+		body.size = Vec3(32, 32, 1);
+		sprite.follow_camera = true;
+		sprite.id = 2;
+		body.setOnCollisionLayer(1, true);
 	}
 
 	{

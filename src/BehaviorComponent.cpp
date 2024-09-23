@@ -1,5 +1,7 @@
 #include "Components/BehaviorComponent.hpp"
 
+#include "Systems/Physics.hpp"
+
 namespace acc {
 
 BehaviorFunction::BehaviorFunction(void){
@@ -67,6 +69,17 @@ bool BehaviorFunction::getMouseButtonDown(std::string key){
 
 bool BehaviorFunction::getMouseButton(std::string key){
 	return getContext()->getMouseButton(key);
+}
+
+bool BehaviorFunction::raycast(Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection){
+	return PhysicsSystem::raycast(
+			getScene()->getComponentManager(),
+			origin,
+			direction,
+			layer_mask,
+			return_entity,
+			return_intersection
+			);
 }
 
 Vec3 BehaviorFunction::getMousePosition(void){

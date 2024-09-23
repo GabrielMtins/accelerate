@@ -11,6 +11,8 @@ class PhysicsSystem : public System {
 	public:
 		PhysicsSystem(Scene *scene);
 		void update(ComponentManager *component_manager);
+		
+		static bool raycast(ComponentManager *component_manager, Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection);
 
 	private:
 		void updateCollisions(ComponentManager *component_manager);
