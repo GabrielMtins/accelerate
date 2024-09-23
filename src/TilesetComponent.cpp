@@ -26,7 +26,7 @@ TilesetComponent::TilesetComponent(Texture *tileset_texture, int width, int heig
 }
 
 void TilesetComponent::setCollisionLayer(int layer){
-	collision_layer = collision_layer | (1 << layer);
+	collision_layer = collision_layer | (1 << (layer - 1));
 }
 
 int TilesetComponent::getTile(int x, int y){

@@ -21,19 +21,19 @@ BodyComponent::BodyComponent(void){
 
 void BodyComponent::setOnCollisionLayer(size_t layer, bool is_on){
 	if(is_on){
-		collision_layer = collision_layer | (1 << layer);
+		collision_layer = collision_layer | (1 << (layer - 1));
 	}
 	else{
-		collision_layer = collision_layer & (~(1 << layer));
+		collision_layer = collision_layer & (~(1 << (layer - 1)));
 	}
 }
 
 void BodyComponent::setOnCollisionMask(size_t layer, bool is_on){
 	if(is_on){
-		collision_mask = collision_mask | (1 << layer);
+		collision_mask = collision_mask | (1 << (layer - 1));
 	}
 	else{
-		collision_mask = collision_mask & (~(1 << layer));
+		collision_mask = collision_mask & (~(1 << (layer - 1)));
 	}
 }
 
