@@ -43,7 +43,7 @@ void TilesetComponent::setTile(int x, int y, int id){
 bool TilesetComponent::intersectsLine(Vec3 origin, Vec3 dir, Vec3 *return_intersection){
 	bool found_intersection = false;
 
-	Vec3 new_origin = Vec3(floor(origin.x) / width, floor(origin.y) / height);
+	Vec3 new_origin = Vec3(floorf(origin.x / width), floorf(origin.y / height));
 	Vec3 new_dir = dir / fmaxf(fabsf(dir.x), fabsf(dir.y));
 
 	while(!found_intersection){

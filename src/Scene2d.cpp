@@ -53,8 +53,9 @@ class TestBehavior : public BehaviorFunction {
 			Entity found;
 			Vec3 pos;
 
-			if(raycast(body.position + body.size / 2, Vec3(1, 0, 0), body.collision_mask, &found, &pos)){
-				//printf("teste\n");
+			if(raycast(body.position + body.size / 2, Vec3(1, 0, 0), 1, &found, &pos)){
+				printf("teste\n");
+				/*
 				auto &sprite_found = getComponent<SpriteComponent>(found);
 
 				sprite_found.id = -1;
@@ -70,6 +71,7 @@ class TestBehavior : public BehaviorFunction {
 				for(auto& i : search){
 					getComponent<TransformComponent>(i).position = pos;
 				}
+				*/
 			}
 		}
 
@@ -107,7 +109,7 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		Entity next_entity = getNextEntity();
 	
 		addComponent<TransformComponent>(next_entity);
-		addComponent<SpriteComponent>(next_entity, SpriteComponent((Texture *) game->getResource("player.png")));
+		addComponent<SpriteComponent>(next_entity, SpriteComponent(game->getResource("player.png")));
 		addComponent<BehaviorComponent>(next_entity);
 		addComponent<BodyComponent>(next_entity);
 
@@ -160,8 +162,8 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		auto& tile = getComponent<TilesetComponent>(next_entity);
 
 		for(int i = 0; i < 10; i++){
-			tile.setTile(i, 0, 0);
-			tile.setTile(i, 6, 0);
+			tile.setTile(i + 5, 3, 0);
+			tile.setTile(i + 5, 9, 0);
 		}
 		tile.setCollisionLayer(1);
 	}

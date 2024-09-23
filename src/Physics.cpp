@@ -132,7 +132,6 @@ bool PhysicsSystem::raycastTileset(ComponentManager *component_manager, Vec3 ori
 		 * are compatible */
 		if((tileset.collision_layer & layer_mask) == 0)
 			continue;
-
 		
 		if(tileset.intersectsLine(origin, direction, &intersection)){
 			if((intersection - origin).lengthSqr() < (closest_point - origin).lengthSqr()){
