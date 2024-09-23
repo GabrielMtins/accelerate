@@ -12,9 +12,9 @@ PhysicsSystem::PhysicsSystem(Scene *scene){
 }
 
 void PhysicsSystem::update(ComponentManager *component_manager){
+	updatePhysics(component_manager);
 	updateCollisions(component_manager);
 	updateTileset(component_manager);
-	updatePhysics(component_manager);
 }
 
 void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
