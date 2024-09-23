@@ -15,6 +15,7 @@ struct SpriteComponent {
 	bool follow_camera;
 
 	SpriteComponent(void);
+	SpriteComponent(Resource *texture);
 	SpriteComponent(Texture *texture);
 };
 

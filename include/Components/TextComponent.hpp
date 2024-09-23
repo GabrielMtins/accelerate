@@ -21,6 +21,7 @@ struct TextComponent {
 
 	TextComponent(void);
 	TextComponent(Font *font);
+	TextComponent(Resource *font);
 	bool updateTexture(Context *context);
 };
 

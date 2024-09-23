@@ -22,6 +22,16 @@ TextComponent::TextComponent(Font *font){
 		color[i] = 0xff;
 }
 
+TextComponent::TextComponent(Resource *font){
+	this->font = (Font *) font;
+	texture = nullptr;
+	text = "";
+	old_text = "";
+
+	for(int i = 0; i < 4; i++)
+		color[i] = 0xff;
+}
+
 bool TextComponent::updateTexture(Context *context){
 	if(old_text == text) return false;
 

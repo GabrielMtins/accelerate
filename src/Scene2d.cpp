@@ -26,17 +26,20 @@ class TestBehavior : public BehaviorFunction {
 		}
 
 		void onUpdate(void){
-			Scene2d *scene = (Scene2d *) getScene();
+			auto scene = (Scene2d *) getScene();
 			auto& body = getComponent<BodyComponent>();
 			auto& sprite = getComponent<SpriteComponent>();
 
 			dir_vel = Vec3();
 
-			scene->setCameraPosition(body.position - Vec3(200, 100));
+			if(getMouseButtonUp("left"))
+				printf("hello\n");
 
-			if(getKeyDown("j")){
+			//scene->setCameraPosition(body.position - Vec3(200, 100));
+
+			if(getKeyUp("j")){
 				printf("teste\n");
-				destroy();
+				//destroy();
 			}
 
 			if(getKeyDown("a")) body.velocity.x = -50;
@@ -54,6 +57,8 @@ class TestBehavior : public BehaviorFunction {
 
 			if(dir_vel.lengthSqr() == 0)
 				sprite.id = 0;
+
+			body.position = getMousePosition();
 		}
 
 		void onCollision(Entity other){
@@ -108,15 +113,15 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 		body.offset_from_transform = Vec3(12, 0, 0);
 		body.size = Vec3(10, 32, 0);
 		body.setOnCollisionMask(1, true);
-		body.gravity = Vec3(0, 100, 0);
+		//body.gravity = Vec3(0, 100, 0);
 	}
 
 	{
 		Entity next_entity = getNextEntity();
 	
 		addComponent<TransformComponent>(next_entity);
-		addComponent<SpriteComponent>(next_entity, SpriteComponent((Texture *) game->getResource("player.png")));
-		addComponent<TextComponent>(next_entity, TextComponent((Font *) game->getResource("default.ttf")));
+		addComponent<SpriteComponent>(next_entity, SpriteComponent(game->getResource("player.png")));
+		addComponent<TextComponent>(next_entity, TextComponent(game->getResource("default.ttf")));
 
 		auto& transform = getComponent<TransformComponent>(next_entity);
 		auto& text_component = getComponent<TextComponent>(next_entity);
