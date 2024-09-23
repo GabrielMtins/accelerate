@@ -107,6 +107,7 @@ void Context::pollEvent(void){
 
 		mouse_button_state["left"] = true;
 	}
+	else mouse_button_state["left"] = false;
 
 	if(mouse_state & SDL_BUTTON(2)){
 		if(mouse_button_state["middle"] == false){
@@ -115,6 +116,7 @@ void Context::pollEvent(void){
 
 		mouse_button_state["middle"] = true;
 	}
+	else mouse_button_state["middle"] = false;
 
 	if(mouse_state & SDL_BUTTON(3)){
 		if(mouse_button_state["right"] == false){
@@ -123,6 +125,7 @@ void Context::pollEvent(void){
 
 		mouse_button_state["right"] = true;
 	}
+	else mouse_button_state["right"] = false;
 }
 
 void Context::updateTime(void){
