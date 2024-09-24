@@ -1,0 +1,26 @@
+CC = g++
+EXEC ?= main
+
+CCFLAGS := -g -O0 -std='c++11' -Wall -Wextra -pedantic
+
+LIBFLAGS := ../lib/libacc.a -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lm
+
+SRC_DIR := src
+INCLUDE_DIR := ../include
+
+BUILD_DIR := ./build
+
+SRC := $(wildcard $(SRC_DIR)/*.cpp)
+OBJECTS := $(addprefix $(BUILD_DIR)/, $(SRC))
+OBJECTS := $(addsuffix .o, $(OBJECTS))
+
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	mkdir -p $(BUILD_DIR)/$(SRC_DIR)
+	$(CC) -I$(INCLUDE_DIR) $(CCFLAGS) -c $< -o $@ $(CCFLAGS)
+
+$(EXEC): $(OBJECTS)
+	$(CC) $(OBJECTS) $(CCFLAGS) $(LIBFLAGS) -o $(EXEC) $(CCFLAGS)
+
+clean:
+	rm -rf $(BUILD_DIR)
+	rm -f $(EXEC)
