@@ -8,7 +8,7 @@ LIBFLAGS := lib/libacc.a -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lm
 SRC_DIR := example_src
 INCLUDE_DIR := include
 
-BUILD_DIR := ./build
+BUILD_DIR := ./example_build
 
 SRC := $(wildcard $(SRC_DIR)/*.cpp)
 OBJECTS := $(addprefix $(BUILD_DIR)/, $(SRC))
@@ -22,5 +22,5 @@ $(EXEC): $(OBJECTS)
 	$(CC) $(OBJECTS) $(CCFLAGS) $(LIBFLAGS) -o $(EXEC) $(CCFLAGS)
 
 clean:
-	rm -r build
-	rm $(EXEC)
+	rm -rf $(BUILD_DIR)
+	rm -f $(EXEC)

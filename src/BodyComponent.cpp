@@ -80,6 +80,7 @@ void BodyComponent::solveCollision(BodyComponent other){
 	}
 
 	std::sort(tmp.begin(), tmp.end(), [](Vec3 a, Vec3 b){return a.y < b.y;});
+
 	if(tmp[2].y - tmp[1].y < fmin(size.y, other.size.y)){
 		min_distance.push_back((tmp[2] - tmp[1]) * Vec3(0.0f, 1.0f, 0.0f));
 	}
@@ -90,10 +91,10 @@ void BodyComponent::solveCollision(BodyComponent other){
 	}
 
 	if(min_distance.size() == 0) return;
-
+	
 	std::sort(min_distance.begin(), min_distance.end(),
 			[](Vec3 a, Vec3 b){
-				if(a.length() == 0.0f) return false;
+				if(a.length() <= 0.0001f) return false;
 				return a.lengthSqr() < b.lengthSqr();
 			}
 			);

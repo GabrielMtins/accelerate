@@ -235,21 +235,16 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 
 	bool found_collision = false;
 
-	BodyComponent old_body;
-	std::vector<BodyComponent> final_body;
-
-	old_body = body;
-
 	Vec3 start = Vec3(
-			(int) body.position.x / tileset.width - 1,
-			(int) body.position.y / tileset.height - 1,
+			floorf(body.position.x / tileset.width) - 1,
+			floorf(body.position.y / tileset.height) - 1,
 			0
 			);
 
 	Vec3 size = Vec3(
-			(int) body.size.x / tileset.width + 2,
-			(int) body.size.y / tileset.height + 2,
-			0
+			floorf(body.size.x / tileset.width) + 4,
+			floorf(body.size.y / tileset.height) + 4,
+			1
 			);
 
 	for(int i = start.x; i < start.x + size.x; i++){
@@ -265,33 +260,12 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 			if(body.checkCollision(tile)){
 				if(!body.is_trigger){
 					body.solveCollision(tile);
-					/*
-					final_body.push_back(body);
-					body = old_body;
-					*/
 				}
 
 				found_collision = true;
 			}
 		}
 	}
-
-	/*
-	if(found_collision && !body.is_trigger){
-		std::sort(final_body.begin(), final_body.end(),
-				[old_body](BodyComponent a, BodyComponent b){
-					float da = (a.position - old_body.position).length();
-					float db = (b.position - old_body.position).length();
-
-					if(da == 0) return true;
-
-					return da < db;
-				}
-				);
-
-		body = final_body[0];
-	}
-	*/
 
 	return found_collision;
 }

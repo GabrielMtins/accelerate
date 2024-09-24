@@ -23,5 +23,5 @@ $(EXEC): $(OBJECTS)
 	ar rcs lib/$(EXEC) $(OBJECTS)
 
 clean:
-	rm -r build
-	rm lib/$(EXEC)
+	rm -rf $(BUILD_DIR)
+	rm -f lib/$(EXEC)
