@@ -15,11 +15,8 @@ Game::Game(const char *title, int internal_width, int internal_height){
 	current_scene = NULL;
 	next_scene = NULL;
 
-	loadResource((Resource *) new Texture(context, "player.png", 32, 32));
-	loadResource((Resource *) new Texture(context, "texture.png", 16, 16));
 	loadResource((Resource *) new Texture(context, DEV_TEXTURE_WHITE));
 	loadResource((Resource *) new Texture(context, DEV_TEXTURE_XOR));
-	loadResource((Resource *) new Font("default.ttf", 12));
 }
 
 void Game::setScene(Scene *scene){
