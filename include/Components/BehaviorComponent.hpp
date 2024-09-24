@@ -26,8 +26,9 @@ class BehaviorFunction {
 		void setScene(Scene *scene);
 		void setEntity(Entity entity);
 
-	protected:
 		Scene * getScene(void);
+
+	protected:
 		Game * getGame(void);
 		Context * getContext(void);
 

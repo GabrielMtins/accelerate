@@ -284,7 +284,9 @@ void PhysicsSystem::callCollisionFunction(ComponentManager *component_manager, E
 		return;
 
 	auto& behave = component_manager->getComponent<BehaviorComponent>(entity);
-	behave.behavior_function->onCollision(other);
+
+	if(behave.behavior_function->getScene() != NULL)
+		behave.behavior_function->onCollision(other);
 }
 
 };

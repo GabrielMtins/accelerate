@@ -96,6 +96,9 @@ bool BehaviorFunction::sendMessage(Entity receiver, std::string message){
 	if(behavior.behavior_function == nullptr)
 		return false;
 
+	if(behavior.behavior_function->getScene() == NULL)
+		return false;
+
 	behavior.behavior_function->onMessage(this->entity, message);
 
 	return true;

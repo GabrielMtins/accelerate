@@ -17,11 +17,11 @@ Scene2d::Scene2d(Game *game) : Scene(game){
 	registerComponent<TextComponent>();
 
 	system_manager->addSystem(
-			(System *) new BehaviorSystem(this)
+			(System *) new PhysicsSystem(this)
 			);
 
 	system_manager->addSystem(
-			(System *) new PhysicsSystem(this)
+			(System *) new BehaviorSystem(this)
 			);
 
 	system_manager->addSystem(
