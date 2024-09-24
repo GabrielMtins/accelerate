@@ -79,11 +79,16 @@ void Render2dSystem::updateSprites(ComponentManager *component_manager){
 
 		if(i->follow_camera) sprite_position -= *camera_position;
 
-		i->texture->renderCell(
+		i->texture->renderCellEx(
 				context,
 				floor(sprite_position.x),
 				floor(sprite_position.y),
-				i->id
+				i->id,
+				i->scale.x,
+				i->scale.y,
+				i->center.x,
+				i->center.y,
+				i->angle
 				);
 	}
 }

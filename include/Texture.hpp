@@ -21,6 +21,7 @@ class Texture : Resource{
 		Texture(Context *context, Font *font, std::string text, uint8_t *color);
 
 		void renderCell(Context *context, int x, int y, int id);
+		void renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle);
 		void renderRect(Context *context, int src[], int dst[]);
 
 		void renderTriangle(Context *context, Triangle &triangle);
@@ -35,6 +36,9 @@ class Texture : Resource{
 		~Texture(void);
 	
 	private:
+		SDL_Rect getIdRect(int id);
+		SDL_Rect getDstRect(int x, int y, int id);
+
 		SDL_Texture *texture;
 		int texture_width, texture_height;
 		int cell_width, cell_height;

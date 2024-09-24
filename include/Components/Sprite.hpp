@@ -8,6 +8,10 @@ namespace acc {
 
 struct SpriteComponent {
 	Vec3 position;
+	Vec3 scale;
+	Vec3 center;
+	float angle;
+
 	Texture *texture;
 	int id;
 	int layer;

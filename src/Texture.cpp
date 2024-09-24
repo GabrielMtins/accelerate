@@ -123,31 +123,35 @@ Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color)
 void Texture::renderCell(Context *context, int x, int y, int id){
 	if(context == NULL || texture == NULL) return;
 
-	SDL_Rect dst_rect = {
-		x, y, cell_width, cell_height
-	};
+	SDL_Rect src_rect = getIdRect(id);
+	SDL_Rect dst_rect = getDstRect(x, y, id);
 
-	if(id == -1){
-		dst_rect.w = texture_width;
-		dst_rect.h = texture_height;
-		SDL_RenderCopy(context->getRenderer(), texture, NULL, &dst_rect);
-		return;
-	}
-	else{
-		int num_tex_x = texture_width / cell_width;
+	SDL_RenderCopy(context->getRenderer(), texture, &src_rect, &dst_rect);
+}
 
-		int id_x = (id % num_tex_x);
-		int id_y = (id / num_tex_x);
+void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle){
+	if(context == NULL || texture == NULL) return;
 
-		SDL_Rect src_rect = {
-			id_x * cell_width,
-			id_y * cell_height,
-			cell_width,
-			cell_height
-		};
+	SDL_Rect src_rect = getIdRect(id);
+	SDL_Rect dst_rect = getDstRect(x, y, id);
 
-		SDL_RenderCopy(context->getRenderer(), texture, &src_rect, &dst_rect);
-	}
+	dst_rect.w *= scale_x;
+	dst_rect.h *= scale_y;
+
+	center_x *= scale_x;
+	center_y *= scale_y;
+
+	SDL_Point center_sdl = {center_x, center_y};
+
+	SDL_RenderCopyEx(
+			context->getRenderer(),
+			texture,
+			&src_rect,
+			&dst_rect,
+			angle,
+			&center_sdl,
+			SDL_FLIP_NONE
+			);
 }
 
 void Texture::renderRect(Context *context, int src[], int dst[]){
@@ -256,6 +260,46 @@ int Texture::getCellHeight(void){
 Texture::~Texture(void){
 	if(texture != NULL)
 		SDL_DestroyTexture(texture);
+}
+
+SDL_Rect Texture::getIdRect(int id){
+	if(id == -1){
+		SDL_Rect src_rect = {0, 0, texture_width, texture_height};
+
+		return src_rect;
+	}
+
+	int num_tex_x = texture_width / cell_width;
+
+	int id_x = (id % num_tex_x);
+	int id_y = (id / num_tex_x);
+
+	SDL_Rect src_rect = {
+		id_x * cell_width,
+		id_y * cell_height,
+		cell_width,
+		cell_height
+	};
+
+	return src_rect;
+}
+
+SDL_Rect Texture::getDstRect(int x, int y, int id){
+	SDL_Rect dst_rect;
+
+	dst_rect.x = x;
+	dst_rect.y = y;
+
+	if(id == -1){
+		dst_rect.w = texture_width;
+		dst_rect.h = texture_height;
+	}
+	else{
+		dst_rect.w = cell_width;
+		dst_rect.h = cell_height;
+	}
+
+	return dst_rect;
 }
 
 static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex){

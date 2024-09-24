@@ -33,4 +33,8 @@ void Scene2d::setCameraPosition(Vec3 camera_position){
 	this->camera_position = camera_position;
 }
 
+Vec3 Scene2d::getCameraPosition(void){
+	return camera_position;
+}
+
 };

@@ -10,6 +10,7 @@ class Scene2d : public Scene {
 	public:
 		Scene2d(Game *game);
 		void setCameraPosition(Vec3 camera_position);
+		Vec3 getCameraPosition(void);
 
 	private:
 		Vec3 camera_position;

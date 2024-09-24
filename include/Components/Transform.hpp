@@ -7,7 +7,8 @@ namespace acc {
 
 struct TransformComponent {
 	Vec3 position;
-	Vec3 scale;
+
+	TransformComponent(void);
 };
 
 };
