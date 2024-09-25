@@ -5,6 +5,7 @@
 #include <vector>
 #include <array>
 #include <cstdint>
+#include <string>
 
 namespace acc {
 
@@ -44,27 +45,29 @@ struct Triangle {
 	float maxUVLengthSqr(void);
 
 	bool clipOverZ(std::vector<Triangle> *list);
-	void subdivideForUVNormal(std::vector<Triangle> *list);
+	bool subdivideForUVNormal(std::vector<Triangle> *list);
 };
 
-class Mesh {
-	public:
-		void addVertex(Vertex vertex);
-		void addIndex(int index);
+struct Mesh {
+	std::vector<Triangle> triangles;
+	std::string texture_filename;
 
-		std::vector<Vertex>& getVertices(void);
-		std::vector<int>& getIndices(void);
+	Mesh(void);
+	Mesh(std::string texture_filename);
 
-		template <typename functon>
-		void applyTransformation(functon transform){
-			for(auto& vertex : vertices){
-				vertex = transform(vertex);
-			}
+	void addTriangle(Triangle triangle);
+	void buildUnitTetrahedron(void);
+
+	template <typename functon>
+	Mesh applyTransformation(functon transform){
+		Mesh mesh(texture_filename);
+
+		for(auto& triangle : triangles){
+			mesh.addTriangle(transform(triangles));
 		}
-	
-	private:
-		std::vector<Vertex> vertices;
-		std::vector<int> indices;
+
+		return mesh;
+	}
 };
 
 };

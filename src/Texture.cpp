@@ -184,7 +184,7 @@ void Texture::renderRect(Context *context, int src[], int dst[]){
 
 }
 
-void Texture::renderTriangle(Context *context, Triangle &triangle){
+void Texture::renderTriangle(Context *context, const Triangle& triangle){
 	std::vector<SDL_Vertex> sdl_vertices_vector;
 	sdl_vertices_vector.reserve(3);
 
@@ -205,39 +205,9 @@ void Texture::renderTriangle(Context *context, Triangle &triangle){
 			);
 }
 
-void Texture::renderMesh(Context *context, Mesh &mesh){
-	auto& vertices_vector = mesh.getVertices();
-	auto& indices_vector = mesh.getIndices();
-
-	std::vector<SDL_Vertex> sdl_vertices_vector;
-	sdl_vertices_vector.reserve(vertices_vector.size());
-
-	std::transform(
-			vertices_vector.begin(),
-			vertices_vector.end(),
-			std::back_inserter(sdl_vertices_vector),
-			Vertex_ConvertToSDL
-			);
-
-	if(indices_vector.size() != 0){
-		SDL_RenderGeometry(
-				context->getRenderer(),
-				texture,
-				sdl_vertices_vector.data(),
-				sdl_vertices_vector.size(),
-				indices_vector.data(),
-				indices_vector.size()
-				);
-	}
-	else{
-		SDL_RenderGeometry(
-				context->getRenderer(),
-				texture,
-				sdl_vertices_vector.data(),
-				sdl_vertices_vector.size(),
-				NULL,
-				0
-				);
+void Texture::renderMesh(Context *context, const Mesh& mesh){
+	for(const Triangle& i : mesh.triangles){
+		Texture::renderTriangle(context, i);
 	}
 }
 

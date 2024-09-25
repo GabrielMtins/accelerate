@@ -24,9 +24,9 @@ class Texture : Resource{
 		void renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle);
 		void renderRect(Context *context, int src[], int dst[]);
 
-		void renderTriangle(Context *context, Triangle &triangle);
+		void renderTriangle(Context *context, const Triangle& triangle);
 
-		void renderMesh(Context *context, Mesh &mesh);
+		void renderMesh(Context *context, const Mesh& mesh);
 
 		int getTextureWidth(void);
 		int getTextureHeight(void);

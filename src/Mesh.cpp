@@ -167,9 +167,11 @@ bool Triangle::clipOverZ(std::vector<Triangle> *list){
 	return false;
 }
 
-void Triangle::subdivideForUVNormal(std::vector<Triangle> *list){
+bool Triangle::subdivideForUVNormal(std::vector<Triangle> *list){
 	Triangle current;
 	std::queue<Triangle> triangle_queue;
+
+	size_t original_size = list->size();
 
 	triangle_queue.push(*this);
 
@@ -216,22 +218,69 @@ void Triangle::subdivideForUVNormal(std::vector<Triangle> *list){
 
 		list->push_back(current);
 	}
+
+	return original_size != list->size();
 }
 
-void Mesh::addVertex(Vertex vertex){
-	vertices.push_back(vertex);
+Mesh::Mesh(void){
+	this->texture_filename = "dev_texture_xor";
 }
 
-void Mesh::addIndex(int index){
-	indices.push_back(index);
+Mesh::Mesh(std::string texture_filename){
+	this->texture_filename = texture_filename;
 }
 
-std::vector<Vertex>& Mesh::getVertices(void){
-	return vertices;
+void Mesh::addTriangle(Triangle triangle){
+	std::vector<Triangle> tmp_list;
+
+	if(!triangle.clipOverZ(&tmp_list)){
+		tmp_list.push_back(triangle);
+	}
+
+	for(Triangle& i : tmp_list){
+		i.subdivideForUVNormal(&triangles);
+	}
 }
 
-std::vector<int>& Mesh::getIndices(void){
-	return indices;
+void Mesh::buildUnitTetrahedron(void){
+	Vec3 a, b, c, d;
+
+	a = Vec3(+0.5f, 0.0f, -0.35f);
+	b = Vec3(-0.5f, 0.0f, -0.35f);
+	c = Vec3(0.0f, 0.5f, 0.35f);
+	d = Vec3(0.0f, -0.5f, 0.35f);
+
+	addTriangle(
+			Triangle(
+				Vertex(a, Vec3(0.0f, 0.0f)),
+				Vertex(b, Vec3(1.0f, 0.0f)),
+				Vertex(c, Vec3(0.0f, 1.0f))
+				)
+			);
+
+	addTriangle(
+			Triangle(
+				Vertex(a, Vec3(0.0f, 0.0f)),
+				Vertex(b, Vec3(1.0f, 0.0f)),
+				Vertex(d, Vec3(0.0f, 1.0f))
+				)
+			);
+
+	addTriangle(
+			Triangle(
+				Vertex(b, Vec3(0.0f, 0.0f)),
+				Vertex(c, Vec3(1.0f, 0.0f)),
+				Vertex(d, Vec3(0.0f, 1.0f))
+				)
+			);
+
+	addTriangle(
+			Triangle(
+				Vertex(a, Vec3(0.0f, 0.0f)),
+				Vertex(c, Vec3(1.0f, 0.0f)),
+				Vertex(d, Vec3(0.0f, 1.0f))
+				)
+			);
 }
 
 };
