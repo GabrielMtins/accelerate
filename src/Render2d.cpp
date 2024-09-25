@@ -151,8 +151,8 @@ bool Render2dSystem::isSpriteOnCamera(const SpriteComponent &sprite){
 bool Render2dSystem::customTextureLess(SpriteComponent *a, SpriteComponent *b){
 	if(a->layer == b->layer){
 		return
-			a->position.y + a->texture->getCellHeight() <
-			b->position.y + b->texture->getCellHeight();
+			a->position.y + a->texture->getCellHeight() * a->scale.x<
+			b->position.y + b->texture->getCellHeight() * a->scale.y;
 	}
 	
 	return a->layer < b->layer;
