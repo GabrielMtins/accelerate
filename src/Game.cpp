@@ -17,6 +17,16 @@ Game::Game(const char *title, int internal_width, int internal_height){
 
 	loadResource((Resource *) new Texture(context, DEV_TEXTURE_WHITE));
 	loadResource((Resource *) new Texture(context, DEV_TEXTURE_XOR));
+
+	bg_color[0] = bg_color[1] = bg_color[2] = 100;
+	bg_color[3] = 0xff;
+}
+
+void Game::setBgColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a){
+	bg_color[0] = r;
+	bg_color[1] = g;
+	bg_color[2] = b;
+	bg_color[3] = a;
 }
 
 void Game::setScene(Scene *scene){
@@ -32,7 +42,7 @@ Resource * Game::getResource(std::string filename){
 }
 
 void Game::update(void){
-	context->clearScreen(100, 100, 100, 255);
+	context->clearScreen(bg_color[0], bg_color[1], bg_color[2], bg_color[3]);
 
 	if(current_scene != NULL){
 		current_scene->update();
