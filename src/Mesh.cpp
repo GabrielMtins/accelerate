@@ -126,18 +126,18 @@ bool Triangle::clipOverZ(std::vector<Triangle> *list){
 			}
 			);
 
-	if(copy.vertices[2].position.z < 0) return false;
-	if(copy.vertices[0].position.z > 0) return false;
-
+	/* it was clipped */
+	if(copy.vertices[2].position.z < 0) return true;
+	
 	if(copy.vertices[1].position.z < 0){
 		Vertex m12, m02;
 
-		float step12 = (-0.01f - copy.vertices[1].position.z);
+		float step12 = (0.01f - copy.vertices[1].position.z);
 		float side12 = (copy.vertices[2].position.z - copy.vertices[1].position.z);
 
 		m12 = (copy.vertices[2] - copy.vertices[1]) * step12 / side12 + copy.vertices[1];
 
-		float step02 = (-0.01f - copy.vertices[0].position.z);
+		float step02 = (0.01f - copy.vertices[0].position.z);
 		float side02 = (copy.vertices[2].position.z - copy.vertices[0].position.z);
 
 		m02 = (copy.vertices[2] - copy.vertices[0]) * step02 / side02 + copy.vertices[0];
@@ -150,7 +150,7 @@ bool Triangle::clipOverZ(std::vector<Triangle> *list){
 	if(copy.vertices[0].position.z < 0){
 		Vertex m01, m02;
 
-		float step = (-0.01f - copy.vertices[0].position.z);
+		float step = (0.01f - copy.vertices[0].position.z);
 		float side01 = (copy.vertices[1].position.z - copy.vertices[0].position.z);
 		float side02 = (copy.vertices[2].position.z - copy.vertices[0].position.z);
 
@@ -222,6 +222,32 @@ bool Triangle::subdivideForUVNormal(std::vector<Triangle> *list){
 	return original_size != list->size();
 }
 
+bool Triangle::compareLess(Triangle a, Triangle b){
+	std::sort(a.vertices.begin(), a.vertices.end(), [](Vertex a, Vertex b){return a.position.z > b.position.z;});
+	std::sort(b.vertices.begin(), b.vertices.end(), [](Vertex a, Vertex b){return a.position.z > b.position.z;});
+
+	if(a.vertices[0].position.z < b.vertices[0].position.z){
+		return true;
+	}
+
+	if(a.vertices[0].position.z == b.vertices[0].position.z){
+		if(a.vertices[1].position.z < b.vertices[1].position.z){
+			return true;
+		}
+		if(a.vertices[1].position.z == b.vertices[1].position.z){
+			if(a.vertices[2].position.z < b.vertices[2].position.z){
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool Triangle::compareGreater(Triangle a, Triangle b){
+	return !Triangle::compareLess(a, b);
+}
+
 Mesh::Mesh(void){
 	this->texture_filename = "dev_texture_xor";
 }
@@ -231,15 +257,7 @@ Mesh::Mesh(std::string texture_filename){
 }
 
 void Mesh::addTriangle(Triangle triangle){
-	std::vector<Triangle> tmp_list;
-
-	if(!triangle.clipOverZ(&tmp_list)){
-		tmp_list.push_back(triangle);
-	}
-
-	for(Triangle& i : tmp_list){
-		i.subdivideForUVNormal(&triangles);
-	}
+	triangles.push_back(triangle);
 }
 
 void Mesh::buildUnitTetrahedron(void){
@@ -281,6 +299,62 @@ void Mesh::buildUnitTetrahedron(void){
 				Vertex(d, Vec3(0.0f, 1.0f))
 				)
 			);
+}
+
+void Mesh::clipDepth(void){
+	std::vector<Triangle> tmp_vector = triangles;
+	triangles = std::vector<Triangle>();
+
+	while(tmp_vector.size() != 0){
+		if(!tmp_vector.back().clipOverZ(&triangles)){
+			triangles.push_back(tmp_vector.back());
+		}
+
+		tmp_vector.pop_back();
+	}
+}
+
+void Mesh::project(int width, int height){
+	applyTransformation([width, height](Vertex vertex){
+		vertex.position.x /= vertex.position.z;
+		vertex.position.y /= vertex.position.z;
+		vertex.position.x *= height / 2;
+		vertex.position.y *= height / 2;
+
+		vertex.position.x += width / 2;
+		vertex.position.y += height / 2;
+
+		return vertex;
+	}
+	);
+}
+
+void Mesh::sortByDepth(void){
+	std::sort(triangles.begin(), triangles.end(), Triangle::compareGreater);
+}
+
+void Mesh::applyLight(void){
+	Vec3 direction = Vec3(0.0f, 0.3f, 1.0f).normalize();
+
+	for(auto& triangle : triangles){
+		Vec3 normal = Vec3::cross(
+				triangle.vertices[2].position - triangle.vertices[0].position,
+				triangle.vertices[1].position - triangle.vertices[0].position
+				);
+
+		normal = normal.normalize();
+		float blend_value = fabsf(Vec3::dot(normal, direction)) * 0.5f + 0.5f;
+
+		//Vec3 color = Vec3(1.0f, 1.0f, 1.0f) * fminf(fmaxf(fabsf(Vec3::dot(normal, direction)), 0.0f), 1.0f);
+
+		//Vec3 color = Vec3(1.0f, 1.0f, 1.0f) * fminf(fmaxf(fabsf(Vec3::dot(normal, direction)), 0.0f), 1.0f);
+
+		for(auto& i : triangle.vertices){
+			i.alpha = 1.0f;
+			i.color = Vec3(1.0f, 1.0f, 1.0f) * fminf( 1.0f / i.position.z, 1.0f) * blend_value;
+			//i.color = Vec3(1.0f, 1.0f, 1.0f) * blend_value;
+		}
+	}
 }
 
 };

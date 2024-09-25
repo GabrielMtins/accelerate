@@ -207,7 +207,7 @@ void Texture::renderTriangle(Context *context, const Triangle& triangle){
 
 void Texture::renderMesh(Context *context, const Mesh& mesh){
 	for(const Triangle& i : mesh.triangles){
-		Texture::renderTriangle(context, i);
+		renderTriangle(context, i);
 	}
 }
 

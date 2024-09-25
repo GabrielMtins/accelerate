@@ -46,6 +46,9 @@ struct Triangle {
 
 	bool clipOverZ(std::vector<Triangle> *list);
 	bool subdivideForUVNormal(std::vector<Triangle> *list);
+
+	static bool compareLess(Triangle a, Triangle b);
+	static bool compareGreater(Triangle a, Triangle b);
 };
 
 struct Mesh {
@@ -55,18 +58,21 @@ struct Mesh {
 	Mesh(void);
 	Mesh(std::string texture_filename);
 
+	//void addTriangleRaw(Triangle triangle);
 	void addTriangle(Triangle triangle);
 	void buildUnitTetrahedron(void);
+	void clipDepth(void);
+	void project(int width, int height);
+	void sortByDepth(void);
+	void applyLight(void);
 
 	template <typename functon>
-	Mesh applyTransformation(functon transform){
-		Mesh mesh(texture_filename);
-
+	void applyTransformation(functon transform){
 		for(auto& triangle : triangles){
-			mesh.addTriangle(transform(triangles));
+			for(auto& i : triangle.vertices){
+				i = transform(i);
+			}
 		}
-
-		return mesh;
 	}
 };
 
