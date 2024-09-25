@@ -8,6 +8,10 @@
 #define MAX_ENTITIES 4096
 #define MAX_COMPONENTS 256
 
+namespace acc {
+
 using Entity = size_t;
+
+};
 
 #endif
