@@ -13,6 +13,16 @@ SDL_Surface * Canvas::getSurface(void){
 	return surface;
 }
 
+Color Canvas::getColorNormal(float x, float y){
+	x = fmodf(x, 1.0f);
+	y = fmodf(y, 1.0f);
+
+	if(x < 0) x += 1.0f;
+	if(y < 0) y += 1.0f;
+
+	return getColor((int) (x * surface->w), (int) (y * surface->h));
+}
+
 Color Canvas::getColor(int x, int y){
 	Color return_color = Color();
 

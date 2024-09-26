@@ -13,6 +13,7 @@ class Canvas : public Resource {
 		Canvas(std::string resource_name, int width, int height);
 
 		SDL_Surface * getSurface(void);
+		Color getColorNormal(float x, float y);
 		Color getColor(int x, int y);
 		void setColor(const Color& c, int x, int y);
 
