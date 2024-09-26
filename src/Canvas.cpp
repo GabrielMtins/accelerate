@@ -2,6 +2,15 @@
 
 namespace acc {
 
+Canvas::Canvas(std::string resource_name){
+	setName(resource_name);
+	surface = IMG_Load(resource_name.c_str());
+
+	if(surface == NULL){
+		fprintf(stderr, "Failed to load texture: %s\n", resource_name.c_str());
+	}
+}
+
 Canvas::Canvas(std::string resource_name, int width, int height){
 	setName(resource_name);
 
@@ -49,6 +58,20 @@ void Canvas::setColor(const Color& c, int x, int y){
 			c.b,
 			c.a
 			);
+}
+
+void Canvas::clear(const Color& c){
+	SDL_FillRect(
+			surface,
+			NULL,
+			SDL_MapRGBA(
+					surface->format,
+					c.r,
+					c.g,
+					c.b,
+					c.a
+					)
+		);
 }
 
 Canvas::~Canvas(void){
