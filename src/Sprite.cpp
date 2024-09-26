@@ -8,6 +8,7 @@ SpriteComponent::SpriteComponent(void){
 	layer = 0;
 	follow_camera = true;
 
+	position = Vec3();
 	scale = Vec3(1.0f, 1.0f, 1.0f);
 	center = Vec3(0.0f, 0.0f, 0.0f);
 	angle = 0.0f;
@@ -23,6 +24,7 @@ SpriteComponent::SpriteComponent(Resource *texture){
 	layer = 0;
 	follow_camera = true;
 
+	position = Vec3();
 	scale = Vec3(1.0f, 1.0f, 1.0f);
 	center = Vec3(0.0f, 0.0f, 0.0f);
 	angle = 0.0f;
@@ -38,6 +40,7 @@ SpriteComponent::SpriteComponent(Texture *texture){
 	layer = 0;
 	follow_camera = true;
 
+	position = Vec3();
 	scale = Vec3(1.0f, 1.0f, 1.0f);
 	center = Vec3(0.0f, 0.0f, 0.0f);
 	angle = 0.0f;

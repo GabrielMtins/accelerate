@@ -130,6 +130,7 @@ void Render2dSystem::renderTilesetComponent(TilesetComponent& tileset){
 }
 
 bool Render2dSystem::isSpriteOnCamera(const SpriteComponent &sprite){
+	if(!sprite.follow_camera) return true;
 	Vec3 pos_min, pos_max;
 
 	pos_min = sprite.position;

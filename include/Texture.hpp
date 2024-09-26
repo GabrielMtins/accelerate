@@ -16,13 +16,13 @@ enum DEV_TEXTURE_TYPE {
 
 class Texture : Resource{
 	public:
-		Texture(Context *context, std::string filename, Canvas& canvas);
+		Texture(Context *context, std::string filename, Canvas *canvas);
 		Texture(Context *context, std::string filename, int cell_width, int cell_height);
 		Texture(Context *context, std::string filename);
 		Texture(Context *context, int dev_texture);
 		Texture(Context *context, Font *font, std::string text, uint8_t *color);
 
-		void updateCanvas(Context *context, Canvas &canvas);
+		void updateCanvas(Context *context, Canvas *canvas);
 
 		void renderCell(Context *context, int x, int y, int id);
 		void renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle);

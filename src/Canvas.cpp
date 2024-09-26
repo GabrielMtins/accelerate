@@ -15,7 +15,16 @@ Canvas::Canvas(std::string resource_name, int width, int height){
 	setName(resource_name);
 
 	surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+	clear(Color(0x00, 0x00, 0x00));
 	pixels = (uint32_t *) surface->pixels;
+}
+
+int Canvas::getWidth(void){
+	return surface->w;
+}
+
+int Canvas::getHeight(void){
+	return surface->h;
 }
 
 SDL_Surface * Canvas::getSurface(void){
@@ -51,6 +60,9 @@ Color Canvas::getColor(int x, int y){
 }
 
 void Canvas::setColor(const Color& c, int x, int y){
+	if(x < 0 || y < 0 || x >= surface->w || y >= surface->h)
+		return;
+
 	pixels[getPixelId(x, y)] = SDL_MapRGBA(
 			surface->format,
 			c.r,
