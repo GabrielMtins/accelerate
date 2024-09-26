@@ -39,6 +39,7 @@ struct Triangle {
 		}
 	}
 
+	Vec3 getNormal(void);
 	void sortByUVx(void);
 	void sortByUVy(void);
 	void modOutUV(void);
@@ -58,13 +59,16 @@ struct Mesh {
 	Mesh(void);
 	Mesh(std::string texture_filename);
 
-	//void addTriangleRaw(Triangle triangle);
 	void addTriangle(Triangle triangle);
 	void buildUnitTetrahedron(void);
+	void buildUnitCube(void);
+	void subdivide(void);
 	void clipDepth(void);
-	void project(int width, int height);
+	void clipUV(void);
+	void projectOrtographic(int width, int height);
+	void projectPerspective(int width, int height);
 	void sortByDepth(void);
-	void applyLight(void);
+	void applyLight(Vec3 bg, float max_distance);
 
 	template <typename functon>
 	void applyTransformation(functon transform){

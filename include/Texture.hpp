@@ -39,6 +39,7 @@ class Texture : Resource{
 		SDL_Rect getIdRect(int id);
 		SDL_Rect getDstRect(int x, int y, int id);
 
+		SDL_Surface *surface;
 		SDL_Texture *texture;
 		int texture_width, texture_height;
 		int cell_width, cell_height;

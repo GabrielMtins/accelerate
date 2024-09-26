@@ -9,7 +9,7 @@ static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex);
 Texture::Texture(Context *context, std::string filename, int cell_width, int cell_height){
 	setName(filename);
 
-	SDL_Surface *surface = IMG_Load(filename.c_str());
+	surface = IMG_Load(filename.c_str());
 
 	if(surface == NULL){
 		fprintf(stderr, "Failed to load texture: %s\n", filename.c_str());
@@ -23,8 +23,6 @@ Texture::Texture(Context *context, std::string filename, int cell_width, int cel
 
 		this->cell_width = cell_width;
 		this->cell_height = cell_height;
-
-		SDL_FreeSurface(surface);
 	}
 
 }
@@ -32,7 +30,7 @@ Texture::Texture(Context *context, std::string filename, int cell_width, int cel
 Texture::Texture(Context *context, std::string filename){
 	setName(filename);
 
-	SDL_Surface *surface = IMG_Load(filename.c_str());
+	surface = IMG_Load(filename.c_str());
 
 	if(surface == NULL){
 		fprintf(stderr, "Failed to load texture: %s\n", filename.c_str());
@@ -46,8 +44,6 @@ Texture::Texture(Context *context, std::string filename){
 
 		cell_width = surface->w;
 		cell_height = surface->h;
-
-		SDL_FreeSurface(surface);
 	}
 }
 
@@ -57,7 +53,7 @@ Texture::Texture(Context *context, int dev_texture){
 	cell_width = 64;
 	cell_height = 64;
 
-	SDL_Surface *surface = SDL_CreateRGBSurface(0, texture_width, texture_height, 32, 0, 0, 0, 0);
+	surface = SDL_CreateRGBSurface(0, texture_width, texture_height, 32, 0, 0, 0, 0);
 	uint32_t *pixels = (uint32_t *) surface->pixels;
 
 	switch(dev_texture){
@@ -89,8 +85,6 @@ Texture::Texture(Context *context, int dev_texture){
 	}
 
 	texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
-
-	SDL_FreeSurface(surface);
 }
 
 Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color){
@@ -99,25 +93,22 @@ Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color)
 		return;
 	}
 
-	SDL_Surface *text_surface;
 	SDL_Color fg = {color[0], color[1], color[2], color[3]};
 
-	text_surface = TTF_RenderUTF8_Blended(font->getFont(), text.c_str(), fg);
+	surface = TTF_RenderUTF8_Blended(font->getFont(), text.c_str(), fg);
 
-	if(text_surface == NULL){
+	if(surface == NULL){
 		texture = NULL;
 		return;
 	}
 
-	texture = SDL_CreateTextureFromSurface(context->getRenderer(), text_surface);
+	texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
 	
-	texture_width = text_surface->w;
-	texture_height = text_surface->h;
+	texture_width = surface->w;
+	texture_height = surface->h;
 
-	cell_width = text_surface->w;
-	cell_height = text_surface->h;
-
-	SDL_FreeSurface(text_surface);
+	cell_width = surface->w;
+	cell_height = surface->h;
 }
 
 void Texture::renderCell(Context *context, int x, int y, int id){
@@ -230,6 +221,9 @@ int Texture::getCellHeight(void){
 Texture::~Texture(void){
 	if(texture != NULL)
 		SDL_DestroyTexture(texture);
+
+	if(surface != NULL)
+		SDL_FreeSurface(surface);
 }
 
 SDL_Rect Texture::getIdRect(int id){
