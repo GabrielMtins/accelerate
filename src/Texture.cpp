@@ -9,7 +9,7 @@ static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex);
 Texture::Texture(Context *context, std::string filename, int cell_width, int cell_height){
 	setName(filename);
 
-	surface = IMG_Load(filename.c_str());
+	SDL_Surface *surface = IMG_Load(filename.c_str());
 
 	if(surface == NULL){
 		fprintf(stderr, "Failed to load texture: %s\n", filename.c_str());
@@ -23,6 +23,8 @@ Texture::Texture(Context *context, std::string filename, int cell_width, int cel
 
 		this->cell_width = cell_width;
 		this->cell_height = cell_height;
+
+		SDL_FreeSurface(surface);
 	}
 
 }
@@ -30,7 +32,7 @@ Texture::Texture(Context *context, std::string filename, int cell_width, int cel
 Texture::Texture(Context *context, std::string filename){
 	setName(filename);
 
-	surface = IMG_Load(filename.c_str());
+	SDL_Surface *surface = IMG_Load(filename.c_str());
 
 	if(surface == NULL){
 		fprintf(stderr, "Failed to load texture: %s\n", filename.c_str());
@@ -44,6 +46,8 @@ Texture::Texture(Context *context, std::string filename){
 
 		cell_width = surface->w;
 		cell_height = surface->h;
+
+		SDL_FreeSurface(surface);
 	}
 }
 
@@ -53,7 +57,7 @@ Texture::Texture(Context *context, int dev_texture){
 	cell_width = 64;
 	cell_height = 64;
 
-	surface = SDL_CreateRGBSurface(0, texture_width, texture_height, 32, 0, 0, 0, 0);
+	SDL_Surface *surface = SDL_CreateRGBSurface(0, texture_width, texture_height, 32, 0, 0, 0, 0);
 	uint32_t *pixels = (uint32_t *) surface->pixels;
 
 	switch(dev_texture){
@@ -85,6 +89,8 @@ Texture::Texture(Context *context, int dev_texture){
 	}
 
 	texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
+
+	SDL_FreeSurface(surface);
 }
 
 Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color){
@@ -95,7 +101,7 @@ Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color)
 
 	SDL_Color fg = {color[0], color[1], color[2], color[3]};
 
-	surface = TTF_RenderUTF8_Blended(font->getFont(), text.c_str(), fg);
+	SDL_Surface *surface = TTF_RenderUTF8_Blended(font->getFont(), text.c_str(), fg);
 
 	if(surface == NULL){
 		texture = NULL;
@@ -109,6 +115,8 @@ Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color)
 
 	cell_width = surface->w;
 	cell_height = surface->h;
+
+	SDL_FreeSurface(surface);
 }
 
 void Texture::renderCell(Context *context, int x, int y, int id){
@@ -221,9 +229,6 @@ int Texture::getCellHeight(void){
 Texture::~Texture(void){
 	if(texture != NULL)
 		SDL_DestroyTexture(texture);
-
-	if(surface != NULL)
-		SDL_FreeSurface(surface);
 }
 
 SDL_Rect Texture::getIdRect(int id){
