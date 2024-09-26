@@ -6,6 +6,15 @@ namespace acc {
 
 static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex);
 
+Texture::Texture(Context *context, std::string filename, Canvas& canvas){
+	setName(filename);
+
+	texture = SDL_CreateTextureFromSurface(
+			context->getRenderer(),
+			canvas.getSurface()
+			);
+}
+
 Texture::Texture(Context *context, std::string filename, int cell_width, int cell_height){
 	setName(filename);
 
@@ -117,6 +126,16 @@ Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color)
 	cell_height = surface->h;
 
 	SDL_FreeSurface(surface);
+}
+
+void Texture::updateCanvas(Context *context, Canvas &canvas){
+	if(texture != NULL)
+		SDL_DestroyTexture(texture);
+
+	texture = SDL_CreateTextureFromSurface(
+			context->getRenderer(),
+			canvas.getSurface()
+			);
 }
 
 void Texture::renderCell(Context *context, int x, int y, int id){
