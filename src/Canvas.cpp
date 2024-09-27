@@ -9,6 +9,8 @@ Canvas::Canvas(std::string resource_name){
 	if(surface == NULL){
 		fprintf(stderr, "Failed to load texture: %s\n", resource_name.c_str());
 	}
+
+	pixels = (uint32_t *) surface->pixels;
 }
 
 Canvas::Canvas(std::string resource_name, int width, int height){
