@@ -80,6 +80,10 @@ Triangle::Triangle(const Vertex& a, const Vertex& b, const Vertex& c){
 	vertices[2] = c;
 }
 
+void Triangle::sortByY(void){
+	std::sort(vertices.begin(), vertices.end(), [](Vertex &a, Vertex &b){return a.position.y < b.position.y;});
+}
+
 Vec3 Triangle::getNormal(void){
 	return Vec3::cross(
 			vertices[2].position - vertices[1].position,
