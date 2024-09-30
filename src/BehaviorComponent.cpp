@@ -76,6 +76,10 @@ bool BehaviorFunction::getMouseButton(std::string key){
 	return getContext()->getMouseButton(key);
 }
 
+bool BehaviorFunction::isEntityManaged(Entity entity){
+	return getScene()->isEntityManaged(entity);
+}
+
 bool BehaviorFunction::raycast(Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection){
 	return PhysicsSystem::raycast(
 			getScene()->getComponentManager(),

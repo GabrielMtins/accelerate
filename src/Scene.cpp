@@ -33,6 +33,10 @@ void Scene::addToDestroyQueue(Entity entity){
 	destroyed_entities.push(entity);
 }
 
+bool Scene::isEntityManaged(Entity entity){
+	return entity_manager->isEntityManaged(entity);
+}
+
 Scene::~Scene(){
 	delete entity_manager;
 	delete component_manager;

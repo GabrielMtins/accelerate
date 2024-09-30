@@ -18,6 +18,7 @@ class Scene {
 		ComponentManager * getComponentManager(void);
 		void update(void);
 		void addToDestroyQueue(Entity entity);
+		bool isEntityManaged(Entity entity);
 		virtual ~Scene();
 
 	protected:

@@ -40,6 +40,8 @@ class BehaviorFunction {
 		bool getMouseButtonDown(std::string key);
 		bool getMouseButton(std::string key);
 
+		bool isEntityManaged(Entity entity);
+
 		bool raycast(Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection);
 		bool sendMessage(Entity receiver, std::string message);
 
