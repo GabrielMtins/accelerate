@@ -34,6 +34,9 @@ void BehaviorFunction::setAsCreated(void){
 
 void BehaviorFunction::setScene(Scene *scene){
 	this->scene = scene;
+	game = scene->getGame();
+	context = game->getContext();
+	component_manager = scene->getComponentManager();
 }
 
 void BehaviorFunction::setEntity(Entity entity){
@@ -49,40 +52,40 @@ Game * BehaviorFunction::getGame(void){
 }
 
 Context * BehaviorFunction::getContext(void){
-	return scene->getGame()->getContext();
+	return context;
 }
 
 bool BehaviorFunction::getKeyUp(std::string key){
-	return getContext()->getKeyUp(key);
+	return context->getKeyUp(key);
 }
 
 bool BehaviorFunction::getKeyDown(std::string key){
-	return getContext()->getKeyDown(key);
+	return context->getKeyDown(key);
 }
 
 bool BehaviorFunction::getKey(std::string key){
-	return getContext()->getKey(key);
+	return context->getKey(key);
 }
 
 bool BehaviorFunction::getMouseButtonUp(std::string key){
-	return getContext()->getMouseButtonUp(key);
+	return context->getMouseButtonUp(key);
 }
 
 bool BehaviorFunction::getMouseButtonDown(std::string key){
-	return getContext()->getMouseButtonDown(key);
+	return context->getMouseButtonDown(key);
 }
 
 bool BehaviorFunction::getMouseButton(std::string key){
-	return getContext()->getMouseButton(key);
+	return context->getMouseButton(key);
 }
 
 bool BehaviorFunction::isEntityManaged(Entity entity){
-	return getScene()->isEntityManaged(entity);
+	return scene->isEntityManaged(entity);
 }
 
 bool BehaviorFunction::raycast(Vec3 origin, Vec3 direction, uint32_t layer_mask, Entity *return_entity, Vec3 *return_intersection){
 	return PhysicsSystem::raycast(
-			getScene()->getComponentManager(),
+			component_manager,
 			origin,
 			direction,
 			layer_mask,
@@ -100,7 +103,7 @@ bool BehaviorFunction::sendMessage(Entity receiver, std::string message){
 	if(behavior.behavior_function == nullptr)
 		return false;
 
-	if(behavior.behavior_function->getScene() == NULL)
+	if(behavior.behavior_function->scene == NULL)
 		return false;
 
 	behavior.behavior_function->onMessage(this->entity, message);
@@ -111,25 +114,25 @@ bool BehaviorFunction::sendMessage(Entity receiver, std::string message){
 Vec3 BehaviorFunction::getMousePosition(void){
 	int x, y;
 
-	getContext()->getMousePosition(&x, &y);
+	context->getMousePosition(&x, &y);
 
 	return Vec3(x, y);
 }
 
 float BehaviorFunction::getDeltaTime(void){
-	return getContext()->getDeltaTime();
+	return context->getDeltaTime();
 }
 
 uint64_t BehaviorFunction::getTicks(void){
-	return getContext()->getTicks();
+	return context->getTicks();
 }
 
 void BehaviorFunction::destroy(Entity entity){
-	getScene()->addToDestroyQueue(entity);
+	scene->addToDestroyQueue(entity);
 }
 
 void BehaviorFunction::destroy(void){
-	getScene()->addToDestroyQueue(entity);
+	scene->addToDestroyQueue(entity);
 }
 
 BehaviorComponent::BehaviorComponent(){

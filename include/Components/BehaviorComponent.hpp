@@ -55,29 +55,29 @@ class BehaviorFunction {
 
 		template <typename T>
 		T& getComponent(void){
-			return scene->getComponentManager()->getComponent<T>(entity);
+			return component_manager->getComponent<T>(entity);
 		}
 
 		template <typename T>
 		bool hasComponent(void){
-			return scene->getComponentManager()->hasComponent<T>(entity);
+			return component_manager->hasComponent<T>(entity);
 		}
 
 		template <typename T>
 		T& getComponent(Entity id){
-			return scene->getComponentManager()->getComponent<T>(id);
+			return component_manager->getComponent<T>(id);
 		}
 
 		template <typename T>
 		bool hasComponent(Entity id){
-			return scene->getComponentManager()->hasComponent<T>(id);
+			return component_manager->hasComponent<T>(id);
 		}
 
 		/* search by a check function */
 		template <typename T, typename Functor>
 		std::vector<Entity> find(Functor check){
 			std::vector<Entity> found;
-			auto arr = scene->getComponentManager()->getComponentArray<T>();
+			auto arr = component_manager->getComponentArray<T>();
 
 			for(size_t i = 0; i < arr->getSize(); i++){
 				if(check(arr->atIndex(i))){
@@ -90,6 +90,10 @@ class BehaviorFunction {
 	
 	private:
 		Scene *scene;
+		Game *game;
+		Context *context;
+		ComponentManager *component_manager;
+
 		Entity entity;
 
 		bool has_created;
