@@ -135,8 +135,12 @@ void BehaviorFunction::destroy(void){
 	scene->addToDestroyQueue(entity);
 }
 
-BehaviorComponent::BehaviorComponent(){
+BehaviorComponent::BehaviorComponent(void){
 	this->behavior_function = nullptr;
+}
+
+BehaviorComponent::BehaviorComponent(std::shared_ptr<BehaviorFunction> behavior_function){
+	this->behavior_function = behavior_function;
 }
 
 void BehaviorComponent::setFunction(std::shared_ptr<BehaviorFunction> behavior_function){

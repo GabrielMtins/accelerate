@@ -102,7 +102,8 @@ class BehaviorFunction {
 struct BehaviorComponent {
 	std::shared_ptr<BehaviorFunction> behavior_function;
 
-	BehaviorComponent();
+	BehaviorComponent(void);
+	BehaviorComponent(std::shared_ptr<BehaviorFunction> behavior_function);
 	void setFunction(std::shared_ptr<BehaviorFunction> behavior_function);
 	~BehaviorComponent(void);
 };
