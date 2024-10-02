@@ -19,6 +19,8 @@ class Canvas : public Resource {
 		Color getColorNormal(float x, float y);
 		Color getColor(int x, int y);
 		void setColor(const Color& c, int x, int y);
+		void drawLine(const Color& c, int x1, int y1, int x2, int y2);
+		void drawCircle(const Color& c, int x, int y, int radius);
 		void clear(const Color& c);
 
 		~Canvas(void);

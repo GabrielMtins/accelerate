@@ -15,6 +15,7 @@ namespace acc {
 class Context {
 	public:
 		Context(const char *title, int internal_width, int internal_height);
+		void showCursor(bool enable);
 		int getWidth(void);
 		int getHeight(void);
 		bool isRunning(void);

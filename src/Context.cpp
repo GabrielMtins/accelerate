@@ -44,6 +44,13 @@ Context::Context(const char *title, int internal_width, int internal_height){
 	setUpKeys();
 }
 
+void Context::showCursor(bool enable){
+	if(enable)
+		SDL_ShowCursor(1);
+	else
+		SDL_ShowCursor(0);
+}
+
 int Context::getWidth(void){
 	return internal_width;
 }

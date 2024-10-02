@@ -1,5 +1,7 @@
 #include "Canvas.hpp"
 
+#include <math.h>
+
 namespace acc {
 
 Canvas::Canvas(std::string resource_name){
@@ -72,6 +74,35 @@ void Canvas::setColor(const Color& c, int x, int y){
 			c.b,
 			c.a
 			);
+}
+
+void Canvas::drawLine(const Color& c, int x1, int y1, int x2, int y2){
+	int dx = (x2 - x1);
+	int dy = (y2 - y1);
+
+	int steps = std::max(abs(dx), abs(dy));
+
+	float step_x = (float) dx / steps;
+	float step_y = (float) dy / steps;
+
+	float start_x = x1;
+	float start_y = x1;
+
+	for(int i = 0; i < steps; i++){
+		setColor(c, start_x, start_y);
+		start_x += step_x;
+		start_y += step_y;
+	}
+}
+
+void Canvas::drawCircle(const Color& c, int x, int y, int radius){
+	for(int i = -radius; i < radius; i++){
+		for(int j = -radius; j < radius; j++){
+			if(i * i + j * j > radius * radius) continue;
+
+			setColor(c, x + i, y + j);
+		}
+	}
 }
 
 void Canvas::clear(const Color& c){
