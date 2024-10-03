@@ -86,7 +86,7 @@ void Canvas::drawLine(const Color& c, int x1, int y1, int x2, int y2){
 	float step_y = (float) dy / steps;
 
 	float start_x = x1;
-	float start_y = x1;
+	float start_y = y1;
 
 	for(int i = 0; i < steps; i++){
 		setColor(c, start_x, start_y);
@@ -96,8 +96,8 @@ void Canvas::drawLine(const Color& c, int x1, int y1, int x2, int y2){
 }
 
 void Canvas::drawCircle(const Color& c, int x, int y, int radius){
-	for(int i = -radius; i < radius; i++){
-		for(int j = -radius; j < radius; j++){
+	for(int i = -radius + 1; i < radius; i++){
+		for(int j = -radius + 1; j < radius; j++){
 			if(i * i + j * j > radius * radius) continue;
 
 			setColor(c, x + i, y + j);
