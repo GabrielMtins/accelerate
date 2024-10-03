@@ -7,27 +7,28 @@
 namespace acc {
 
 struct TextureConfiguration {
-	int texture_id;
-	Vec3 texture_offset;
-	Vec3 texture_scaling;
+	int id;
+	Vec3 offset;
+	Vec3 scaling;
+
+	TextureConfiguration(void);
 };
 
 struct Wall {
 	Vec3 a, b;
-	float size;
 	int portal;
 
-	TextureConfiguration texture_configuration;
+	TextureConfiguration texture;
 };
 
 struct Sector {
 	std::vector<Wall> walls;
 
 	float floor_height;
-	TextureConfiguration floor_texture_configuration;
+	TextureConfiguration floor_texture;
 
 	float celling_height;
-	TextureConfiguration celling_texture_configuration;
+	TextureConfiguration celling_texture;
 };
 
 };

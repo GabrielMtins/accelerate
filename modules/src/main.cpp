@@ -8,7 +8,7 @@ int main(int argc, char **argv){
 	(void) (argc);
 	(void) (argv);
 
-	Game *game = new Game("portals", 640, 360);
+	Game *game = new Game("portals", 426, 240);
 
 	game->loadResource((Resource *) new Canvas("tile_canvas.png"));
 
