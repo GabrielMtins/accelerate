@@ -8,15 +8,42 @@
 
 namespace acc {
 
+RenderData::RenderData(SpriteComponent *sprite){
+	data.sprite = sprite;
+
+	type = RENDER_DATA_SPRITE;
+	layer = sprite->layer;
+
+	if(sprite->texture != NULL)
+		y = sprite->position.y + sprite->texture->getCellHeight();
+	else
+		y = -1;
+}
+
+RenderData::RenderData(DrawRectComponent *rect){
+	data.rect = rect;
+
+	type = RENDER_DATA_RECT;
+	layer = rect->layer;
+	y = rect->y + rect->h;
+}
+
 Render2dSystem::Render2dSystem(Context *context, Vec3 *camera_position){
 	this->context = context;
 	this->camera_position = camera_position;
 }
 
 void Render2dSystem::update(ComponentManager *component_manager){
-	updateText(component_manager);
+	/* render the tilesets */
 	updateTileset(component_manager);
+
+	/* update sprites and etc */
+	updateText(component_manager);
 	updateSprites(component_manager);
+	updateDrawRects(component_manager);
+
+	/* render everything */
+	renderAll();
 }
 
 void Render2dSystem::updateText(ComponentManager *component_manager){
@@ -44,13 +71,12 @@ void Render2dSystem::updateSprites(ComponentManager *component_manager){
 	if(!component_manager->hasComponentArray<SpriteComponent>())
 		return;
 
-	auto arr = component_manager->getComponentArray<SpriteComponent>();
-	std::vector<SpriteComponent *> render_array;
+	auto sprite_array = component_manager->getComponentArray<SpriteComponent>();
 
-	for(size_t i = 0; i < arr->getSize(); i++){
-		Entity entity = arr->indexToEntity(i);
+	for(size_t i = 0; i < sprite_array->getSize(); i++){
+		Entity entity = sprite_array->indexToEntity(i);
 
-		auto& current_sprite = arr->atIndex(i);
+		auto& current_sprite = sprite_array->atIndex(i);
 
 		/* ignore if it doesn't have a transform component */
 		if(!component_manager->hasComponent<TransformComponent>(entity))
@@ -67,29 +93,23 @@ void Render2dSystem::updateSprites(ComponentManager *component_manager){
 		/* if the sprite isn't on screen, we can just skip it */
 		if(!isSpriteOnCamera(current_sprite)) continue;
 
-		render_array.push_back(&current_sprite);
+		render_array.push_back(RenderData(&current_sprite));
 	}
+}
 
-	std::sort(render_array.begin(), render_array.end(), Render2dSystem::customTextureLess);
+void Render2dSystem::updateDrawRects(ComponentManager *component_manager){
+	if(!component_manager->hasComponentArray<DrawRectComponent>())
+		return;
 
-	for(auto& i : render_array){
-		if(i->texture == NULL) continue;
+	auto rect_array = component_manager->getComponentArray<DrawRectComponent>();
 
-		Vec3 sprite_position = i->position;
+	for(size_t i = 0; i < rect_array->getSize(); i++){
+		auto& current_rect = rect_array->atIndex(i);
 
-		if(i->follow_camera) sprite_position -= *camera_position;
+		/* if the sprite isn't on screen, we can just skip it */
+		if(!isRectOnCamera(current_rect)) continue;
 
-		i->texture->renderCellEx(
-				context,
-				floor(sprite_position.x),
-				floor(sprite_position.y),
-				i->id,
-				i->scale.x,
-				i->scale.y,
-				i->center.x,
-				i->center.y,
-				i->angle
-				);
+		render_array.push_back(RenderData(&current_rect));
 	}
 }
 
@@ -129,6 +149,49 @@ void Render2dSystem::renderTilesetComponent(TilesetComponent& tileset){
 	}
 }
 
+void Render2dSystem::renderAll(void){
+	std::sort(render_array.begin(), render_array.end(), Render2dSystem::customTextureLess);
+
+	for(auto& i : render_array){
+		if(i.type == RENDER_DATA_SPRITE) {
+			SpriteComponent* sprite = i.data.sprite;
+			Vec3 sprite_position = sprite->position;
+
+			if(sprite->follow_camera) sprite_position -= *camera_position;
+			if(sprite->texture == NULL) continue;
+
+			sprite->texture->renderCellEx(
+					context,
+					floor(sprite_position.x),
+					floor(sprite_position.y),
+					sprite->id,
+					sprite->scale.x,
+					sprite->scale.y,
+					sprite->center.x,
+					sprite->center.y,
+					sprite->angle
+					);
+		}
+		else if(i.type == RENDER_DATA_RECT) {
+			SDL_Renderer *renderer = context->getRenderer();
+			DrawRectComponent *rect = i.data.rect;
+
+			SDL_SetRenderDrawColor(renderer, rect->color.r, rect->color.g, rect->color.b, rect->color.a);
+
+			SDL_Rect sdl_rect = {
+				(int) (rect->x - camera_position->x),
+				(int) (rect->y - camera_position->y),
+				rect->w,
+				rect->h
+			};
+
+			SDL_RenderFillRect(renderer, &sdl_rect);
+		}
+	}
+
+	render_array.clear();
+}
+
 bool Render2dSystem::isSpriteOnCamera(const SpriteComponent &sprite){
 	if(!sprite.follow_camera) return true;
 	Vec3 pos_min, pos_max;
@@ -149,14 +212,31 @@ bool Render2dSystem::isSpriteOnCamera(const SpriteComponent &sprite){
 	return true;
 }
 
-bool Render2dSystem::customTextureLess(SpriteComponent *a, SpriteComponent *b){
-	if(a->layer == b->layer){
-		return
-			a->position.y + a->texture->getCellHeight() * a->scale.x<
-			b->position.y + b->texture->getCellHeight() * a->scale.y;
+bool Render2dSystem::isRectOnCamera(const DrawRectComponent &rect){
+	int actual_x, actual_y;
+
+	actual_x = rect.x;
+	actual_y = rect.y;
+
+	if(rect.follow_camera){
+		actual_x -= camera_position->x;
+		actual_y -= camera_position->y;
+	}
+
+	if(actual_x > context->getWidth()) return false;
+	if(actual_y > context->getHeight()) return false;
+	if(actual_x + rect.w < 0) return false;
+	if(actual_y + rect.h < 0) return false;
+
+	return true;
+}
+
+bool Render2dSystem::customTextureLess(const RenderData& a, const RenderData& b){
+	if(a.layer == b.layer){
+		return a.y < b.y;
 	}
 	
-	return a->layer < b->layer;
+	return a.layer < b.layer;
 }
 
 };

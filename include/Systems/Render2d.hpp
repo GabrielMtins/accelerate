@@ -9,6 +9,25 @@
 
 namespace acc {
 
+enum RENDERDATATYPE {
+	RENDER_DATA_SPRITE = 0,
+	RENDER_DATA_RECT
+};
+
+struct RenderData {
+	RenderData(SpriteComponent *sprite);
+	RenderData(DrawRectComponent *rect);
+
+	union {
+		SpriteComponent *sprite;
+		DrawRectComponent *rect;
+	} data;
+
+	int type;
+	int layer;
+	int y;
+};
+
 class Render2dSystem : public System {
 	public:
 		Render2dSystem(Context *context, Vec3 *camera_position);
@@ -17,13 +36,18 @@ class Render2dSystem : public System {
 	private:
 		void updateText(ComponentManager *component_manager);
 		void updateSprites(ComponentManager *component_manager);
+		void updateDrawRects(ComponentManager *component_manager);
 		void updateTileset(ComponentManager *component_manager);
 		void renderTilesetComponent(TilesetComponent& tileset);
+		void renderAll(void);
 		bool isSpriteOnCamera(const SpriteComponent &sprite);
-		static bool customTextureLess(SpriteComponent *a, SpriteComponent *b);
+		bool isRectOnCamera(const DrawRectComponent &rect);
+		static bool customTextureLess(const RenderData& a, const RenderData& b);
 
 		Context *context;
 		Vec3 *camera_position;
+
+		std::vector<RenderData> render_array;
 };
 
 };

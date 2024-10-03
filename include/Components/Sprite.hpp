@@ -3,6 +3,7 @@
 
 #include "Texture.hpp"
 #include "Vec3.hpp"
+#include "Color.hpp"
 
 namespace acc {
 

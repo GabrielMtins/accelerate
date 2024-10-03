@@ -8,5 +8,6 @@
 #include "Components/BodyComponent.hpp"
 #include "Components/TilesetComponent.hpp"
 #include "Components/TextComponent.hpp"
+#include "Components/DrawRectComponent.hpp"
 
 #endif
