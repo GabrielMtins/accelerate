@@ -119,8 +119,8 @@ void Render2dSystem::updateDrawRects(ComponentManager *component_manager){
 			continue;
 
 		auto& current_transform = component_manager->getComponent<TransformComponent>(entity);
-		current_rect.x = current_transform.position.x;
-		current_rect.y = current_transform.position.y;
+		current_rect.x = (int) roundf(current_transform.position.x);
+		current_rect.y = (int) roundf(current_transform.position.y);
 
 		/* if the sprite isn't on screen, we can just skip it */
 		if(!isRectOnCamera(current_rect)) continue;
