@@ -5,18 +5,19 @@
 
 #include "Texture.hpp"
 
-#define TILESET_SIZE 256
+#define DEFAULT_TILESET_SIZE 256
 
 namespace acc {
 
 struct TilesetComponent {
 	Texture *tileset_texture;
-	std::array<int, TILESET_SIZE * TILESET_SIZE> tileset_tiles;
+	std::vector<int> tileset_tiles;
+	int tileset_size;
 	int width, height;
 	uint32_t collision_layer;
 
 	TilesetComponent(void);
-	TilesetComponent(Texture *tileset_texture, int width, int height);
+	TilesetComponent(Texture *tileset_texture, int tileset_size, int width, int height);
 
 	void setCollisionLayer(int layer);
 	int getTile(int x, int y);

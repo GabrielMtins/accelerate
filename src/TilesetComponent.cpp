@@ -7,19 +7,25 @@ namespace acc {
 TilesetComponent::TilesetComponent(void){
 	tileset_texture = NULL;
 	width = height = 0;
+	tileset_size = DEFAULT_TILESET_SIZE;
 
-	for(size_t i = 0; i < TILESET_SIZE * TILESET_SIZE; i++)
+	tileset_tiles.resize(tileset_size * tileset_size);
+
+	for(size_t i = 0; i < tileset_size * tileset_size; i++)
 		tileset_tiles[i] = -1;
 
 	collision_layer = 0;
 }
 
-TilesetComponent::TilesetComponent(Texture *tileset_texture, int width, int height){
+TilesetComponent::TilesetComponent(Texture *tileset_texture, int tileset_size, int width, int height){
 	this->tileset_texture = tileset_texture;
 	this->width = width;
 	this->height = height;
+	this->tileset_size = tileset_size;
 
-	for(size_t i = 0; i < TILESET_SIZE * TILESET_SIZE; i++)
+	tileset_tiles.resize(tileset_size * tileset_size);
+
+	for(size_t i = 0; i < tileset_size * tileset_size; i++)
 		tileset_tiles[i] = -1;
 
 	collision_layer = 0;
@@ -30,14 +36,14 @@ void TilesetComponent::setCollisionLayer(int layer){
 }
 
 int TilesetComponent::getTile(int x, int y){
-	if(x < 0 || y < 0 || x >= TILESET_SIZE || y >= TILESET_SIZE) return -1;
-	return tileset_tiles[x + y * TILESET_SIZE];
+	if(x < 0 || y < 0 || x >= tileset_size || y >= tileset_size) return -1;
+	return tileset_tiles[x + y * tileset_size];
 }
 
 void TilesetComponent::setTile(int x, int y, int id){
-	if(x < 0 || y < 0 || x >= TILESET_SIZE || y >= TILESET_SIZE) return;
+	if(x < 0 || y < 0 || x >= tileset_size || y >= tileset_size) return;
 
-	tileset_tiles[x + y * TILESET_SIZE] = id;
+	tileset_tiles[x + y * tileset_size] = id;
 }
 
 bool TilesetComponent::intersectsLine(Vec3 origin, Vec3 dir, Vec3 *return_intersection){
@@ -47,7 +53,7 @@ bool TilesetComponent::intersectsLine(Vec3 origin, Vec3 dir, Vec3 *return_inters
 	Vec3 new_dir = dir / fmaxf(fabsf(dir.x), fabsf(dir.y));
 
 	while(!found_intersection){
-		if(new_origin.x < 0 || new_origin.y < 0 || new_origin.x >= TILESET_SIZE || new_origin.y >= TILESET_SIZE){
+		if(new_origin.x < 0 || new_origin.y < 0 || new_origin.x >= tileset_size || new_origin.y >= tileset_size){
 			found_intersection = false;
 			break;
 		}
