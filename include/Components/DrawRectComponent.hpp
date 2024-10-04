@@ -8,11 +8,11 @@ namespace acc {
 struct DrawRectComponent {
 	int x, y, w, h;
 	int layer;
-	bool follow_camera;
+	bool follow_camera; /* default = true */
 	Color color;
 
 	DrawRectComponent(void);
-	DrawRectComponent(int x, int y, int w, int h, int layer, Color color);
+	DrawRectComponent(int w, int h, int layer, Color color);
 };
 
 };

@@ -11,16 +11,19 @@ namespace acc {
 
 enum RENDERDATATYPE {
 	RENDER_DATA_SPRITE = 0,
-	RENDER_DATA_RECT
+	RENDER_DATA_RECT,
+	RENDER_DATA_TILESET
 };
 
 struct RenderData {
 	RenderData(SpriteComponent *sprite);
 	RenderData(DrawRectComponent *rect);
+	RenderData(TilesetComponent *tileset);
 
 	union {
 		SpriteComponent *sprite;
 		DrawRectComponent *rect;
+		TilesetComponent *tileset;
 	} data;
 
 	int type;
@@ -38,7 +41,7 @@ class Render2dSystem : public System {
 		void updateSprites(ComponentManager *component_manager);
 		void updateDrawRects(ComponentManager *component_manager);
 		void updateTileset(ComponentManager *component_manager);
-		void renderTilesetComponent(TilesetComponent& tileset);
+		void renderTilesetComponent(TilesetComponent* tileset);
 		void renderAll(void);
 		bool isSpriteOnCamera(const SpriteComponent &sprite);
 		bool isRectOnCamera(const DrawRectComponent &rect);

@@ -8,6 +8,7 @@ TilesetComponent::TilesetComponent(void){
 	tileset_texture = NULL;
 	width = height = 0;
 	tileset_size = DEFAULT_TILESET_SIZE;
+	draw_layer = 0;
 
 	tileset_tiles.resize(tileset_size * tileset_size);
 
@@ -22,6 +23,7 @@ TilesetComponent::TilesetComponent(Texture *tileset_texture, int tileset_size, i
 	this->width = width;
 	this->height = height;
 	this->tileset_size = tileset_size;
+	draw_layer = 0;
 
 	tileset_tiles.resize(tileset_size * tileset_size);
 

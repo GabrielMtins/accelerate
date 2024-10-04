@@ -28,6 +28,14 @@ RenderData::RenderData(DrawRectComponent *rect){
 	y = rect->y + rect->h;
 }
 
+RenderData::RenderData(TilesetComponent *tileset){
+	data.tileset = tileset;
+
+	type = RENDER_DATA_TILESET;
+	layer = tileset->draw_layer;
+	y = -1;
+}
+
 Render2dSystem::Render2dSystem(Context *context, Vec3 *camera_position){
 	this->context = context;
 	this->camera_position = camera_position;
@@ -104,7 +112,15 @@ void Render2dSystem::updateDrawRects(ComponentManager *component_manager){
 	auto rect_array = component_manager->getComponentArray<DrawRectComponent>();
 
 	for(size_t i = 0; i < rect_array->getSize(); i++){
+		Entity entity = rect_array->indexToEntity(i);
 		auto& current_rect = rect_array->atIndex(i);
+
+		if(!component_manager->hasComponent<TransformComponent>(entity))
+			continue;
+
+		auto& current_transform = component_manager->getComponent<TransformComponent>(entity);
+		current_rect.x = current_transform.position.x;
+		current_rect.y = current_transform.position.y;
 
 		/* if the sprite isn't on screen, we can just skip it */
 		if(!isRectOnCamera(current_rect)) continue;
@@ -121,25 +137,25 @@ void Render2dSystem::updateTileset(ComponentManager *component_manager){
 
 	for(size_t i = 0; i < arr->getSize(); i++){
 		auto& current_tileset = arr->atIndex(i);
-		renderTilesetComponent(current_tileset);
+		render_array.push_back(RenderData(&current_tileset));
 	}
 }
 
-void Render2dSystem::renderTilesetComponent(TilesetComponent& tileset){
-	int min_x = (int) (camera_position->x / tileset.width) - 2;
-	int min_y = (int) (camera_position->y / tileset.height) - 2;
-	int max_x = min_x + context->getWidth() / tileset.width + 2;
-	int max_y = min_y + context->getHeight() / tileset.height + 2;
+void Render2dSystem::renderTilesetComponent(TilesetComponent* tileset){
+	int min_x = (int) (camera_position->x / tileset->width) - 2;
+	int min_y = (int) (camera_position->y / tileset->height) - 2;
+	int max_x = min_x + context->getWidth() / tileset->width + 2;
+	int max_y = min_y + context->getHeight() / tileset->height + 2;
 
 	for(int i = min_x; i < max_x; i++){
 		for(int j = min_y; j < max_y; j++){
-			Vec3 tile_pos = Vec3(i * tileset.width, j * tileset.height, 0);
-			int tile_id = tileset.getTile(i, j);
+			Vec3 tile_pos = Vec3(i * tileset->width, j * tileset->height, 0);
+			int tile_id = tileset->getTile(i, j);
 
 			if(tile_id == -1) continue;
 
 
-			tileset.tileset_texture->renderCell(
+			tileset->tileset_texture->renderCell(
 					context,
 					tile_pos.x - camera_position->x,
 					tile_pos.y - camera_position->y,
@@ -186,6 +202,9 @@ void Render2dSystem::renderAll(void){
 			};
 
 			SDL_RenderFillRect(renderer, &sdl_rect);
+		}
+		else if(i.type == RENDER_DATA_TILESET){
+			renderTilesetComponent(i.data.tileset);
 		}
 	}
 

@@ -15,6 +15,7 @@ struct TilesetComponent {
 	int tileset_size;
 	int width, height;
 	uint32_t collision_layer;
+	int draw_layer;
 
 	TilesetComponent(void);
 	TilesetComponent(Texture *tileset_texture, int tileset_size, int width, int height);
