@@ -6,7 +6,8 @@
 namespace acc {
 
 struct DrawRectComponent {
-	int x, y, w, h;
+	float x, y;
+	int w, h;
 	int layer;
 	bool follow_camera; /* default = true */
 	Color color;

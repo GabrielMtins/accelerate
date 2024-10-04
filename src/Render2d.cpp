@@ -178,8 +178,8 @@ void Render2dSystem::renderAll(void){
 
 			sprite->texture->renderCellEx(
 					context,
-					floor(sprite_position.x),
-					floor(sprite_position.y),
+					roundf(sprite_position.x),
+					roundf(sprite_position.y),
 					sprite->id,
 					sprite->scale.x,
 					sprite->scale.y,
@@ -195,8 +195,8 @@ void Render2dSystem::renderAll(void){
 			SDL_SetRenderDrawColor(renderer, rect->color.r, rect->color.g, rect->color.b, rect->color.a);
 
 			SDL_Rect sdl_rect = {
-				(int) (rect->x - camera_position->x),
-				(int) (rect->y - camera_position->y),
+				(int) roundf(rect->x - camera_position->x),
+				(int) roundf(rect->y - camera_position->y),
 				rect->w,
 				rect->h
 			};

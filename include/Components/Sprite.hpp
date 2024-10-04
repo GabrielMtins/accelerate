@@ -13,11 +13,11 @@ struct SpriteComponent {
 	Vec3 center;
 	float angle;
 
-	Texture *texture;
-	int id;
-	int layer;
+	Texture *texture; /* default: NULL */
+	int id; /* default: -1 */
+	int layer; /* default: 0 */
 
-	bool follow_camera;
+	bool follow_camera; /* default: true */
 
 	SpriteComponent(void);
 	SpriteComponent(Resource *texture);

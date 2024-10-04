@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <cmath>
 
 #define MAX_ENTITIES 4096
 #define MAX_COMPONENTS 256
