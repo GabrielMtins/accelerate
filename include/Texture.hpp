@@ -20,7 +20,7 @@ class Texture : Resource{
 		Texture(Context *context, std::string filename, int cell_width, int cell_height);
 		Texture(Context *context, std::string filename);
 		Texture(Context *context, int dev_texture);
-		Texture(Context *context, Font *font, std::string text, uint8_t *color);
+		Texture(Context *context, Font *font, std::string text, const Color& color, bool anti_aliasing);
 
 		void updateCanvas(Context *context, Canvas *canvas);
 

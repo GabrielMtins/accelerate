@@ -4,6 +4,7 @@
 #include "Texture.hpp"
 #include "Context.hpp"
 #include "Font.hpp"
+#include "Color.hpp"
 
 #include <memory>
 
@@ -17,7 +18,9 @@ struct TextComponent {
 	std::string text;
 	std::string old_text;
 	
-	uint8_t color[4];
+	Color color;
+
+	bool anti_aliasing;
 
 	TextComponent(void);
 	TextComponent(Font *font);

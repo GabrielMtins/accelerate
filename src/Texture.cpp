@@ -105,15 +105,20 @@ Texture::Texture(Context *context, int dev_texture){
 	SDL_FreeSurface(surface);
 }
 
-Texture::Texture(Context *context, Font *font, std::string text, uint8_t *color){
+Texture::Texture(Context *context, Font *font, std::string text, const Color& color, bool anti_aliasing){
 	if(text == ""){
 		texture = NULL;
 		return;
 	}
 
-	SDL_Color fg = {color[0], color[1], color[2], color[3]};
+	SDL_Color fg = {color.r, color.g, color.b, color.a};
+	SDL_Surface *surface = NULL;
 
-	SDL_Surface *surface = TTF_RenderUTF8_Blended(font->getFont(), text.c_str(), fg);
+	if(anti_aliasing)
+		surface = TTF_RenderUTF8_Blended(font->getFont(), text.c_str(), fg);
+	else
+		surface = TTF_RenderUTF8_Solid(font->getFont(), text.c_str(), fg);
+
 
 	if(surface == NULL){
 		texture = NULL;

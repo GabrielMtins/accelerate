@@ -7,9 +7,9 @@ TextComponent::TextComponent(void){
 	texture = nullptr;
 	text = "";
 	old_text = "";
+	anti_aliasing = false;
 
-	for(int i = 0; i < 4; i++)
-		color[i] = 0xff;
+	color = Color(0xff, 0xff, 0xff, 0xff);
 }
 
 TextComponent::TextComponent(Font *font){
@@ -17,9 +17,9 @@ TextComponent::TextComponent(Font *font){
 	texture = nullptr;
 	text = "";
 	old_text = "";
+	anti_aliasing = false;
 
-	for(int i = 0; i < 4; i++)
-		color[i] = 0xff;
+	color = Color(0xff, 0xff, 0xff, 0xff);
 }
 
 TextComponent::TextComponent(Resource *font){
@@ -27,9 +27,9 @@ TextComponent::TextComponent(Resource *font){
 	texture = nullptr;
 	text = "";
 	old_text = "";
+	anti_aliasing = false;
 
-	for(int i = 0; i < 4; i++)
-		color[i] = 0xff;
+	color = Color(0xff, 0xff, 0xff, 0xff);
 }
 
 bool TextComponent::updateTexture(Context *context){
@@ -41,7 +41,7 @@ bool TextComponent::updateTexture(Context *context){
 		texture = nullptr;
 	}
 	else{
-		texture = std::make_shared<Texture>(context, font, text, color);
+		texture = std::make_shared<Texture>(context, font, text, color, anti_aliasing);
 	}
 
 	return true;
