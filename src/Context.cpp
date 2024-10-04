@@ -27,8 +27,6 @@ Context::Context(const char *title, int internal_width, int internal_height){
 			SDL_WINDOW_RESIZABLE
 			);
 
-	SDL_MaximizeWindow(this->window);
-
 	this->renderer = SDL_CreateRenderer(
 			this->window,
 			-1,
@@ -44,6 +42,10 @@ Context::Context(const char *title, int internal_width, int internal_height){
 	this->first_time = SDL_GetTicks64();
 
 	setUpKeys();
+}
+
+void Context::maximizeWindow(void){
+	SDL_MaximizeWindow(window);
 }
 
 void Context::showCursor(bool enable){
