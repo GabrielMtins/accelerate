@@ -10,6 +10,7 @@ namespace acc {
 Scene2d::Scene2d(Game *game) : Scene(game){
 	registerComponent<TransformComponent>();
 	registerComponent<SpriteComponent>();
+	registerComponent<DrawRectComponent>();
 	registerComponent<BehaviorComponent>();
 	registerComponent<LabelComponent>();
 	registerComponent<BodyComponent>();

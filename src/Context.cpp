@@ -27,6 +27,8 @@ Context::Context(const char *title, int internal_width, int internal_height){
 			SDL_WINDOW_RESIZABLE
 			);
 
+	SDL_MaximizeWindow(this->window);
+
 	this->renderer = SDL_CreateRenderer(
 			this->window,
 			-1,
