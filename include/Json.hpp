@@ -121,11 +121,21 @@ class JsonObject : public Resource {
 		 * it is an object.
 		 */
 		JsonType& get(std::string key);
+
 		/**
 		 * Returns the type for a given index. It works
 		 * when it is an array.
 		 */
 		JsonType& get(size_t i);
+
+		/**
+		 * Returns true if the object has that key.
+		 */
+		bool has(std::string key);
+		/**
+		 * Returns true if the object has that key.
+		 */
+		bool has(size_t i);
 
 		void set(std::string key, std::string value);
 		void set(std::string key, bool value);
@@ -138,10 +148,15 @@ class JsonObject : public Resource {
 		void pushArray(double number);
 
 		/**
-		 * Returns true if the object is an array
+		 * Returns true if the object is an array.
 		 */
 		bool isArray(void);
 		void setAsArray(void);
+		/**
+		 * Returns the number of elements inside
+		 * the object.
+		 */
+		size_t size(void);
 	
 	private:
 		bool stateMachine(const std::string& line, size_t& pos);

@@ -36,6 +36,12 @@ Texture::Texture(Context *context, std::string filename, int cell_width, int cel
 		this->cell_width = cell_width;
 		this->cell_height = cell_height;
 
+		if(this->cell_width < 0)
+			this->cell_width = surface->w;
+
+		if(this->cell_height < 0)
+			this->cell_height = surface->h;
+
 		SDL_FreeSurface(surface);
 	}
 

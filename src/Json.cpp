@@ -78,7 +78,6 @@ bool JsonType::isObject(void){
 	return type == JSON_TYPE_OBJECT;
 }
 
-
 JsonObject::JsonObject(void){
 	is_array = false;
 }
@@ -108,6 +107,7 @@ JsonObject::~JsonObject(void){
 bool JsonObject::parseFile(std::string filename){
 	std::ifstream file(filename);
 	std::string line;
+	size_t line_id = 1;
 
 	object_stack.push(this);
 
@@ -122,9 +122,13 @@ bool JsonObject::parseFile(std::string filename){
 		while(pos < line.size()){
 			if(!stateMachine(line, pos)){
 				file.close();
+				fprintf(stderr, "Error reading line number %ld\n", line_id);
+
 				return false;
 			}
 		}
+
+		line_id++;
 	}
 
 	file.close();
@@ -143,6 +147,14 @@ JsonType& JsonObject::get(std::string key){
 
 JsonType& JsonObject::get(size_t i){
 	return json_array[i];
+}
+
+bool JsonObject::has(std::string key){
+	return dictionary.find(key) != dictionary.end();
+}
+
+bool JsonObject::has(size_t i){
+	return i < json_array.size();
 }
 
 void JsonObject::set(std::string key, std::string value){
@@ -183,6 +195,13 @@ bool JsonObject::isArray(void){
 
 void JsonObject::setAsArray(void){
 	is_array = true;
+}
+
+size_t JsonObject::size(void){
+	if(isArray())
+		return json_array.size();
+	else
+		return dictionary.size();
 }
 
 bool JsonObject::stateMachine(const std::string& line, size_t& pos){
@@ -315,6 +334,9 @@ bool JsonObject::stateMachine(const std::string& line, size_t& pos){
 
 				next_state = SEARCH_OPEN_SQUARE;
 			}
+			else if(c == ']' && object_stack.top()->isArray()){
+				next_state = SEARCH_FOR_END;
+			}
 			else if(isdigit(c) || c == '-'){
 				current_token = "";
 				next_state = NUMBER_READ;
@@ -356,6 +378,9 @@ bool JsonObject::stateMachine(const std::string& line, size_t& pos){
 				next_state = STRING_READ_ON;
 				current_token = "";
 				pos++;
+			}
+			else if(c == '}'){
+				next_state = SEARCH_FOR_END;
 			}
 			else{
 				std::cout << "Expected character '\"' at line: " << line << '\n';
