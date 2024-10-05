@@ -10,11 +10,33 @@
 namespace acc {
 
 struct TilesetComponent {
+	/**
+	 * The tileset texture of the component
+	 */
 	Texture *tileset_texture;
+	/**
+	 * The vector that contains the tiles of the level.
+	 */
 	std::vector<int> tileset_tiles;
+	/**
+	 * The tileset size. It's a squared grid.
+	 */
 	int tileset_size;
-	int width, height;
+	/**
+	 * The width of the tile.
+	 */
+	int width;
+	/**
+	 * The height of the tile.
+	 */
+	int height;
+	/**
+	 * A bitmask which contains which layers the component is in.
+	 */
 	uint32_t collision_layer;
+	/**
+	 * The layer which the components gets drawn.
+	 */
 	int draw_layer;
 
 	TilesetComponent(void);

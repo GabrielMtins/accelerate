@@ -6,10 +6,28 @@
 namespace acc {
 
 struct DrawRectComponent {
+	/**
+	 * The position of the rect.
+	 */
 	float x, y;
+	/**
+	 * The width and height of the rect.
+	 */
 	int w, h;
+	/**
+	 * The layer which the rect will be drawn.
+	 * Default: 0.
+	 */
 	int layer;
-	bool follow_camera; /* default = true */
+	/**
+	 * Sets if the camera follows the camera or not.
+	 * Default: true.
+	 */
+	bool follow_camera;
+	/**
+	 * Sets the color of the rect.
+	 * Default: (0x00, 0x00, 0x00, 0x00).
+	 */
 	Color color;
 
 	DrawRectComponent(void);

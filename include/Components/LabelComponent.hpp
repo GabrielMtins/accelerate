@@ -6,7 +6,10 @@
 namespace acc {
 
 struct LabelComponent {
-	std::string class_name; /* the name of the class of object */
+	/**
+	 * The name of the class of the object
+	 */
+	std::string class_name;
 
 	LabelComponent(void);
 	LabelComponent(std::string class_name);

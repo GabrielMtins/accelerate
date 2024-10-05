@@ -6,6 +6,9 @@
 namespace acc {
 
 struct TransformComponent {
+	/**
+	 * The position for the entity.
+	 */
 	Vec3 position;
 
 	TransformComponent(void);
