@@ -7,6 +7,10 @@
 
 namespace acc{
 
+/**
+ * The base class for a system.
+ * If you want to create a custom system, you should inherent it from this class.
+ */
 class System {
 	public:
 		virtual ~System(void) = default;

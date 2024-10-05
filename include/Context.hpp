@@ -14,6 +14,17 @@ namespace acc {
 
 class Context {
 	public:
+		/**
+		 * The constructor of a context, the context of the application which
+		 * contains information like window structs, renderers etc.
+		 * The first argument is a string, for the title of the game.
+		 * The second argument is the internal width of the window.
+		 * The third argument is the internal height of the window.
+		 * The internal width and height are the width and height used by the
+		 * renderer. If you want to create a pixel art game, you can use
+		 * a internal width of (320x240) and can use that system coordinates.
+		 * It'll scale accordly.
+		 */
 		Context(const char *title, int internal_width, int internal_height);
 		void maximizeWindow(void);
 		void showCursor(bool enable);

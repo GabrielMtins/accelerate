@@ -10,8 +10,19 @@ namespace acc {
 class EntityManager {
 	public:
 		EntityManager(void);
+		/**
+		 * Returns the next Entity available.
+		 */
 		Entity getNextEntity(void);
+		/**
+		 * Removes the entity from the scene and put back into
+		 * the queue of entities.
+		 */
 		void removeEntity(Entity entity);
+		/**
+		 * Returns true if the entity is being managed (if that entity id
+		 * is being used). Returns false, otherwise.
+		 */
 		bool isEntityManaged(Entity entity);
 
 	private:

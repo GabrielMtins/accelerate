@@ -10,10 +10,26 @@ class Scene;
 
 class Game {
 	public:
+		/**
+		 * The same constructor as the Context class.
+		 */
 		Game(const char *title, int internal_width, int internal_height);
+		/**
+		 * Set the background color of the scene.
+		 */
 		void setBgColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+		/**
+		 * Sets the next scene to be loaded. It'll be loaded on the next frame.
+		 */
 		void setScene(Scene *scene);
+		/**
+		 * Loads a resource into the resource manager of the game.
+		 */
 		void loadResource(Resource *resource);
+		/**
+		 * Returns the resource with the name given on the first argument.
+		 * If the resource doesn't exist, it returns NULL.
+		 */
 		Resource * getResource(std::string filename);
 		void update(void);
 		void loop(void);
