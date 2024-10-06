@@ -21,14 +21,15 @@ template <typename T> class ComponentArray : public BaseComponentArray {
 			size = 0;
 		}
 
-		bool insertComponent(Entity entity, T component){
+		template <class... Args>
+		bool insertComponent(Entity entity, Args&&... args){
 			if(entity_to_index.find(entity) != entity_to_index.end()){
 				return false;
 			}
 
 			size_t new_index = size;
 
-			component_array.push_back(component);
+			component_array.emplace_back(args...);
 			entity_to_index[entity] = new_index;
 			index_to_entity[new_index] = entity;
 
