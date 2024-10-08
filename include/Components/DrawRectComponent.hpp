@@ -31,7 +31,7 @@ struct DrawRectComponent {
 	Color color;
 
 	DrawRectComponent(void);
-	DrawRectComponent(int w, int h, int layer, Color color);
+	DrawRectComponent(int w, int h, int layer, const Color& color);
 };
 
 };

@@ -9,7 +9,7 @@ DrawRectComponent::DrawRectComponent(void){
 	color = Color(0x00, 0x00, 0x00, 0x00);
 }
 
-DrawRectComponent::DrawRectComponent(int w, int h, int layer, Color color){
+DrawRectComponent::DrawRectComponent(int w, int h, int layer, const Color& color){
 	x = 0;
 	y = 0;
 	this->w = w;

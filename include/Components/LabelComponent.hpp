@@ -12,7 +12,7 @@ struct LabelComponent {
 	std::string class_name;
 
 	LabelComponent(void);
-	LabelComponent(std::string class_name);
+	LabelComponent(const std::string& class_name);
 };
 
 };
