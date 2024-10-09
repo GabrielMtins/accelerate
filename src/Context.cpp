@@ -42,6 +42,11 @@ Context::Context(const char *title, int internal_width, int internal_height){
 	this->first_time = SDL_GetTicks64();
 
 	setUpKeys();
+	setFps(165);
+}
+
+void Context::setFps(uint32_t fps){
+	this->fps = fps;
 }
 
 void Context::maximizeWindow(void){
@@ -161,8 +166,8 @@ void Context::pollEvent(void){
 void Context::updateTime(void){
 	uint64_t new_time = SDL_GetTicks64();
 
-	if(new_time - first_time < 1000 / FPS_MAX){
-		SDL_Delay(1000 / FPS_MAX - new_time + first_time);
+	if(new_time - first_time < 1000 / fps){
+		SDL_Delay(1000 / fps - new_time + first_time);
 	}
 
 	new_time = SDL_GetTicks64();

@@ -8,8 +8,6 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
-#define FPS_MAX 1000
-
 namespace acc {
 
 class Context {
@@ -26,6 +24,7 @@ class Context {
 		 * It'll scale accordly.
 		 */
 		Context(const char *title, int internal_width, int internal_height);
+		void setFps(uint32_t fps);
 		void maximizeWindow(void);
 		void showCursor(bool enable);
 		int getWidth(void);
@@ -68,6 +67,7 @@ class Context {
 
 		float delta_time;
 		uint64_t first_time;
+		uint32_t fps;
 		bool quit;
 
 		int window_width, window_height;
