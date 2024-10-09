@@ -198,7 +198,12 @@ struct BehaviorComponent {
 
 	BehaviorComponent(void);
 	BehaviorComponent(std::shared_ptr<BehaviorFunction> behavior_function);
-	void setFunction(std::shared_ptr<BehaviorFunction> behavior_function);
+
+	template <typename T>
+	void setFunction(void){
+		behavior_function = std::make_shared<T>();
+	}
+
 	~BehaviorComponent(void);
 };
 

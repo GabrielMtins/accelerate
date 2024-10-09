@@ -143,10 +143,6 @@ BehaviorComponent::BehaviorComponent(std::shared_ptr<BehaviorFunction> behavior_
 	this->behavior_function = behavior_function;
 }
 
-void BehaviorComponent::setFunction(std::shared_ptr<BehaviorFunction> behavior_function){
-	this->behavior_function = behavior_function;
-}
-
 BehaviorComponent::~BehaviorComponent(void){
 }
 

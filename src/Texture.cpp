@@ -6,7 +6,7 @@ namespace acc {
 
 static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex);
 
-Texture::Texture(Context *context, std::string filename, Canvas* canvas){
+Texture::Texture(Context *context, const std::string& filename, Canvas* canvas){
 	setName(filename);
 
 	texture = SDL_CreateTextureFromSurface(
@@ -18,7 +18,7 @@ Texture::Texture(Context *context, std::string filename, Canvas* canvas){
 	texture_height = cell_height = canvas->getHeight();
 }
 
-Texture::Texture(Context *context, std::string filename, int cell_width, int cell_height){
+Texture::Texture(Context *context, const std::string& filename, int cell_width, int cell_height){
 	setName(filename);
 
 	SDL_Surface *surface = IMG_Load(filename.c_str());
@@ -47,7 +47,7 @@ Texture::Texture(Context *context, std::string filename, int cell_width, int cel
 
 }
 
-Texture::Texture(Context *context, std::string filename){
+Texture::Texture(Context *context, const std::string& filename){
 	setName(filename);
 
 	SDL_Surface *surface = IMG_Load(filename.c_str());
@@ -111,7 +111,7 @@ Texture::Texture(Context *context, int dev_texture){
 	SDL_FreeSurface(surface);
 }
 
-Texture::Texture(Context *context, Font *font, std::string text, const Color& color, bool anti_aliasing){
+Texture::Texture(Context *context, Font *font, const std::string& text, const Color& color, bool anti_aliasing){
 	if(text == ""){
 		texture = NULL;
 		return;

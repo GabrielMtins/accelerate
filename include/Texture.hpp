@@ -22,15 +22,15 @@ class Texture : Resource{
 		/**
 		 * Creates a texture with a given Canvas.
 		 */
-		Texture(Context *context, std::string filename, Canvas *canvas);
+		Texture(Context *context, const std::string& filename, Canvas *canvas);
 		/**
 		 * Loads a texture from a given file name, cell width and cell height.
 		 */
-		Texture(Context *context, std::string filename, int cell_width, int cell_height);
+		Texture(Context *context, const std::string& filename, int cell_width, int cell_height);
 		/**
 		 * Loads a texture from a given file name.
 		 */
-		Texture(Context *context, std::string filename);
+		Texture(Context *context, const std::string& filename);
 		/**
 		 * Creates a custom dev texture.
 		 */
@@ -38,7 +38,7 @@ class Texture : Resource{
 		/**
 		 * Creates a texture from a given string and font.
 		 */
-		Texture(Context *context, Font *font, std::string text, const Color& color, bool anti_aliasing);
+		Texture(Context *context, Font *font, const std::string& text, const Color& color, bool anti_aliasing);
 
 		/**
 		 * Use this if you created a texture from a canvas and wants to update the
