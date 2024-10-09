@@ -30,7 +30,7 @@ class Game {
 		 * Returns the resource with the name given on the first argument.
 		 * If the resource doesn't exist, it returns NULL.
 		 */
-		Resource * getResource(std::string filename);
+		Resource * getResource(const std::string& filename);
 		void update(void);
 		void loop(void);
 		void run(void);

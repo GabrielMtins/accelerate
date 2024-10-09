@@ -23,7 +23,7 @@ class Resource {
 		/**
 		 * Sets the name of the resource.
 		 */
-		void setName(std::string filename) {this->filename = filename;};
+		void setName(const std::string& filename) {this->filename = filename;};
 
 	private:
 		std::string filename;
@@ -37,7 +37,7 @@ class ResourceManager {
 		/**
 		 * Returns NULL if it wasn't found a resource with name "filename".
 		 */
-		Resource * getResource(std::string filename);
+		Resource * getResource(const std::string& filename);
 		~ResourceManager(void);
 
 	private:

@@ -9,7 +9,7 @@ void ResourceManager::loadResource(Resource *resource){
 	resources[resource->getName()] = resource;
 }
 
-Resource * ResourceManager::getResource(std::string filename){
+Resource * ResourceManager::getResource(const std::string& filename){
 	if(resources.find(filename) == resources.end()) return NULL;
 
 	return resources[filename];

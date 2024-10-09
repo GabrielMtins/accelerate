@@ -21,7 +21,7 @@ var searchData=
   ['getnextentity_18',['getnextentity',['../classacc_1_1EntityManager.html#aeaa0fad42185f38fd6e32975481053e7',1,'acc::EntityManager::getNextEntity()'],['../classacc_1_1Scene.html#a63ea875dfed9da9268a3da982351edb4',1,'acc::Scene::getNextEntity()']]],
   ['getnumber_19',['getNumber',['../structacc_1_1JsonType.html#a62856f2b2fc1d5e003003b4c69db09b3',1,'acc::JsonType']]],
   ['getobject_20',['getObject',['../structacc_1_1JsonType.html#a230492c1aee37aca7ddf03c14af285f7',1,'acc::JsonType']]],
-  ['getresource_21',['getresource',['../classacc_1_1Game.html#a09d96d796f25aebe5aa50a53d3882876',1,'acc::Game::getResource()'],['../classacc_1_1ResourceManager.html#a1625bc29182687ae4dd2dcdfc2e7ac2d',1,'acc::ResourceManager::getResource()']]],
+  ['getresource_21',['getresource',['../classacc_1_1Game.html#a780e6cc9dd93eb0edd29b67a6adb99d9',1,'acc::Game::getResource()'],['../classacc_1_1ResourceManager.html#abd000b42c3075e7c996d999c21c69b25',1,'acc::ResourceManager::getResource()']]],
   ['getscene_22',['getScene',['../classacc_1_1BehaviorFunction.html#a271f560dc1d5898ac1fe465450cfd433',1,'acc::BehaviorFunction']]],
   ['getstring_23',['getString',['../structacc_1_1JsonType.html#ae7ec3c2c12b055b96e867194bf0813e6',1,'acc::JsonType']]],
   ['getticks_24',['getTicks',['../classacc_1_1BehaviorFunction.html#a18ba3ddc751cbb71d45cbde4f802c37a',1,'acc::BehaviorFunction']]],

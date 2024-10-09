@@ -37,7 +37,7 @@ void Game::loadResource(Resource *resource){
 	resource_manager->loadResource(resource);
 }
 
-Resource * Game::getResource(std::string filename){
+Resource * Game::getResource(const std::string& filename){
 	return resource_manager->getResource(filename);
 }
 
