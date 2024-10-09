@@ -36,7 +36,11 @@ TilesetComponent::TilesetComponent(Texture *tileset_texture, int tileset_width, 
 }
 
 TilesetComponent::TilesetComponent(Resource *tileset_texture, int tileset_width, int tileset_height, int width, int height){
-	this->tileset_texture = (Texture *) tileset_texture;
+	if(tileset_texture != NULL)
+		this->tileset_texture = (Texture *) tileset_texture;
+	else
+		this->tileset_texture = NULL;
+
 	this->width = width;
 	this->height = height;
 	this->tileset_width = tileset_width;

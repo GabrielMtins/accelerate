@@ -137,7 +137,9 @@ void Render2dSystem::updateTileset(ComponentManager *component_manager){
 
 	for(size_t i = 0; i < arr->getSize(); i++){
 		auto& current_tileset = arr->atIndex(i);
-		render_array.push_back(RenderData(&current_tileset));
+
+		if(current_tileset.tileset_texture != NULL)
+			render_array.push_back(RenderData(&current_tileset));
 	}
 }
 

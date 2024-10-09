@@ -19,11 +19,11 @@ struct TilesetComponent {
 	 */
 	std::vector<int> tileset_tiles;
 	/**
-	 * The tileset width. It's a squared grid.
+	 * The tileset (world) width.
 	 */
 	int tileset_width;
 	/**
-	 * The tileset height. It's a squared grid.
+	 * The tileset (world) height.
 	 */
 	int tileset_height;
 	/**
