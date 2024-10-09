@@ -11,7 +11,7 @@ class Font : public Resource {
 		/**
 		 * Reads a font from the file with filepath "filename" and a given size.
 		 */
-		Font(std::string filename, int size);
+		Font(const std::string& filename, int size);
 		/**
 		 * Resizes the size of the font
 		 */

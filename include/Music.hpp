@@ -14,7 +14,7 @@ class Music : public Resource{
 		/**
 		 * Loads an music file from given filename.
 		 */
-		Music(std::string filename);
+		Music(const std::string& filename);
 		/**
 		 * Plays the music for a given number of loops. If loops = -1,
 		 * the music will play until halted.
@@ -28,6 +28,7 @@ class Music : public Resource{
 		 * Fades out the music in a given amount of milliseconds.
 		 */
 		static void fadeOutMusic(int ms);
+		static void haltMusic(void);
 		~Music(void);
 	
 	private:

@@ -36,7 +36,7 @@ JsonType::JsonType(bool boolean_value){
 	data.boolean_value = boolean_value;
 }
 
-JsonType::JsonType(std::string string_value){
+JsonType::JsonType(const std::string& string_value){
 	type = JSON_TYPE_STRING;
 	data.string_value = new std::string(string_value);
 }
@@ -82,7 +82,7 @@ JsonObject::JsonObject(void){
 	is_array = false;
 }
 
-JsonObject::JsonObject(std::string filename){
+JsonObject::JsonObject(const std::string& filename){
 	is_array = false;
 	setName(filename);
 	parseFile(filename);
@@ -104,7 +104,7 @@ JsonObject::~JsonObject(void){
 	}
 }
 
-bool JsonObject::parseFile(std::string filename){
+bool JsonObject::parseFile(const std::string& filename){
 	std::ifstream file(filename);
 	std::string line;
 	size_t line_id = 1;
@@ -141,7 +141,7 @@ bool JsonObject::parseFile(std::string filename){
 	return true;
 }
 
-JsonType& JsonObject::get(std::string key){
+JsonType& JsonObject::get(const std::string& key){
 	return dictionary[key];
 }
 
@@ -149,7 +149,7 @@ JsonType& JsonObject::get(size_t i){
 	return json_array[i];
 }
 
-bool JsonObject::has(std::string key){
+bool JsonObject::has(const std::string& key){
 	return dictionary.find(key) != dictionary.end();
 }
 
@@ -157,23 +157,23 @@ bool JsonObject::has(size_t i){
 	return i < json_array.size();
 }
 
-void JsonObject::set(std::string key, std::string value){
+void JsonObject::set(const std::string& key, const std::string& value){
 	dictionary[key] = JsonType(value);
 }
 
-void JsonObject::set(std::string key, bool value){
+void JsonObject::set(const std::string& key, bool value){
 	dictionary[key] = JsonType(value);
 }
 
-void JsonObject::set(std::string key, JsonObject *object){
+void JsonObject::set(const std::string& key, JsonObject *object){
 	dictionary[key] = JsonType(object);
 }
 
-void JsonObject::set(std::string key, double number){
+void JsonObject::set(const std::string& key, double number){
 	dictionary[key] = JsonType(number);
 }
 
-void JsonObject::pushArray(std::string value){
+void JsonObject::pushArray(const std::string& value){
 	json_array.push_back(JsonType(value));
 }
 

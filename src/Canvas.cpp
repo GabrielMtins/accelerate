@@ -4,7 +4,7 @@
 
 namespace acc {
 
-Canvas::Canvas(std::string resource_name){
+Canvas::Canvas(const std::string& resource_name){
 	setName(resource_name);
 	surface = IMG_Load(resource_name.c_str());
 
@@ -15,7 +15,7 @@ Canvas::Canvas(std::string resource_name){
 	pixels = (uint32_t *) surface->pixels;
 }
 
-Canvas::Canvas(std::string resource_name, int width, int height){
+Canvas::Canvas(const std::string& resource_name, int width, int height){
 	setName(resource_name);
 
 	surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);

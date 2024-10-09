@@ -2,7 +2,7 @@
 
 namespace acc {
 
-Music::Music(std::string filename){
+Music::Music(const std::string& filename){
 	setName(filename);
 
 	music = Mix_LoadMUS(filename.c_str());
@@ -23,6 +23,10 @@ void Music::setVolume(int volume){
 
 void Music::fadeOutMusic(int ms){
 	Mix_FadeOutMusic(ms);
+}
+
+void Music::haltMusic(void){
+	Mix_HaltMusic();
 }
 
 Music::~Music(void){

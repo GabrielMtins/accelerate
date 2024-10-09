@@ -13,7 +13,7 @@ namespace acc {
  */
 class Sfx : public Resource {
 	public:
-		Sfx(std::string filename);
+		Sfx(const std::string& filename);
 		void play(int loops, int channel);
 		~Sfx(void);
 

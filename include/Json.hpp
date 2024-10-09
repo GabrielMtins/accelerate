@@ -43,7 +43,7 @@ struct JsonType {
 	/**
 	 * Creates a string type.
 	 */
-	JsonType(std::string string_value);
+	JsonType(const std::string& string_value);
 	/**
 	 * Creates a object type.
 	 */
@@ -109,18 +109,18 @@ class JsonObject : public Resource {
 		/**
 		 * Loads a JsonObject from a given file name.
 		 */
-		JsonObject(std::string filename);
+		JsonObject(const std::string& filename);
 		~JsonObject(void);
 		/**
 		 * Parses a given file. Returns false if any error.
 		 */
-		bool parseFile(std::string filename);
+		bool parseFile(const std::string& filename);
 
 		/**
 		 * Returns the type of a given key. It works when
 		 * it is an object.
 		 */
-		JsonType& get(std::string key);
+		JsonType& get(const std::string& key);
 
 		/**
 		 * Returns the type for a given index. It works
@@ -131,18 +131,18 @@ class JsonObject : public Resource {
 		/**
 		 * Returns true if the object has that key.
 		 */
-		bool has(std::string key);
+		bool has(const std::string& key);
 		/**
 		 * Returns true if the object has that key.
 		 */
 		bool has(size_t i);
 
-		void set(std::string key, std::string value);
-		void set(std::string key, bool value);
-		void set(std::string key, JsonObject *object);
-		void set(std::string key, double number);
+		void set(const std::string& key, const std::string& value);
+		void set(const std::string& key, bool value);
+		void set(const std::string& key, JsonObject *object);
+		void set(const std::string& key, double number);
 
-		void pushArray(std::string value);
+		void pushArray(const std::string& value);
 		void pushArray(bool value);
 		void pushArray(JsonObject *object);
 		void pushArray(double number);

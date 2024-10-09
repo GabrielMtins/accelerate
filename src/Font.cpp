@@ -4,7 +4,7 @@
 
 namespace acc {
 
-Font::Font(std::string filename, int size){
+Font::Font(const std::string& filename, int size){
 	font = TTF_OpenFont(filename.c_str(), size);
 	setName(filename);
 

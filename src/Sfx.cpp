@@ -2,7 +2,7 @@
 
 namespace acc {
 
-Sfx::Sfx(std::string filename){
+Sfx::Sfx(const std::string& filename){
 	setName(filename);
 	
 	chunk = Mix_LoadWAV(filename.c_str());

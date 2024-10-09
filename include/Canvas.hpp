@@ -13,11 +13,11 @@ class Canvas : public Resource {
 		/**
 		 * Loads a Canvas from the file named "resource_name".
 		 */
-		Canvas(std::string resource_name);
+		Canvas(const std::string& resource_name);
 		/**
 		 * Creates a canvas with a custom name and custom width and height.
 		 */
-		Canvas(std::string resource_name, int width, int height);
+		Canvas(const std::string& resource_name, int width, int height);
 		int getWidth(void);
 		int getHeight(void);
 		SDL_Surface * getSurface(void);
