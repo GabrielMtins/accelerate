@@ -19,9 +19,13 @@ struct TilesetComponent {
 	 */
 	std::vector<int> tileset_tiles;
 	/**
-	 * The tileset size. It's a squared grid.
+	 * The tileset width. It's a squared grid.
 	 */
-	int tileset_size;
+	int tileset_width;
+	/**
+	 * The tileset height. It's a squared grid.
+	 */
+	int tileset_height;
 	/**
 	 * The width of the tile.
 	 */
@@ -40,7 +44,8 @@ struct TilesetComponent {
 	int draw_layer;
 
 	TilesetComponent(void);
-	TilesetComponent(Texture *tileset_texture, int tileset_size, int width, int height);
+	TilesetComponent(Texture *tileset_texture, int tileset_width, int tileset_height, int width, int height);
+	TilesetComponent(Resource *tileset_texture, int tileset_width, int tileset_height, int width, int height);
 
 	void setCollisionLayer(int layer);
 	int getTile(int x, int y);
