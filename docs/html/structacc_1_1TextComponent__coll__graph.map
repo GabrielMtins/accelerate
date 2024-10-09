@@ -1,0 +1,9 @@
+<map id="acc::TextComponent" name="acc::TextComponent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="39,168,193,193"/>
+<area shape="rect" id="Node000002" href="$classacc_1_1Font.html" title=" " alt="" coords="21,80,101,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,115,111,166,106,169,74,118"/>
+<area shape="rect" id="Node000003" href="$classacc_1_1Resource.html" title=" " alt="" coords="5,5,117,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="64,45,64,80,59,80,59,45"/>
+<area shape="rect" id="Node000004" href="$structacc_1_1Color.html" title=" " alt="" coords="126,80,213,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="157,119,126,169,121,166,153,116"/>
+</map>

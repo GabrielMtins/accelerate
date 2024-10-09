@@ -1,0 +1,18 @@
+<map id="acc::RenderData" name="acc::RenderData">
+<area shape="rect" id="Node000001" title=" " alt="" coords="215,285,345,311"/>
+<area shape="rect" id="Node000002" href="$structacc_1_1SpriteComponent.html" title=" " alt="" coords="5,197,171,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,226,255,283,253,288,125,231"/>
+<area shape="rect" id="Node000003" href="$structacc_1_1Vec3.html" title=" " alt="" coords="47,80,129,105"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="91,119,91,197,85,197,85,119"/>
+<area shape="rect" id="Node000004" href="$classacc_1_1Texture.html" title=" " alt="" coords="181,80,281,105"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="208,116,191,131,170,154,148,175,112,199,109,195,145,171,167,150,187,127,205,112"/>
+<area shape="rect" id="Node000008" href="$structacc_1_1TilesetComponent.html" title=" " alt="" coords="195,197,365,223"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="243,117,278,196,273,198,238,119"/>
+<area shape="rect" id="Node000005" href="$classacc_1_1Resource.html" title=" " alt="" coords="175,5,287,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="233,45,233,80,228,80,228,45"/>
+<area shape="rect" id="Node000006" href="$structacc_1_1DrawRectComponent.html" title=" " alt="" coords="390,197,581,223"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="446,230,309,288,307,283,444,226"/>
+<area shape="rect" id="Node000007" href="$structacc_1_1Color.html" title=" " alt="" coords="442,80,529,105"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="488,119,488,197,483,197,483,119"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="283,237,283,285,277,285,277,237"/>
+</map>
