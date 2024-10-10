@@ -26,6 +26,8 @@ class Context {
 		Context(const char *title, int internal_width, int internal_height);
 		void setFps(uint32_t fps);
 		void maximizeWindow(void);
+		void setFullscreenMode(void);
+		void setWindowedMode(void);
 		void showCursor(bool enable);
 		int getWidth(void);
 		int getHeight(void);

@@ -49,6 +49,14 @@ void Context::setFps(uint32_t fps){
 	this->fps = fps;
 }
 
+void Context::setFullscreenMode(void){
+	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+}
+
+void Context::setWindowedMode(void){
+	SDL_SetWindowFullscreen(window, 0);
+}
+
 void Context::maximizeWindow(void){
 	SDL_MaximizeWindow(window);
 }
