@@ -19,7 +19,7 @@ void BehaviorFunction::onCollision(Entity other){
 	(void) other;
 }
 
-void BehaviorFunction::onMessage(Entity sender, std::string message){
+void BehaviorFunction::onMessage(Entity sender, const std::string& message){
 	(void) sender;
 	(void) message;
 }
