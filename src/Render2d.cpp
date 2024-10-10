@@ -146,8 +146,8 @@ void Render2dSystem::updateTileset(ComponentManager *component_manager){
 void Render2dSystem::renderTilesetComponent(TilesetComponent* tileset){
 	int min_x = (int) (camera_position->x / tileset->width) - 2;
 	int min_y = (int) (camera_position->y / tileset->height) - 2;
-	int max_x = min_x + context->getWidth() / tileset->width + 3;
-	int max_y = min_y + context->getHeight() / tileset->height + 3;
+	int max_x = min_x + context->getWidth() / tileset->width + 4;
+	int max_y = min_y + context->getHeight() / tileset->height + 4;
 
 	for(int i = min_x; i < max_x; i++){
 		for(int j = min_y; j < max_y; j++){

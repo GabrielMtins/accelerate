@@ -39,7 +39,7 @@ class BehaviorFunction {
 		 * the entity who sends the message. The second argument
 		 * is the message sended.
 		 */
-		virtual void onMessage(Entity sender, std::string message);
+		virtual void onMessage(Entity sender, const std::string& message);
 
 		bool hasCreated(void);
 		void setAsCreated(void);
