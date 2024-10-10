@@ -94,7 +94,7 @@ bool BehaviorFunction::raycast(Vec3 origin, Vec3 direction, uint32_t layer_mask,
 			);
 }
 
-bool BehaviorFunction::sendMessage(Entity receiver, std::string message){
+bool BehaviorFunction::sendMessage(Entity receiver, const std::string& message){
 	if(!hasComponent<BehaviorComponent>(receiver))
 		return false;
 

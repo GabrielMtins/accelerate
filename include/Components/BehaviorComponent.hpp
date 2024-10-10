@@ -107,7 +107,7 @@ class BehaviorFunction {
 		/**
 		 * Sends a message to a receiver.
 		 */
-		bool sendMessage(Entity receiver, std::string message);
+		bool sendMessage(Entity receiver, const std::string& message);
 
 		/**
 		 * Returns a Vec3 containing the mouse position.
