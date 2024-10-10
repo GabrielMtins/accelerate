@@ -67,31 +67,31 @@ class BehaviorFunction {
 		 * Returns true if the key was released at the same frame the
 		 * function was called.
 		 */
-		bool getKeyUp(std::string key);
+		bool getKeyUp(const std::string& key);
 		/**
 		 * Returns true if the key was pressed at the same frame
 		 * the function was called.
 		 */
-		bool getKeyDown(std::string key);
+		bool getKeyDown(const std::string& key);
 		/**
 		 * Returns true if the key is being pressed.
 		 */
-		bool getKey(std::string key);
+		bool getKey(const std::string& key);
 
 		/**
 		 * Returns true if the mouse button was released at the same frame
 		 * the function was called.
 		 */
-		bool getMouseButtonUp(std::string key);
+		bool getMouseButtonUp(const std::string& key);
 		/**
 		 * Returns true if the mouse button was pressed at the same frame
 		 * the function was called.
 		 */
-		bool getMouseButtonDown(std::string key);
+		bool getMouseButtonDown(const std::string& key);
 		/**
 		 * Returns true if the mouse button is being pressed.
 		 */
-		bool getMouseButton(std::string key);
+		bool getMouseButton(const std::string& key);
 
 		/**
 		 * Returns true if the entity is still being managed

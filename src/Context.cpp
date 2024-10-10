@@ -198,7 +198,7 @@ void Context::renderPresent(void){
 	SDL_RenderPresent(renderer);
 }
 
-bool Context::getKey(std::string key){
+bool Context::getKey(const std::string& key){
 	if(string_to_keys.find(key) == string_to_keys.end()) return false;
 
 	int index = string_to_keys[key];
@@ -206,7 +206,7 @@ bool Context::getKey(std::string key){
 	return key_state[index];
 }
 
-bool Context::getKeyDown(std::string key){
+bool Context::getKeyDown(const std::string& key){
 	if(string_to_keys.find(key) == string_to_keys.end()) return false;
 	
 	int index = string_to_keys[key];
@@ -214,7 +214,7 @@ bool Context::getKeyDown(std::string key){
 	return key_state[index] && (key_tick_pressed[index] == getTicks());
 }
 
-bool Context::getKeyUp(std::string key){
+bool Context::getKeyUp(const std::string& key){
 	if(string_to_keys.find(key) == string_to_keys.end()) return false;
 	
 	int index = string_to_keys[key];
@@ -258,21 +258,21 @@ void Context::getMousePosition(int *x, int *y){
 	*y = my;
 }
 
-bool Context::getMouseButton(std::string mouse_button){
+bool Context::getMouseButton(const std::string& mouse_button){
 	if(mouse_button_state.find(mouse_button) == mouse_button_state.end())
 		return false;
 
 	return mouse_button_state[mouse_button];
 }
 
-bool Context::getMouseButtonDown(std::string mouse_button){
+bool Context::getMouseButtonDown(const std::string& mouse_button){
 	if(mouse_button_state.find(mouse_button) == mouse_button_state.end())
 		return false;
 
 	return mouse_button_state[mouse_button] && (mouse_button_tick_pressed[mouse_button] == getTicks());
 }
 
-bool Context::getMouseButtonUp(std::string mouse_button){
+bool Context::getMouseButtonUp(const std::string& mouse_button){
 	if(mouse_button_state.find(mouse_button) == mouse_button_state.end())
 		return false;
 

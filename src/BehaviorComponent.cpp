@@ -55,27 +55,27 @@ Context * BehaviorFunction::getContext(void){
 	return context;
 }
 
-bool BehaviorFunction::getKeyUp(std::string key){
+bool BehaviorFunction::getKeyUp(const std::string& key){
 	return context->getKeyUp(key);
 }
 
-bool BehaviorFunction::getKeyDown(std::string key){
+bool BehaviorFunction::getKeyDown(const std::string& key){
 	return context->getKeyDown(key);
 }
 
-bool BehaviorFunction::getKey(std::string key){
+bool BehaviorFunction::getKey(const std::string& key){
 	return context->getKey(key);
 }
 
-bool BehaviorFunction::getMouseButtonUp(std::string key){
+bool BehaviorFunction::getMouseButtonUp(const std::string& key){
 	return context->getMouseButtonUp(key);
 }
 
-bool BehaviorFunction::getMouseButtonDown(std::string key){
+bool BehaviorFunction::getMouseButtonDown(const std::string& key){
 	return context->getMouseButtonDown(key);
 }
 
-bool BehaviorFunction::getMouseButton(std::string key){
+bool BehaviorFunction::getMouseButton(const std::string& key){
 	return context->getMouseButton(key);
 }
 

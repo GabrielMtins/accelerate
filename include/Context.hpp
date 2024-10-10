@@ -38,14 +38,14 @@ class Context {
 		uint64_t getTicks(void);
 		void clearScreen(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 		void renderPresent(void);
-		bool getKey(std::string key);
-		bool getKeyDown(std::string key);
-		bool getKeyUp(std::string key);
+		bool getKey(const std::string& key);
+		bool getKeyDown(const std::string& key);
+		bool getKeyUp(const std::string& key);
 		std::string getTextInput(void);
 		void getMousePosition(int *x, int *y);
-		bool getMouseButton(std::string mouse_button);
-		bool getMouseButtonDown(std::string mouse_button);
-		bool getMouseButtonUp(std::string mouse_button);
+		bool getMouseButton(const std::string& mouse_button);
+		bool getMouseButtonDown(const std::string& mouse_button);
+		bool getMouseButtonUp(const std::string& mouse_button);
 		SDL_Renderer * getRenderer(void);
 		~Context(void);
 
