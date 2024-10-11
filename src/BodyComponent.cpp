@@ -14,8 +14,6 @@ BodyComponent::BodyComponent(void){
 	size = Vec3();
 	gravity = Vec3();
 
-	is_trigger = false;
-
 	collision_mask = collision_layer = 0;
 };
 
@@ -37,8 +35,17 @@ void BodyComponent::setOnCollisionMask(size_t layer, bool is_on){
 	}
 }
 
-bool BodyComponent::checkCollision(BodyComponent other){
-	if((collision_mask & other.collision_layer) == 0) return false;
+void BodyComponent::setOnCollisionTrigger(size_t layer, bool is_on){
+	if(is_on){
+		collision_trigger = collision_trigger | (1 << (layer - 1));
+	}
+	else{
+		collision_trigger = collision_trigger & (~(1 << (layer - 1)));
+	}
+}
+
+bool BodyComponent::checkCollision(const BodyComponent& other){
+	if(!((collision_mask & other.collision_layer) != 0 || (collision_trigger & other.collision_layer) != 0)) return false;
 
 	if(position.x > other.position.x + other.size.x) return false;
 	if(position.y > other.position.y + other.size.y) return false;
@@ -51,7 +58,7 @@ bool BodyComponent::checkCollision(BodyComponent other){
 	return true;
 }
 
-bool BodyComponent::checkCollision(Vec3 point){
+bool BodyComponent::checkCollision(const Vec3& point){
 	if(point.x < position.x) return false;
 	if(point.y < position.y) return false;
 	if(point.z < position.z) return false;
@@ -63,13 +70,14 @@ bool BodyComponent::checkCollision(Vec3 point){
 	return true;
 }
 
-void BodyComponent::solveCollision(BodyComponent other){
+void BodyComponent::solveCollision(const BodyComponent& other){
 	if(!checkCollision(other))
 		return;
 
-	if(is_trigger)
+	/* if it's just a trigger */
+	if((collision_trigger & other.collision_layer) != 0)
 		return;
-	
+
 	std::array<Vec3, 4> tmp{position, position + size, other.position, other.position + other.size};
 	std::vector<Vec3> min_distance;
 

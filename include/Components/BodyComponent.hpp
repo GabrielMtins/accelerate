@@ -34,12 +34,6 @@ struct BodyComponent {
 	 * Default: (0, 0, 0).
 	 */
 	Vec3 gravity;
-	/** 
-	 * Tells if a body is a trigger or not. If the body is a trigger, its collision
-	 * will not be solved, but it'll try to call the BehaviorFunction::onCollision
-	 * method if the entity has one.
-	 */
-	bool is_trigger;
 
 	/**
 	 * A bitmask variable containing the layers which the body is in.
@@ -49,6 +43,11 @@ struct BodyComponent {
 	 * A bitmask variable containg the layers which the body can collide with.
 	 */
 	uint32_t collision_mask;
+
+	/**
+	 * A bitmask variable containg the layers which the body will trigger if it collides with.
+	 */
+	uint32_t collision_trigger;
 
 	BodyComponent(void);
 
@@ -62,17 +61,22 @@ struct BodyComponent {
 	void setOnCollisionMask(size_t layer, bool is_on);
 
 	/**
+	 * Sets if the body wil trigger with the layer from the argument or not.
+	 */
+	void setOnCollisionTrigger(size_t layer, bool is_on);
+
+	/**
 	 * Returns true if it collides with the "other" body.
 	 */
-	bool checkCollision(BodyComponent other);
+	bool checkCollision(const BodyComponent& other);
 	/**
 	 * Returns true if the point is inside the body.
 	 */
-	bool checkCollision(Vec3 point);
+	bool checkCollision(const Vec3& point);
 	/**
 	 * Solves the collision between the two bodies.
 	 */
-	void solveCollision(BodyComponent other);
+	void solveCollision(const BodyComponent& other);
 	/**
 	 * Check intersections between the body and a given line.
 	 * Returns true if there's a solution such that:

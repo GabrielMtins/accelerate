@@ -171,8 +171,7 @@ void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
 			auto& phy2 = arr->atIndex(j);
 
 			if(phy1.checkCollision(phy2)){
-				if(!phy1.is_trigger)
-					phy1.solveCollision(phy2);
+				phy1.solveCollision(phy2);
 
 				callCollisionFunction(component_manager, entity, other);
 			}
@@ -231,7 +230,8 @@ void PhysicsSystem::updateTileset(ComponentManager *component_manager){
 }
 
 bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& tileset){
-	if((body.collision_mask & tileset.collision_layer) == 0) return false;
+	if(!((body.collision_mask & tileset.collision_layer) != 0 || (body.collision_trigger & tileset.collision_layer) != 0))
+		return false;
 
 	bool found_collision = false;
 
@@ -258,9 +258,7 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 			tile.collision_layer = tileset.collision_layer;
 
 			if(body.checkCollision(tile)){
-				if(!body.is_trigger){
-					body.solveCollision(tile);
-				}
+				body.solveCollision(tile);
 
 				found_collision = true;
 			}

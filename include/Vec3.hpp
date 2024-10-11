@@ -10,11 +10,11 @@ struct Vec3 {
 	Vec3(float x, float y);
 	Vec3(float x, float y, float z);
 
-	Vec3 operator+(const Vec3& obj);
-	Vec3 operator-(const Vec3& obj);
-	Vec3 operator*(const Vec3& obj);
-	Vec3 operator*(const float& r);
-	Vec3 operator/(const float& r);
+	Vec3 operator+(const Vec3& obj) const;
+	Vec3 operator-(const Vec3& obj) const;
+	Vec3 operator*(const Vec3& obj) const;
+	Vec3 operator*(const float& r) const;
+	Vec3 operator/(const float& r) const;
 
 	Vec3& operator+=(const Vec3& obj);
 	Vec3& operator-=(const Vec3& obj);

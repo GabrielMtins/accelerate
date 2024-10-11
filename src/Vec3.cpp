@@ -20,23 +20,23 @@ Vec3::Vec3(float x, float y, float z){
 	this->z = z;
 }
 
-Vec3 Vec3::operator+(const Vec3& obj){
+Vec3 Vec3::operator+(const Vec3& obj) const{
 	return Vec3(x + obj.x, y + obj.y, z + obj.z);
 }
 
-Vec3 Vec3::operator-(const Vec3& obj){
+Vec3 Vec3::operator-(const Vec3& obj) const{
 	return Vec3(x - obj.x, y - obj.y, z - obj.z);
 }
 
-Vec3 Vec3::operator*(const Vec3& obj){
+Vec3 Vec3::operator*(const Vec3& obj) const{
 	return Vec3(x * obj.x, y * obj.y, z * obj.z);
 }
 
-Vec3 Vec3::operator*(const float& r){
+Vec3 Vec3::operator*(const float& r) const{
 	return Vec3(x * r, y * r, z * r);
 }
 
-Vec3 Vec3::operator/(const float& r){
+Vec3 Vec3::operator/(const float& r) const{
 	return Vec3(x / r, y / r, z / r);
 }
 
