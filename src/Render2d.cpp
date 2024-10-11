@@ -187,7 +187,9 @@ void Render2dSystem::renderAll(void){
 					sprite->scale.y,
 					sprite->center.x,
 					sprite->center.y,
-					sprite->angle
+					sprite->angle,
+					sprite->flip_horizontal,
+					sprite->flip_vertical
 					);
 		}
 		else if(i.type == RENDER_DATA_RECT) {
@@ -196,9 +198,16 @@ void Render2dSystem::renderAll(void){
 
 			SDL_SetRenderDrawColor(renderer, rect->color.r, rect->color.g, rect->color.b, rect->color.a);
 
+			float x_pos = rect->x, y_pos = rect->y;
+
+			if(rect->follow_camera){
+				x_pos -= camera_position->x;
+				y_pos -= camera_position->y;
+			}
+
 			SDL_Rect sdl_rect = {
-				(int) roundf(rect->x - camera_position->x),
-				(int) roundf(rect->y - camera_position->y),
+				(int) roundf(x_pos),
+				(int) roundf(y_pos),
 				rect->w,
 				rect->h
 			};

@@ -50,6 +50,17 @@ struct SpriteComponent {
 	 */
 	bool follow_camera;
 
+	/**
+	 * Flips the texture horizontally.
+	 * Default: false.
+	 */
+	bool flip_horizontal;
+	/**
+	 * Flips the texture vertically.
+	 * Default: false.
+	 */
+	bool flip_vertical;
+
 	SpriteComponent(void);
 	SpriteComponent(Resource *texture);
 	SpriteComponent(Texture *texture);

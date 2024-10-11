@@ -159,7 +159,7 @@ void Texture::renderCell(Context *context, int x, int y, int id){
 	SDL_RenderCopy(context->getRenderer(), texture, &src_rect, &dst_rect);
 }
 
-void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle){
+void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle, bool flip_x, bool flip_y){
 	if(context == NULL || texture == NULL) return;
 
 	SDL_Rect src_rect = getIdRect(id);
@@ -172,6 +172,13 @@ void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x
 	center_y *= scale_y;
 
 	SDL_Point center_sdl = {center_x, center_y};
+	int flip = SDL_FLIP_NONE;
+
+	if(flip_x)
+		flip = flip | SDL_FLIP_HORIZONTAL;
+
+	if(flip_y)
+		flip = flip | SDL_FLIP_VERTICAL;
 
 	SDL_RenderCopyEx(
 			context->getRenderer(),
@@ -180,7 +187,7 @@ void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x
 			&dst_rect,
 			angle,
 			&center_sdl,
-			SDL_FLIP_NONE
+			(SDL_RendererFlip) flip
 			);
 }
 

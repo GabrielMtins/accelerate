@@ -7,6 +7,7 @@ SpriteComponent::SpriteComponent(void){
 	id = -1;
 	layer = 0;
 	follow_camera = true;
+	flip_horizontal = flip_vertical = false;
 
 	position = Vec3();
 	scale = Vec3(1.0f, 1.0f, 1.0f);
@@ -23,6 +24,7 @@ SpriteComponent::SpriteComponent(Resource *texture){
 	id = -1;
 	layer = 0;
 	follow_camera = true;
+	flip_horizontal = flip_vertical = false;
 
 	position = Vec3();
 	scale = Vec3(1.0f, 1.0f, 1.0f);
@@ -39,6 +41,7 @@ SpriteComponent::SpriteComponent(Texture *texture){
 	id = -1;
 	layer = 0;
 	follow_camera = true;
+	flip_horizontal = flip_vertical = false;
 
 	position = Vec3();
 	scale = Vec3(1.0f, 1.0f, 1.0f);
