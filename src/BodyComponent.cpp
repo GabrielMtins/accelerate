@@ -14,7 +14,7 @@ BodyComponent::BodyComponent(void){
 	size = Vec3();
 	gravity = Vec3();
 
-	collision_mask = collision_layer = 0;
+	collision_mask = collision_layer = collision_trigger = 0;
 };
 
 void BodyComponent::setOnCollisionLayer(size_t layer, bool is_on){

@@ -21,6 +21,9 @@ void Animator::update(uint64_t current_tick){
 }
 
 void Animator::setAnimation(const int *current_animation, uint64_t frame_duration){
+	if(current_animation == this->current_animation)
+		return;
+
 	this->current_animation = current_animation;
 	this->frame_duration = frame_duration;
 

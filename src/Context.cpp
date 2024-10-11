@@ -342,11 +342,20 @@ void Context::setUpKeys(void){
 	for(int i = 0; i < SDL_NUM_SCANCODES; i++){
 		key_state[i] = false;
 		key_tick_pressed[i] = 0;
+		key_tick_released[i] = 0;
 	}
 
 	mouse_button_state["left"] = false;
 	mouse_button_state["right"] = false;
 	mouse_button_state["middle"] = false;
+
+	mouse_button_tick_pressed["left"] = 0;
+	mouse_button_tick_pressed["right"] = 0;
+	mouse_button_tick_pressed["middle"] = 0;
+
+	mouse_button_tick_released["left"] = 0;
+	mouse_button_tick_released["right"] = 0;
+	mouse_button_tick_released["middle"] = 0;
 }
 
 };
