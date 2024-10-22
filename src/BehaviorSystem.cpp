@@ -24,13 +24,12 @@ void BehaviorSystem::update(ComponentManager *component_manager){
 		behavior_function->setScene(scene);
 		behavior_function->setEntity(entity);
 
-		if(behavior_function->hasCreated()){
-			behavior_function->onUpdate();
-		}
-		else{
+		if(!behavior_function->hasCreated()){
 			behavior_function->onCreate();
 			behavior_function->setAsCreated();
 		}
+
+		behavior_function->onUpdate();
 	}
 }
 
