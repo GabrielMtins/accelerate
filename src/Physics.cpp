@@ -160,23 +160,53 @@ void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
 
 	for(size_t i = 0; i < arr->getSize(); i++){
 		Entity entity = arr->indexToEntity(i);
+		Entity other;
 
-		/* check collision */
-		for(size_t j = 0; j < arr->getSize(); j++){
-			if(i == j) continue;
-
-			Entity other = arr->indexToEntity(j);
-
+		if(checkCollisionBody(component_manager, entity, &other)){
 			auto& phy1 = arr->atIndex(i);
-			auto& phy2 = arr->atIndex(j);
+			auto& phy2 = arr->getComponent(other);
 
-			if(phy1.checkCollision(phy2)){
-				phy1.solveCollision(phy2);
+			Vec3 old_position = phy1.position;
 
-				callCollisionFunction(component_manager, entity, other);
+			phy1.solveCollision(phy2);
+			callCollisionFunction(component_manager, entity, other);
+
+			if(checkCollisionBody(component_manager, entity, NULL)){
+				phy1.position = old_position;
+				old_position = phy2.position;
+
+				phy2.solveCollision(phy1);
+
+				if(checkCollisionBody(component_manager, other, NULL)){
+					phy2.position = old_position;
+				}
 			}
 		}
 	}
+}
+
+bool PhysicsSystem::checkCollisionBody(ComponentManager *component_manager, Entity entity, Entity *return_other){
+	if(!component_manager->hasComponentArray<BodyComponent>())
+		return false;
+
+	auto arr = component_manager->getComponentArray<BodyComponent>();
+	auto& phy1 = arr->getComponent(entity);
+
+	for(size_t i = 0; i < arr->getSize(); i++){
+		/* check collision */
+		Entity other = arr->indexToEntity(i);
+
+		auto& phy2 = arr->atIndex(i);
+
+		if(phy1.checkCollision(phy2)){
+			if(return_other != NULL)
+				*return_other = other;
+
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void PhysicsSystem::updatePhysics(ComponentManager *component_manager){
