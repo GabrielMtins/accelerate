@@ -11,5 +11,6 @@ var searchData=
   ['setsize_8',['setSize',['../classacc_1_1Font.html#aa575f99012f285067be4882ef3ee94b8',1,'acc::Font']]],
   ['setvolume_9',['setVolume',['../classacc_1_1Music.html#a91b41d11320c8544eb24b1515cd22aa0',1,'acc::Music']]],
   ['size_10',['size',['../classacc_1_1JsonObject.html#a45218f5dd001b613de5dc14f925c49af',1,'acc::JsonObject']]],
-  ['solvecollision_11',['solveCollision',['../structacc_1_1BodyComponent.html#af38d1563209726751c6185b4d8da0631',1,'acc::BodyComponent']]]
+  ['solvecollision_11',['solveCollision',['../structacc_1_1BodyComponent.html#af38d1563209726751c6185b4d8da0631',1,'acc::BodyComponent']]],
+  ['swapscene_12',['swapScene',['../classacc_1_1Game.html#ac8d1d20379d04bab28e47074c9b71244',1,'acc::Game']]]
 ];

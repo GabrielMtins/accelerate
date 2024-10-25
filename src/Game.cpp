@@ -33,6 +33,11 @@ void Game::setScene(Scene *scene){
 	this->next_scene = scene;
 }
 
+Scene * Game::swapScene(Scene *new_scene){
+	this->swap_scene = new_scene;
+	return current_scene;
+}
+
 void Game::loadResource(Resource *resource){
 	resource_manager->loadResource(resource);
 }
@@ -60,6 +65,11 @@ void Game::loop(void){
 
 		current_scene = next_scene;
 		next_scene = NULL;
+	}
+
+	if(swap_scene != NULL){
+		current_scene = swap_scene;
+		swap_scene = NULL;
 	}
 
 	update();

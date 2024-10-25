@@ -23,6 +23,10 @@ class Game {
 		 */
 		void setScene(Scene *scene);
 		/**
+		 * Sets a new scene and returns the old one.
+		 */
+		Scene * swapScene(Scene *new_scene);
+		/**
 		 * Loads a resource into the resource manager of the game.
 		 */
 		void loadResource(Resource *resource);
@@ -40,6 +44,8 @@ class Game {
 	private:
 		Scene *next_scene;
 		Scene *current_scene;
+		Scene *swap_scene;
+
 		Context *context;
 		ResourceManager *resource_manager;
 		uint8_t bg_color[4];

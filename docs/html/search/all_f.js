@@ -17,7 +17,8 @@ var searchData=
   ['size_14',['size',['../structacc_1_1BodyComponent.html#a65b1a6629f5eb68305c397cf40fb64db',1,'acc::BodyComponent::size'],['../classacc_1_1JsonObject.html#a45218f5dd001b613de5dc14f925c49af',1,'acc::JsonObject::size()']]],
   ['solvecollision_15',['solveCollision',['../structacc_1_1BodyComponent.html#af38d1563209726751c6185b4d8da0631',1,'acc::BodyComponent']]],
   ['spritecomponent_16',['SpriteComponent',['../structacc_1_1SpriteComponent.html',1,'acc']]],
-  ['system_17',['System',['../classacc_1_1System.html',1,'acc']]],
-  ['system_5fmanager_18',['system_manager',['../classacc_1_1Scene.html#a2e3cb12b2c443aa89abd5882fe4a749c',1,'acc::Scene']]],
-  ['systemmanager_19',['SystemManager',['../classacc_1_1SystemManager.html',1,'acc']]]
+  ['swapscene_17',['swapScene',['../classacc_1_1Game.html#ac8d1d20379d04bab28e47074c9b71244',1,'acc::Game']]],
+  ['system_18',['System',['../classacc_1_1System.html',1,'acc']]],
+  ['system_5fmanager_19',['system_manager',['../classacc_1_1Scene.html#a2e3cb12b2c443aa89abd5882fe4a749c',1,'acc::Scene']]],
+  ['systemmanager_20',['SystemManager',['../classacc_1_1SystemManager.html',1,'acc']]]
 ];
