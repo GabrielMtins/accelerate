@@ -19,6 +19,7 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(CC) -I$(INCLUDE_DIR) $(CCFLAGS) -c $< -o $@ $(CCFLAGS)
 
 $(EXEC): $(OBJECTS)
+	doxygen config.docs
 	mkdir -p lib
 	ar rcs lib/$(EXEC) $(OBJECTS)
 
