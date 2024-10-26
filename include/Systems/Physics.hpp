@@ -21,7 +21,7 @@ class PhysicsSystem : public System {
 
 		void updateCollisions(ComponentManager *component_manager);
 
-		bool checkCollisionBody(ComponentManager *component_manager, Entity entity, Entity *return_other);
+		bool checkCollisionBody(ComponentManager *component_manager, Entity entity, std::vector<Entity> *found_intersections);
 
 		void updatePhysics(ComponentManager *component_manager);
 		void updateTileset(ComponentManager *component_manager);
@@ -30,6 +30,7 @@ class PhysicsSystem : public System {
 		void callCollisionFunction(ComponentManager *component_manager, Entity entity, Entity other);
 
 		Scene *scene;
+		std::vector<Entity> found_intersections;
 };
 
 };

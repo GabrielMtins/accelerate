@@ -158,36 +158,43 @@ void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
 
 	auto arr = component_manager->getComponentArray<BodyComponent>();
 
+	found_intersections.reserve(arr->getSize());
+
 	for(size_t i = 0; i < arr->getSize(); i++){
+		found_intersections.clear();
 		Entity entity = arr->indexToEntity(i);
-		Entity other;
 
-		if(checkCollisionBody(component_manager, entity, &other)){
+		if(checkCollisionBody(component_manager, entity, &found_intersections)){
 			auto& phy1 = arr->atIndex(i);
-			auto& phy2 = arr->getComponent(other);
 
-			Vec3 old_position = phy1.position;
+			for(Entity other : found_intersections){
+				auto& phy2 = arr->getComponent(other);
 
-			phy1.solveCollision(phy2);
-			callCollisionFunction(component_manager, entity, other);
+				Vec3 old_position = phy1.position;
 
-			if(checkCollisionBody(component_manager, entity, NULL)){
-				phy1.position = old_position;
-				old_position = phy2.position;
+				phy1.solveCollision(phy2);
+				callCollisionFunction(component_manager, entity, other);
 
-				phy2.solveCollision(phy1);
+				if(checkCollisionBody(component_manager, entity, NULL)){
+					phy1.position = old_position;
+					old_position = phy2.position;
 
-				if(checkCollisionBody(component_manager, other, NULL)){
-					phy2.position = old_position;
+					phy2.solveCollision(phy1);
+
+					if(checkCollisionBody(component_manager, other, NULL)){
+						phy2.position = old_position;
+					}
 				}
 			}
 		}
 	}
 }
 
-bool PhysicsSystem::checkCollisionBody(ComponentManager *component_manager, Entity entity, Entity *return_other){
+bool PhysicsSystem::checkCollisionBody(ComponentManager *component_manager, Entity entity, std::vector<Entity> *found_intersections){
+	bool found_collision = false;
+
 	if(!component_manager->hasComponentArray<BodyComponent>())
-		return false;
+		return found_collision;
 
 	auto arr = component_manager->getComponentArray<BodyComponent>();
 	auto& phy1 = arr->getComponent(entity);
@@ -199,14 +206,14 @@ bool PhysicsSystem::checkCollisionBody(ComponentManager *component_manager, Enti
 		auto& phy2 = arr->atIndex(i);
 
 		if(phy1.checkCollision(phy2)){
-			if(return_other != NULL)
-				*return_other = other;
+			if(found_intersections != NULL)
+				found_intersections->push_back(other);
 
-			return true;
+			found_collision = true;
 		}
 	}
 
-	return false;
+	return found_collision;
 }
 
 void PhysicsSystem::updatePhysics(ComponentManager *component_manager){
