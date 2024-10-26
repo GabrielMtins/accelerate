@@ -22,6 +22,7 @@ class PhysicsSystem : public System {
 		void updateCollisions(ComponentManager *component_manager);
 
 		bool checkCollisionBody(ComponentManager *component_manager, Entity entity, std::vector<Entity> *found_intersections);
+		bool checkCollisionForTileset(ComponentManager *component_manager, BodyComponent& body);
 
 		void updatePhysics(ComponentManager *component_manager);
 		void updateTileset(ComponentManager *component_manager);

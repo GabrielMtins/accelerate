@@ -163,10 +163,9 @@ void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
 	for(size_t i = 0; i < arr->getSize(); i++){
 		found_intersections.clear();
 		Entity entity = arr->indexToEntity(i);
+		auto& phy1 = arr->atIndex(i);
 
 		if(checkCollisionBody(component_manager, entity, &found_intersections)){
-			auto& phy1 = arr->atIndex(i);
-
 			for(Entity other : found_intersections){
 				auto& phy2 = arr->getComponent(other);
 
@@ -175,13 +174,13 @@ void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
 				phy1.solveCollision(phy2);
 				callCollisionFunction(component_manager, entity, other);
 
-				if(checkCollisionBody(component_manager, entity, NULL)){
+				if(checkCollisionBody(component_manager, entity, NULL) || checkCollisionForTileset(component_manager, phy1)){
 					phy1.position = old_position;
 					old_position = phy2.position;
 
 					phy2.solveCollision(phy1);
 
-					if(checkCollisionBody(component_manager, other, NULL)){
+					if(checkCollisionBody(component_manager, other, NULL) || checkCollisionForTileset(component_manager, phy2)){
 						phy2.position = old_position;
 					}
 				}
@@ -200,8 +199,10 @@ bool PhysicsSystem::checkCollisionBody(ComponentManager *component_manager, Enti
 	auto& phy1 = arr->getComponent(entity);
 
 	for(size_t i = 0; i < arr->getSize(); i++){
-		/* check collision */
 		Entity other = arr->indexToEntity(i);
+
+		if(other == entity)
+			continue;
 
 		auto& phy2 = arr->atIndex(i);
 
@@ -214,6 +215,23 @@ bool PhysicsSystem::checkCollisionBody(ComponentManager *component_manager, Enti
 	}
 
 	return found_collision;
+}
+
+bool PhysicsSystem::checkCollisionForTileset(ComponentManager *component_manager, BodyComponent& body){
+	if(!component_manager->hasComponentArray<TilesetComponent>())
+		return false;
+
+	auto arr = component_manager->getComponentArray<TilesetComponent>();
+	acc::Vec3 old_pos = body.position;
+
+	for(size_t i = 0; i < arr->getSize(); i++){
+		if(solveCollisionBody(body, arr->atIndex(i))){
+			body.position = old_pos;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void PhysicsSystem::updatePhysics(ComponentManager *component_manager){
