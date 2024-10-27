@@ -159,8 +159,8 @@ void Render2dSystem::renderTilesetComponent(TilesetComponent* tileset){
 
 			tileset->tileset_texture->renderCell(
 					context,
-					tile_pos.x - camera_position->x,
-					tile_pos.y - camera_position->y,
+					roundf(tile_pos.x - camera_position->x),
+					roundf(tile_pos.y - camera_position->y),
 					tile_id
 					);
 		}
