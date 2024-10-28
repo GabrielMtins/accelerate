@@ -11,6 +11,7 @@ class Scene2d : public Scene {
 		Scene2d(Game *game);
 		void setCameraPosition(Vec3 camera_position);
 		Vec3 getCameraPosition(void);
+		virtual ~Scene2d(void) = default;
 
 	private:
 		Vec3 camera_position;
