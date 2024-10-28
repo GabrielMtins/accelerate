@@ -24,6 +24,7 @@ class Context {
 		 * It'll scale accordly.
 		 */
 		Context(const char *title, int internal_width, int internal_height);
+		void close(void);
 		void setFps(uint32_t fps);
 		void maximizeWindow(void);
 		void setFullscreenMode(void);

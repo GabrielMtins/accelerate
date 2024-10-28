@@ -45,6 +45,10 @@ Context::Context(const char *title, int internal_width, int internal_height){
 	setFps(165);
 }
 
+void Context::close(void){
+	quit = true;
+}
+
 void Context::setFps(uint32_t fps){
 	this->fps = fps;
 }

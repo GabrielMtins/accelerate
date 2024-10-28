@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['game_0',['game',['../classacc_1_1Game.html#ad17b0aa7be5cd7563b6ef36ade104e5b',1,'acc::Game::Game()'],['../classacc_1_1Game.html',1,'acc::Game'],['../classacc_1_1Scene.html#a0fda593f785c74d32101edb02f44bb9a',1,'acc::Scene::game']]],
+  ['game_0',['game',['../classacc_1_1Scene.html#a0fda593f785c74d32101edb02f44bb9a',1,'acc::Scene::game'],['../classacc_1_1Game.html',1,'acc::Game'],['../classacc_1_1Game.html#ad17b0aa7be5cd7563b6ef36ade104e5b',1,'acc::Game::Game()']]],
   ['get_1',['get',['../classacc_1_1JsonObject.html#aec53478f8cdc6198ac0519ad96dd260c',1,'acc::JsonObject::get(const std::string &amp;key)'],['../classacc_1_1JsonObject.html#ab22831880acbc9321439fe0b2e080823',1,'acc::JsonObject::get(size_t i)']]],
   ['getboolean_2',['getBoolean',['../structacc_1_1JsonType.html#aee9b949a124f740705086645242898dd',1,'acc::JsonType']]],
   ['getcolor_3',['getColor',['../classacc_1_1Canvas.html#ab650f3fd3aece677eda9a0bac5b4b780',1,'acc::Canvas']]],
