@@ -22,6 +22,14 @@ TTF_Font * Font::getFont(void){
 	return font;
 }
 
+int Font::widthText(const std::string& text){
+	int w;
+
+	TTF_SizeText(font, text.c_str(), &w, NULL);
+
+	return w;
+}
+
 Font::~Font(void){
 	if(font != NULL)
 		TTF_CloseFont(font);

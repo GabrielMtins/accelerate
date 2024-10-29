@@ -14,6 +14,7 @@ Game::Game(const char *title, int internal_width, int internal_height){
 	resource_manager = new ResourceManager();
 	current_scene = NULL;
 	next_scene = NULL;
+	swap_scene = NULL;
 
 	loadResource((Resource *) new Texture(context, DEV_TEXTURE_WHITE));
 	loadResource((Resource *) new Texture(context, DEV_TEXTURE_XOR));

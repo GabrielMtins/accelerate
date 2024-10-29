@@ -19,6 +19,11 @@ class ComponentManager {
 			return getComponentArray<T>()->hasEntity(entity);
 		}
 
+		template <typename T>
+		bool addComponent(Entity entity){
+			return getComponentArray<T>()->insertComponent(entity);
+		}
+
 		template <typename T, class... Args>
 		bool addComponent(Entity entity, Args&&... args){
 			return getComponentArray<T>()->insertComponent(entity, args...);

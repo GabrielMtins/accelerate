@@ -99,7 +99,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classacc_1_1EntityManager.html#a1059961b9c2a6d606530ee386a8fcae6">isEntityManaged</a>(Entity entity);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        std::queue&lt;Entity&gt; entity_queue;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">size_t</span> next_entity;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        std::unordered_set&lt;Entity&gt; managed_entities;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
 </div>
@@ -108,9 +108,9 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassacc_1_1EntityManager_html"><div class="ttname"><a href="classacc_1_1EntityManager.html">acc::EntityManager</a></div><div class="ttdef"><b>Definition</b> EntityManager.hpp:10</div></div>
-<div class="ttc" id="aclassacc_1_1EntityManager_html_a1059961b9c2a6d606530ee386a8fcae6"><div class="ttname"><a href="classacc_1_1EntityManager.html#a1059961b9c2a6d606530ee386a8fcae6">acc::EntityManager::isEntityManaged</a></div><div class="ttdeci">bool isEntityManaged(Entity entity)</div><div class="ttdef"><b>Definition</b> EntityManager.cpp:25</div></div>
-<div class="ttc" id="aclassacc_1_1EntityManager_html_ab061f5a2529067e2a2772eb1fd361040"><div class="ttname"><a href="classacc_1_1EntityManager.html#ab061f5a2529067e2a2772eb1fd361040">acc::EntityManager::removeEntity</a></div><div class="ttdeci">void removeEntity(Entity entity)</div><div class="ttdef"><b>Definition</b> EntityManager.cpp:20</div></div>
-<div class="ttc" id="aclassacc_1_1EntityManager_html_aeaa0fad42185f38fd6e32975481053e7"><div class="ttname"><a href="classacc_1_1EntityManager.html#aeaa0fad42185f38fd6e32975481053e7">acc::EntityManager::getNextEntity</a></div><div class="ttdeci">Entity getNextEntity(void)</div><div class="ttdef"><b>Definition</b> EntityManager.cpp:10</div></div>
+<div class="ttc" id="aclassacc_1_1EntityManager_html_a1059961b9c2a6d606530ee386a8fcae6"><div class="ttname"><a href="classacc_1_1EntityManager.html#a1059961b9c2a6d606530ee386a8fcae6">acc::EntityManager::isEntityManaged</a></div><div class="ttdeci">bool isEntityManaged(Entity entity)</div><div class="ttdef"><b>Definition</b> EntityManager.cpp:19</div></div>
+<div class="ttc" id="aclassacc_1_1EntityManager_html_ab061f5a2529067e2a2772eb1fd361040"><div class="ttname"><a href="classacc_1_1EntityManager.html#ab061f5a2529067e2a2772eb1fd361040">acc::EntityManager::removeEntity</a></div><div class="ttdeci">void removeEntity(Entity entity)</div><div class="ttdef"><b>Definition</b> EntityManager.cpp:15</div></div>
+<div class="ttc" id="aclassacc_1_1EntityManager_html_aeaa0fad42185f38fd6e32975481053e7"><div class="ttname"><a href="classacc_1_1EntityManager.html#aeaa0fad42185f38fd6e32975481053e7">acc::EntityManager::getNextEntity</a></div><div class="ttdeci">Entity getNextEntity(void)</div><div class="ttdef"><b>Definition</b> EntityManager.cpp:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

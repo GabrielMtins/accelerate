@@ -10,14 +10,18 @@ bool JsonResourceLoader::load(Game *game, std::string filename){
 
 	sucess = main_object->parseFile(filename);
 
-	if(!sucess)
+	if(!sucess){
+		delete main_object;
 		return false;
+	}
 
 	loadTextures(game, main_object);
 	loadCanvases(game, main_object);
 	loadSfxs(game, main_object);
 	loadMusics(game, main_object);
 	loadFonts(game, main_object);
+
+	delete main_object;
 
 	return true;
 }

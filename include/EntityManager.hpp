@@ -26,7 +26,7 @@ class EntityManager {
 		bool isEntityManaged(Entity entity);
 
 	private:
-		std::queue<Entity> entity_queue;
+		size_t next_entity;
 		std::unordered_set<Entity> managed_entities;
 };
 

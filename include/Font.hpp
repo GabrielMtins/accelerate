@@ -20,6 +20,12 @@ class Font : public Resource {
 		 * Returns the pointer for the SDL font struct
 		 */
 		TTF_Font * getFont(void);
+
+		/**
+		 * Returns the width of a given text.
+		 */
+		int widthText(const std::string& text);
+
 		~Font(void);
 	
 	private:

@@ -43,6 +43,10 @@ void BehaviorFunction::setEntity(Entity entity){
 	this->entity = entity;
 }
 
+acc::Entity BehaviorFunction::getThisEntity(void){
+	return entity;
+}
+
 Scene * BehaviorFunction::getScene(void){
 	return scene;
 }

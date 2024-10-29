@@ -3,22 +3,16 @@
 namespace acc {
 
 EntityManager::EntityManager(void){
-	for(int i = 0; i < MAX_ENTITIES; i++)
-		entity_queue.push(i);
+	next_entity = 0;
 }
 
 Entity EntityManager::getNextEntity(void){
-	Entity front = entity_queue.front();
+	managed_entities.insert(next_entity);
 
-	entity_queue.pop();
-
-	managed_entities.insert(front);
-
-	return front;
+	return next_entity++;
 }
 		
 void EntityManager::removeEntity(Entity entity){
-	entity_queue.push(entity);
 	managed_entities.erase(entity);
 }
 

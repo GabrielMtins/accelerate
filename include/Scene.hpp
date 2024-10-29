@@ -47,6 +47,11 @@ class Scene {
 			return component_manager->getComponent<T>(entity);
 		}
 
+		template <typename T>
+		bool addComponent(Entity entity){
+			return component_manager->addComponent<T>(entity);
+		}
+
 		template <typename T, class... Args>
 		bool addComponent(Entity entity, Args&&... args){
 			return component_manager->addComponent<T>(entity, args...);

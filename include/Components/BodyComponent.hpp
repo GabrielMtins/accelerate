@@ -50,6 +50,7 @@ struct BodyComponent {
 	uint32_t collision_trigger;
 
 	BodyComponent(void);
+	BodyComponent(const BodyComponent& body) = default;
 
 	/**
 	 * Sets if the body is at the layer from the argument or not.

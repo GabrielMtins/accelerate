@@ -21,6 +21,22 @@ template <typename T> class ComponentArray : public BaseComponentArray {
 			size = 0;
 		}
 
+		bool insertComponent(Entity entity){
+			if(entity_to_index.find(entity) != entity_to_index.end()){
+				return false;
+			}
+
+			size_t new_index = size;
+
+			component_array.emplace_back();
+			entity_to_index[entity] = new_index;
+			index_to_entity[new_index] = entity;
+
+			size++;
+
+			return true;
+		}
+
 		template <class... Args>
 		bool insertComponent(Entity entity, Args&&... args){
 			if(entity_to_index.find(entity) != entity_to_index.end()){
@@ -42,11 +58,13 @@ template <typename T> class ComponentArray : public BaseComponentArray {
 			if(entity_to_index.find(entity) == entity_to_index.end()){
 				return false;
 			}
-			if(size == 0)
+			else if(size == 0)
 				return false;
-
-			if(size == 1){
+			else if(size == 1){
 				size--;
+				component_array.clear();
+				entity_to_index.clear();
+				index_to_entity.clear();
 				return true;
 			}
 
@@ -54,6 +72,7 @@ template <typename T> class ComponentArray : public BaseComponentArray {
 			size_t old_index = entity_to_index[entity];
 			
 			size_t last_index = size - 1;
+
 			Entity last_entity = index_to_entity[last_index];
 
 			component_array[old_index] = component_array[last_index];

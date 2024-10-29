@@ -47,6 +47,7 @@ class BehaviorFunction {
 
 		void setScene(Scene *scene);
 		void setEntity(Entity entity);
+		acc::Entity getThisEntity(void);
 
 		/**
 		 * Returns a pointer to the Scene class.
