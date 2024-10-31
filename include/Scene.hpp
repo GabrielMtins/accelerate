@@ -16,7 +16,7 @@ class Scene {
 		Scene(Game *game);
 		Game * getGame(void);
 		ComponentManager * getComponentManager(void);
-		void update(void);
+		virtual void update(void);
 		/**
 		 * Add the entity to the destroy queue, so that it
 		 * can be destroyed at the end of the current update.

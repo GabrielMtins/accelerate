@@ -18,6 +18,10 @@ void Sfx::play(int loops, int channel){
 	Mix_PlayChannel(channel, chunk, loops);
 }
 
+void Sfx::setVolume(int volume){
+	Mix_VolumeChunk(chunk, volume);
+}
+
 Sfx::~Sfx(void){
 	if(chunk != NULL)
 		Mix_FreeChunk(chunk);

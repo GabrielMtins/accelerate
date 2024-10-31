@@ -26,6 +26,7 @@ class Context {
 		Context(const char *title, int internal_width, int internal_height);
 		void close(void);
 		void setFps(uint32_t fps);
+		void setWindowSize(int width, int height);
 		void maximizeWindow(void);
 		void setFullscreenMode(void);
 		void setWindowedMode(void);
@@ -42,6 +43,7 @@ class Context {
 		bool getKey(const std::string& key);
 		bool getKeyDown(const std::string& key);
 		bool getKeyUp(const std::string& key);
+		std::unordered_map<std::string, int>& getStringToKeys(void);
 		std::string getTextInput(void);
 		void getMousePosition(int *x, int *y);
 		bool getMouseButton(const std::string& mouse_button);

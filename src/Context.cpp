@@ -61,6 +61,11 @@ void Context::setWindowedMode(void){
 	SDL_SetWindowFullscreen(window, 0);
 }
 
+void Context::setWindowSize(int width, int height){
+	SDL_SetWindowSize(window, width, height);
+	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+}
+
 void Context::maximizeWindow(void){
 	SDL_MaximizeWindow(window);
 }
@@ -226,6 +231,10 @@ bool Context::getKeyUp(const std::string& key){
 	return !key_state[index] && (key_tick_released[index] == getTicks());
 }
 
+std::unordered_map<std::string, int>& Context::getStringToKeys(void){
+	return string_to_keys;
+}
+
 std::string Context::getTextInput(void){
 	return text_input;
 }
@@ -342,6 +351,11 @@ void Context::setUpKeys(void){
 	string_to_keys["rctrl"] = SDL_SCANCODE_RCTRL;
 	string_to_keys["rshift"] = SDL_SCANCODE_RSHIFT;
 	string_to_keys["ralt"] = SDL_SCANCODE_RALT;
+
+	string_to_keys["left"] = SDL_SCANCODE_LEFT;
+	string_to_keys["up"] = SDL_SCANCODE_UP;
+	string_to_keys["down"] = SDL_SCANCODE_DOWN;
+	string_to_keys["right"] = SDL_SCANCODE_RIGHT;
 
 	for(int i = 0; i < SDL_NUM_SCANCODES; i++){
 		key_state[i] = false;

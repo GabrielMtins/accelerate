@@ -35,11 +35,11 @@ class Game {
 		 * If the resource doesn't exist, it returns NULL.
 		 */
 		Resource * getResource(const std::string& filename);
-		void update(void);
+		virtual void update(void);
 		void loop(void);
 		void run(void);
 		Context * getContext(void);
-		~Game(void);
+		virtual ~Game(void);
 
 	private:
 		Scene *next_scene;

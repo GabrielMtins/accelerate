@@ -15,6 +15,7 @@ class Sfx : public Resource {
 	public:
 		Sfx(const std::string& filename);
 		void play(int loops, int channel);
+		void setVolume(int volume);
 		~Sfx(void);
 
 	private:
