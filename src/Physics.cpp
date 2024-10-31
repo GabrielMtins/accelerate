@@ -291,14 +291,14 @@ bool PhysicsSystem::solveCollisionBody(BodyComponent &body, TilesetComponent& ti
 	bool found_collision = false;
 
 	Vec3 start = Vec3(
-			floorf(body.position.x / tileset.width) - 1,
-			floorf(body.position.y / tileset.height) - 1,
+			floorf(body.position.x / tileset.width) - 2,
+			floorf(body.position.y / tileset.height) - 2,
 			0
 			);
 
 	Vec3 size = Vec3(
-			floorf(body.size.x / tileset.width) + 4,
-			floorf(body.size.y / tileset.height) + 4,
+			floorf(body.size.x / tileset.width) + 5,
+			floorf(body.size.y / tileset.height) + 5,
 			1
 			);
 

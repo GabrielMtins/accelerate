@@ -43,6 +43,16 @@ void Gamepad::update(void){
 	}
 }
 
+int16_t Gamepad::getAxis(const std::string& key){
+	if(gamepad == NULL)
+		return 0;
+
+	if(string_to_axis.find(key) == string_to_axis.end())
+		return 0;
+
+	return SDL_GameControllerGetAxis(gamepad, (SDL_GameControllerAxis) string_to_axis[key]);
+}
+
 bool Gamepad::getButton(const std::string& key){
 	if(string_to_button.find(key) == string_to_button.end())
 		return false;
@@ -104,13 +114,16 @@ std::unordered_map<std::string, int> Gamepad::string_to_button = {
 	{"DPAD_UP", SDL_CONTROLLER_BUTTON_DPAD_UP},
 	{"DPAD_DOWN", SDL_CONTROLLER_BUTTON_DPAD_DOWN},
 	{"DPAD_LEFT", SDL_CONTROLLER_BUTTON_DPAD_LEFT},
-	{"DPAD_RIGHT", SDL_CONTROLLER_BUTTON_DPAD_RIGHT},
+	{"DPAD_RIGHT", SDL_CONTROLLER_BUTTON_DPAD_RIGHT}
+};
+
+std::unordered_map<std::string, int> Gamepad::string_to_axis = {
 	{"AXIS_LEFTX", SDL_CONTROLLER_AXIS_LEFTX},
 	{"AXIS_LEFTY", SDL_CONTROLLER_AXIS_LEFTY},
 	{"AXIS_RIGHTX", SDL_CONTROLLER_AXIS_RIGHTX},
 	{"AXIS_RIGHTY", SDL_CONTROLLER_AXIS_RIGHTY},
 	{"AXIS_TRIGGERLEFT", SDL_CONTROLLER_AXIS_TRIGGERLEFT},
-	{"AXIS_TRIGGERRIGHT", SDL_CONTROLLER_AXIS_TRIGGERRIGHT},
+	{"AXIS_TRIGGERRIGHT", SDL_CONTROLLER_AXIS_TRIGGERRIGHT}
 };
 
 };

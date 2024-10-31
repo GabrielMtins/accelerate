@@ -20,6 +20,7 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 
 $(EXEC): $(OBJECTS)
 	doxygen config.docs
+	./generate_include.sh
 	mkdir -p lib
 	ar rcs lib/$(EXEC) $(OBJECTS)
 
