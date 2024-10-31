@@ -3,6 +3,9 @@
 
 #include "Resource.hpp"
 #include "Context.hpp"
+#include "Gamepad.hpp"
+
+#include <vector>
 
 namespace acc {
 
@@ -39,6 +42,7 @@ class Game {
 		void loop(void);
 		void run(void);
 		Context * getContext(void);
+		void addGamepad(Gamepad *gamepad);
 		virtual ~Game(void);
 
 	private:
@@ -49,6 +53,8 @@ class Game {
 		Context *context;
 		ResourceManager *resource_manager;
 		uint8_t bg_color[4];
+
+		std::vector<Gamepad *> gamepads;
 
 };
 

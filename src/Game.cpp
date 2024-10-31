@@ -60,6 +60,10 @@ void Game::update(void){
 void Game::loop(void){
 	context->pollEvent();
 
+	for(auto i : gamepads){
+		i->update();
+	}
+
 	if(next_scene != NULL){
 		if(current_scene != NULL)
 			delete current_scene;
@@ -86,6 +90,10 @@ void Game::run(void){
 
 Context * Game::getContext(void){
 	return context;
+}
+
+void Game::addGamepad(Gamepad *gamepad){
+	gamepads.push_back(gamepad);
 }
 
 Game::~Game(void){

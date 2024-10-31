@@ -43,10 +43,15 @@ Context::Context(const char *title, int internal_width, int internal_height){
 
 	setUpKeys();
 	setFps(165);
+	minimum_delta = 1000;
 }
 
 void Context::close(void){
 	quit = true;
+}
+
+void Context::setMinimumFps(uint32_t fps){
+	minimum_delta = 1.0f / (float) fps;
 }
 
 void Context::setFps(uint32_t fps){
@@ -90,6 +95,10 @@ bool Context::isRunning(void){
 }
 
 float Context::getDeltaTime(void){
+	if(minimum_delta < delta_time){
+		return minimum_delta;
+	}
+
 	return delta_time;
 }
 

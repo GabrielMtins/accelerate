@@ -25,6 +25,7 @@ class Context {
 		 */
 		Context(const char *title, int internal_width, int internal_height);
 		void close(void);
+		void setMinimumFps(uint32_t fps);
 		void setFps(uint32_t fps);
 		void setWindowSize(int width, int height);
 		void maximizeWindow(void);
@@ -73,6 +74,7 @@ class Context {
 		float delta_time;
 		uint64_t first_time;
 		uint32_t fps;
+		float minimum_delta;
 		bool quit;
 
 		int window_width, window_height;

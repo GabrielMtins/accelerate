@@ -165,6 +165,9 @@ void PhysicsSystem::updateCollisions(ComponentManager *component_manager){
 		Entity entity = arr->indexToEntity(i);
 		auto& phy1 = arr->atIndex(i);
 
+		if(phy1.collision_mask == 0 && phy1.collision_trigger == 0)
+			continue;
+
 		if(checkCollisionBody(component_manager, entity, &found_intersections)){
 			for(Entity other : found_intersections){
 				auto& phy2 = arr->getComponent(other);
