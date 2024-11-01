@@ -3,7 +3,7 @@
 namespace acc {
 
 EntityManager::EntityManager(void){
-	next_entity = 0;
+	next_entity = 1;
 }
 
 Entity EntityManager::getNextEntity(void){

@@ -15,7 +15,7 @@ namespace acc {
  * The main type used in this engine. It's just an id.
  */
 using Entity = size_t;
-using Tick = uint64_t;
+using Tick = ssize_t;
 
 };
 
