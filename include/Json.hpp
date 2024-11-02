@@ -2,7 +2,9 @@
 #define JSON_HPP
 
 #include <cstddef>
+#include <fstream>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <stack>
 #include <string>
@@ -117,6 +119,11 @@ class JsonObject : public Resource {
 		bool parseFile(const std::string& filename);
 
 		/**
+		 * Saves a file. Returns false if any error.
+		 */
+		bool saveFile(const std::string& filename);
+
+		/**
 		 * Returns the type of a given key. It works when
 		 * it is an object.
 		 */
@@ -129,6 +136,12 @@ class JsonObject : public Resource {
 		JsonType& get(size_t i);
 
 		/**
+		 * Returns all the keys available in the object.
+		 */
+
+		const std::unordered_set<std::string>& getKeys(void);
+
+		/**
 		 * Returns true if the object has that key.
 		 */
 		bool has(const std::string& key);
@@ -137,11 +150,13 @@ class JsonObject : public Resource {
 		 */
 		bool has(size_t i);
 
-		void set(const std::string& key, const std::string& value);
+		void set(const char *key, const char *value);
+		void set(const std::string& key, std::string value);
 		void set(const std::string& key, bool value);
 		void set(const std::string& key, JsonObject *object);
 		void set(const std::string& key, double number);
 
+		void pushArray(const char *value);
 		void pushArray(const std::string& value);
 		void pushArray(bool value);
 		void pushArray(JsonObject *object);
@@ -159,6 +174,8 @@ class JsonObject : public Resource {
 		size_t size(void);
 	
 	private:
+		bool writeJsonObject(std::ofstream& stream, JsonObject *object, const std::string& tabs);
+		bool writeJsonType(std::ofstream& stream, const std::string& key, JsonType& type, const std::string& tabs);
 		bool stateMachine(const std::string& line, size_t& pos);
 		bool isWhiteSpace(char c);
 
@@ -169,6 +186,7 @@ class JsonObject : public Resource {
 		std::string current_token;
 		std::string current_key;
 
+		std::unordered_set<std::string> keys;
 		std::unordered_map<std::string, JsonType> dictionary;
 		std::vector<JsonType> json_array;
 

@@ -141,12 +141,29 @@ bool JsonObject::parseFile(const std::string& filename){
 	return true;
 }
 
+bool JsonObject::saveFile(const std::string& filename){
+	std::ofstream file(filename);
+
+	if(!file.is_open())
+		return false;
+
+	writeJsonObject(file, this, "");
+
+	file.close();
+
+	return true;
+}
+
 JsonType& JsonObject::get(const std::string& key){
 	return dictionary[key];
 }
 
 JsonType& JsonObject::get(size_t i){
 	return json_array[i];
+}
+
+const std::unordered_set<std::string>& JsonObject::getKeys(void){
+	return keys;
 }
 
 bool JsonObject::has(const std::string& key){
@@ -157,20 +174,33 @@ bool JsonObject::has(size_t i){
 	return i < json_array.size();
 }
 
-void JsonObject::set(const std::string& key, const std::string& value){
+void JsonObject::set(const char *key, const char *value){
+	dictionary[std::string(key)] = JsonType(std::string(value));
+	keys.insert(std::string(key));
+}
+
+void JsonObject::set(const std::string& key, std::string value){
 	dictionary[key] = JsonType(value);
+	keys.insert(key);
 }
 
 void JsonObject::set(const std::string& key, bool value){
 	dictionary[key] = JsonType(value);
+	keys.insert(key);
 }
 
 void JsonObject::set(const std::string& key, JsonObject *object){
 	dictionary[key] = JsonType(object);
+	keys.insert(key);
 }
 
 void JsonObject::set(const std::string& key, double number){
 	dictionary[key] = JsonType(number);
+	keys.insert(key);
+}
+
+void JsonObject::pushArray(const char *value){
+	json_array.push_back(JsonType(std::string(value)));
 }
 
 void JsonObject::pushArray(const std::string& value){
@@ -201,7 +231,85 @@ size_t JsonObject::size(void){
 	if(isArray())
 		return json_array.size();
 	else
-		return dictionary.size();
+		return keys.size();
+}
+
+bool JsonObject::writeJsonObject(std::ofstream& stream, JsonObject *object, const std::string& tabs){
+	if(object->isArray())
+		stream << "[\n";
+	else
+		stream << "{\n";
+
+	if(!object->isArray()){
+		size_t index = 0;
+
+		for(const auto& i : object->getKeys()){
+			writeJsonType(stream, i, object->get(i), tabs + "\t");
+
+			index++;
+
+			if(index != object->size())
+				stream << ',';
+
+			stream << "\n";
+		}
+	}
+	else{
+		for(size_t i = 0; i < object->size(); i++){
+			writeJsonType(stream, "", object->get(i), tabs + "\t");
+
+			if(i != object->size() - 1)
+				stream << ",";
+
+			stream << "\n";
+		}
+	}
+
+	if(object->isArray())
+		stream << tabs << "]";
+	else
+		stream << tabs << "}";
+
+	return true;
+}
+
+bool JsonObject::writeJsonType(std::ofstream& stream, const std::string& key, JsonType& type, const std::string& tabs){
+	std::string output;
+
+	stream << tabs;
+
+	if(key != ""){
+		stream << key << ": ";
+	}
+
+	switch(type.type){
+		case JSON_TYPE_NUMBER:
+			stream << type.getNumber();
+			break;
+
+		case JSON_TYPE_BOOLEAN:
+			if(type.getBoolean())
+				stream << "true";
+			else
+				stream << "false";
+
+			break;
+
+		case JSON_TYPE_STRING:
+			stream << type.getString();
+			break;
+
+		case JSON_TYPE_NULL:
+			stream << "null";
+			break;
+
+		case JSON_TYPE_OBJECT:
+			writeJsonObject(stream, type.getObject(), tabs + '\t');
+				
+			break;
+	}
+
+	return true;
 }
 
 bool JsonObject::stateMachine(const std::string& line, size_t& pos){
