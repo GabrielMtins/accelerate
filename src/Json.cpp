@@ -279,7 +279,7 @@ bool JsonObject::writeJsonType(std::ofstream& stream, const std::string& key, Js
 	stream << tabs;
 
 	if(key != ""){
-		stream << key << ": ";
+		stream << '"' << key << '"' << ": ";
 	}
 
 	switch(type.type){
@@ -296,7 +296,7 @@ bool JsonObject::writeJsonType(std::ofstream& stream, const std::string& key, Js
 			break;
 
 		case JSON_TYPE_STRING:
-			stream << type.getString();
+			stream << '"' << type.getString() << '"';
 			break;
 
 		case JSON_TYPE_NULL:
