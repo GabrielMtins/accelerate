@@ -14,6 +14,7 @@ enum JSON_STATE {
 	SEARCH_VALUE,
 	STRING_SEARCH_QUOTE,
 	STRING_READ_ON,
+	ESCAPE_READ_ON,
 	NUMBER_READ,
 };
 
@@ -175,13 +176,23 @@ bool JsonObject::has(size_t i){
 }
 
 void JsonObject::set(const char *key, const char *value){
+	if(keys.find(std::string(key)) != keys.end()){
+		delete dictionary[std::string(key)].data.string_value;
+	}
+	else
+		keys.insert(std::string(key));
+
 	dictionary[std::string(key)] = JsonType(std::string(value));
-	keys.insert(std::string(key));
 }
 
 void JsonObject::set(const std::string& key, std::string value){
+	if(keys.find(key) != keys.end()){
+		delete dictionary[key].data.string_value;
+	}
+	else
+		keys.insert(std::string(key));
+
 	dictionary[key] = JsonType(value);
-	keys.insert(key);
 }
 
 void JsonObject::set(const std::string& key, bool value){
@@ -190,8 +201,13 @@ void JsonObject::set(const std::string& key, bool value){
 }
 
 void JsonObject::set(const std::string& key, JsonObject *object){
+	if(keys.find(key) != keys.end()){
+		delete dictionary[key].data.object_value;
+	}
+	else
+		keys.insert(std::string(key));
+
 	dictionary[key] = JsonType(object);
-	keys.insert(key);
 }
 
 void JsonObject::set(const std::string& key, double number){
@@ -512,8 +528,53 @@ bool JsonObject::stateMachine(const std::string& line, size_t& pos){
 					next_state = SEARCH_FOR_END;
 				}
 			}
+			else if(c == '\\'){
+				next_state = ESCAPE_READ_ON;
+			}
 			else{
 				current_token += c;
+			}
+
+			pos++;
+
+			break;
+
+		case ESCAPE_READ_ON:
+			if(c == 'n'){
+				current_token += '\n';
+				next_state = STRING_READ_ON;
+			}
+			else if(c == '/'){
+				current_token += '/';
+				next_state = STRING_READ_ON;
+			}
+			else if(c == '\"'){
+				current_token += '\"';
+				next_state = STRING_READ_ON;
+			}
+			else if(c == '\\'){
+				current_token += '\\';
+				next_state = STRING_READ_ON;
+			}
+			else if(c == 'b'){
+				current_token += '\b';
+				next_state = STRING_READ_ON;
+			}
+			else if(c == 'f'){
+				current_token += '\f';
+				next_state = STRING_READ_ON;
+			}
+			else if(c == 'r'){
+				current_token += '\r';
+				next_state = STRING_READ_ON;
+			}
+			else if(c == 't'){
+				current_token += '\t';
+				next_state = STRING_READ_ON;
+			}
+			else{
+				std::cout << "Expected support escape character at line: " << line << '\n';
+				return false;
 			}
 
 			pos++;

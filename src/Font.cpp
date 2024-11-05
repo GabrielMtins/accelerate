@@ -23,11 +23,31 @@ TTF_Font * Font::getFont(void){
 }
 
 int Font::widthText(const std::string& text){
-	int w;
+	int max_w, w;
+	std::string tmp;
 
-	TTF_SizeText(font, text.c_str(), &w, NULL);
+	max_w = 0;
 
-	return w;
+	for(char c : text){
+		if(c == '\n'){
+			TTF_SizeText(font, tmp.c_str(), &w, NULL);
+
+			if(w > max_w)
+				max_w = w;
+			
+			tmp = "";
+		}
+		else{
+			tmp += c;
+		}
+	}
+
+	TTF_SizeText(font, tmp.c_str(), &w, NULL);
+
+	if(w > max_w)
+		max_w = w;
+
+	return max_w;
 }
 
 Font::~Font(void){

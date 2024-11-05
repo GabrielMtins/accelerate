@@ -121,9 +121,9 @@ Texture::Texture(Context *context, Font *font, const std::string& text, const Co
 	SDL_Surface *surface = NULL;
 
 	if(anti_aliasing)
-		surface = TTF_RenderUTF8_Blended(font->getFont(), text.c_str(), fg);
+		surface = TTF_RenderUTF8_Blended_Wrapped(font->getFont(), text.c_str(), fg, 0);
 	else
-		surface = TTF_RenderUTF8_Solid(font->getFont(), text.c_str(), fg);
+		surface = TTF_RenderUTF8_Solid_Wrapped(font->getFont(), text.c_str(), fg, 0);
 
 
 	if(surface == NULL){
