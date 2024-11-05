@@ -144,6 +144,9 @@ void Render2dSystem::updateTileset(ComponentManager *component_manager){
 }
 
 void Render2dSystem::renderTilesetComponent(TilesetComponent* tileset){
+	if(tileset->tileset_texture == NULL)
+		return;
+
 	int min_x = (int) (camera_position->x / tileset->width) - 2;
 	int min_y = (int) (camera_position->y / tileset->height) - 2;
 	int max_x = min_x + context->getWidth() / tileset->width + 4;
@@ -155,7 +158,6 @@ void Render2dSystem::renderTilesetComponent(TilesetComponent* tileset){
 			int tile_id = tileset->getTile(i, j);
 
 			if(tile_id == -1) continue;
-
 
 			tileset->tileset_texture->renderCell(
 					context,
