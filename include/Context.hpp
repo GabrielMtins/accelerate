@@ -10,6 +10,12 @@
 
 namespace acc {
 
+enum ContextScaling {
+	CONTEXT_SCALING_BESTFIT = 0,
+	CONTEXT_SCALING_PIXELPERFECT,
+	CONTEXT_SCALING_EXPAND,
+};
+
 class Context {
 	public:
 		/**
@@ -24,6 +30,7 @@ class Context {
 		 * It'll scale accordly.
 		 */
 		Context(const char *title, int internal_width, int internal_height);
+		void setScaling(size_t scaling_flag);
 		void close(void);
 		void setMinimumFps(uint32_t fps);
 		void setFps(uint32_t fps);
@@ -55,9 +62,12 @@ class Context {
 
 	private:
 		void setUpKeys(void);
+		void renderPixelPerfect(void);
+		void renderBestFit(void);
 
 		SDL_Window *window;
 		SDL_Renderer *renderer;
+		SDL_Texture *framebuffer;
 
 		bool key_state[SDL_NUM_SCANCODES];
 		uint64_t key_tick_pressed[SDL_NUM_SCANCODES];
@@ -76,6 +86,7 @@ class Context {
 		uint32_t fps;
 		float minimum_delta;
 		bool quit;
+		int scaling;
 
 		int window_width, window_height;
 

@@ -53,6 +53,8 @@ Context::Context(const char *title, int internal_width, int internal_height){
 			internal_width,
 			internal_height
 			);
+
+	setScaling(CONTEXT_SCALING_BESTFIT);
 }
 
 void Context::setScaling(size_t scaling_flag){
@@ -137,6 +139,7 @@ void Context::pollEvent(void){
 	}
 
 	/* update key state */
+
 	const uint8_t *keys_pressed_on_frame = SDL_GetKeyboardState(NULL);
 
 	for(int i = 0; i < SDL_NUM_SCANCODES; i++){
@@ -336,6 +339,7 @@ SDL_Renderer * Context::getRenderer(void){
 }
 
 Context::~Context(void){
+	SDL_DestroyTexture(framebuffer);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
