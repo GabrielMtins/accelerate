@@ -8,6 +8,28 @@
 
 namespace acc {
 
+enum RENDERDATATYPE {
+	RENDER_DATA_SPRITE = 0,
+	RENDER_DATA_RECT,
+	RENDER_DATA_TILESET
+};
+
+struct RenderData {
+	RenderData(SpriteComponent *sprite);
+	RenderData(DrawRectComponent *rect);
+	RenderData(TilesetComponent *tileset);
+
+	union {
+		SpriteComponent *sprite;
+		DrawRectComponent *rect;
+		TilesetComponent *tileset;
+	} data;
+
+	int type;
+	int layer;
+	int y;
+};
+
 RenderData::RenderData(SpriteComponent *sprite){
 	data.sprite = sprite;
 
