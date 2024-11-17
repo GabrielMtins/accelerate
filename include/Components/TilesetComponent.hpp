@@ -2,6 +2,9 @@
 #define TILESET_COMPONENT_HPP
 
 #include <array>
+#include <vector>
+
+#include "Vec3.hpp"
 
 #include "BaseTexture.hpp"
 

@@ -8,6 +8,5 @@ var searchData=
   ['tileset_5fwidth_5',['tileset_width',['../structacc_1_1TilesetComponent.html#aaa1296c28c27e0d3a1fa4ef51fb2ccff',1,'acc::TilesetComponent']]],
   ['tilesetcomponent_6',['TilesetComponent',['../structacc_1_1TilesetComponent.html',1,'acc']]],
   ['transformcomponent_7',['TransformComponent',['../structacc_1_1TransformComponent.html',1,'acc']]],
-  ['triangle_8',['Triangle',['../structacc_1_1Triangle.html',1,'acc']]],
-  ['type_9',['type',['../structacc_1_1JsonType.html#a54a1c7b1aaa0561993bb817033774800',1,'acc::JsonType']]]
+  ['type_8',['type',['../structacc_1_1JsonType.html#a54a1c7b1aaa0561993bb817033774800',1,'acc::JsonType']]]
 ];

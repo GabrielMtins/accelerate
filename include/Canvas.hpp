@@ -3,7 +3,6 @@
 
 #include "Resource.hpp"
 #include "Context.hpp"
-#include "Mesh.hpp"
 #include "Color.hpp"
 
 namespace acc {

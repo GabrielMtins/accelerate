@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['game_0',['game',['../classacc_1_1Game.html',1,'acc::Game'],['../classacc_1_1Scene.html#a0fda593f785c74d32101edb02f44bb9a',1,'acc::Scene::game'],['../classacc_1_1Game.html#a1ad7f8452cc35b2e94a4bdc834b94429',1,'acc::Game::Game()']]],
+  ['game_0',['game',['../classacc_1_1Game.html',1,'acc::Game'],['../classacc_1_1Game.html#a1ad7f8452cc35b2e94a4bdc834b94429',1,'acc::Game::Game()'],['../classacc_1_1Scene.html#a0fda593f785c74d32101edb02f44bb9a',1,'acc::Scene::game']]],
   ['gamepad_1',['Gamepad',['../classacc_1_1Gamepad.html',1,'acc']]],
   ['get_2',['get',['../classacc_1_1JsonObject.html#aec53478f8cdc6198ac0519ad96dd260c',1,'acc::JsonObject::get(const std::string &amp;key)'],['../classacc_1_1JsonObject.html#ab22831880acbc9321439fe0b2e080823',1,'acc::JsonObject::get(size_t i)']]],
   ['getboolean_3',['getBoolean',['../structacc_1_1JsonType.html#aee9b949a124f740705086645242898dd',1,'acc::JsonType']]],

@@ -36,7 +36,6 @@
 #include "Resource.hpp"
 #include "Sfx.hpp"
 #include "Canvas.hpp"
-#include "Mesh.hpp"
 #include "Music.hpp"
 #include "Scene2d.hpp"
 #include "Game.hpp"
