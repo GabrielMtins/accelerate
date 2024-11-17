@@ -29,6 +29,32 @@ static const char *default_rectangle_fragment_src =
 "	FragColor = color;\n"
 "}\n";
 
+static const char *default_texture_vertex_src =
+"#version 330 core\n"
+"layout (location = 0) in vec3 in_pos;\n"
+"layout (location = 1) in vec2 in_tex_coords;\n"
+"uniform vec4 offset_tex_coords;\n"
+"uniform mat4 model;\n"
+"out vec2 out_tex_coords;\n"
+"void main(){\n"
+	"gl_Position = model * vec4(in_pos, 1.0f);\n"
+	"gl_Position.y *= -1.0f;\n"
+	"gl_Position.z = 0.0f;\n"
+	"out_tex_coords = vec2(\n"
+			"in_tex_coords.x * offset_tex_coords.z + offset_tex_coords.x,\n"
+			"in_tex_coords.y * offset_tex_coords.w + offset_tex_coords.y\n"
+	");\n"
+"}\n";
+
+static const char *default_texture_fragment_src =
+"#version 330 core\n"
+"out vec4 FragColor;\n"
+"in vec2 out_tex_coords;\n"
+"uniform sampler2D frag_texture;\n"
+"void main(){\n"
+	"FragColor = texture(frag_texture, out_tex_coords);\n"
+"}\n";
+
 void RendererGL::init(void){
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
@@ -74,7 +100,10 @@ RendererGL::RendererGL(Context *context){
 			{0, 1, 2, 2, 3, 1}
 			);
 
-	default_texture_shader->loadFile("vertex.vs", "fragment.fs");
+	default_texture_shader->loadShader(
+			default_texture_vertex_src,
+			default_texture_fragment_src
+			);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

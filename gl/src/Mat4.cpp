@@ -101,4 +101,21 @@ Mat4 Mat4::RotateZ(float angle){
 	return rotate_z;
 }
 
+Mat4 Mat4::PerspectiveProjection(float fov, float far, float near){
+	Mat4 perspective_projection;
+
+	float s = 1.0f / tanf(0.5f * fov);
+	float a1 = -far / (far - near);
+	float a2 = - far * near / (far - near);
+
+
+	perspective_projection.arr[0] = s;
+	perspective_projection.arr[5] = s;
+	perspective_projection.arr[10] = a1;
+	perspective_projection.arr[11] = a2;
+	perspective_projection.arr[14] = -1.0f;
+	
+	return perspective_projection;
+}
+
 };
