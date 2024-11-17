@@ -5,8 +5,6 @@
 
 namespace acc {
 
-static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex);
-
 Texture::Texture(Context *context, const std::string& filename, Canvas* canvas){
 	setName(filename);
 
@@ -228,19 +226,6 @@ SDL_Rect Texture::getDstRect(int x, int y, int id){
 	}
 
 	return dst_rect;
-}
-
-static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex){
-	uint8_t alpha = (uint8_t) (vertex.alpha * 255.0f);
-	vertex.color *= 255.0f;
-
-	SDL_Vertex transformed = {
-		{vertex.position.x, vertex.position.y},
-		{(uint8_t) vertex.color.x, (uint8_t) vertex.color.y, (uint8_t) vertex.color.z, alpha},
-		{vertex.uv.x, vertex.uv.y}
-	};
-
-	return transformed;
 }
 
 };
