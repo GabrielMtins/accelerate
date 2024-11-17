@@ -10,12 +10,6 @@
 
 namespace acc {
 
-enum ContextScaling {
-	CONTEXT_SCALING_BESTFIT = 0,
-	CONTEXT_SCALING_PIXELPERFECT,
-	CONTEXT_SCALING_EXPAND,
-};
-
 class Context {
 	public:
 		/**
@@ -57,13 +51,12 @@ class Context {
 		bool getMouseButton(const std::string& mouse_button);
 		bool getMouseButtonDown(const std::string& mouse_button);
 		bool getMouseButtonUp(const std::string& mouse_button);
+		SDL_Window * getWindow(void);
 		SDL_Renderer * getRenderer(void);
 		~Context(void);
 
 	private:
 		void setUpKeys(void);
-		void renderPixelPerfect(void);
-		void renderBestFit(void);
 
 		SDL_Window *window;
 		SDL_Renderer *renderer;

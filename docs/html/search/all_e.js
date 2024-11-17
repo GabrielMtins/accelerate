@@ -6,7 +6,9 @@ var searchData=
   ['rendercell_3',['renderCell',['../classacc_1_1Texture.html#a6b3f3f7b90dc7af538f2ec4972e5c028',1,'acc::Texture']]],
   ['rendercellex_4',['renderCellEx',['../classacc_1_1Texture.html#a1634b7d39653d60fbee5d19e407e7ea0',1,'acc::Texture']]],
   ['renderdata_5',['RenderData',['../structacc_1_1RenderData.html',1,'acc']]],
-  ['renderrect_6',['renderRect',['../classacc_1_1Texture.html#a911ed6f5dd672c7ea5b92ba4f374c149',1,'acc::Texture']]],
-  ['resource_7',['Resource',['../classacc_1_1Resource.html',1,'acc']]],
-  ['resourcemanager_8',['ResourceManager',['../classacc_1_1ResourceManager.html',1,'acc']]]
+  ['renderer_6',['Renderer',['../classacc_1_1Renderer.html',1,'acc']]],
+  ['renderersdl_7',['RendererSDL',['../classacc_1_1RendererSDL.html',1,'acc']]],
+  ['renderrect_8',['renderRect',['../classacc_1_1Texture.html#a911ed6f5dd672c7ea5b92ba4f374c149',1,'acc::Texture']]],
+  ['resource_9',['Resource',['../classacc_1_1Resource.html',1,'acc']]],
+  ['resourcemanager_10',['ResourceManager',['../classacc_1_1ResourceManager.html',1,'acc']]]
 ];

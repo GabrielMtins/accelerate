@@ -28,16 +28,6 @@ Context::Context(const char *title, int internal_width, int internal_height){
 			SDL_WINDOW_RESIZABLE
 			);
 
-	this->renderer = SDL_CreateRenderer(
-			this->window,
-			-1,
-			0
-			);
-
-	//SDL_RenderSetLogicalSize(this->renderer, this->internal_width, this->internal_height);
-
-	SDL_SetRenderDrawBlendMode(this->renderer, SDL_BLENDMODE_BLEND);
-
 	this->quit = false;
 	this->delta_time = 0;
 	this->first_time = SDL_GetTicks64();
@@ -45,16 +35,6 @@ Context::Context(const char *title, int internal_width, int internal_height){
 	setUpKeys();
 	setFps(165);
 	minimum_delta = 1000;
-
-	framebuffer = SDL_CreateTexture(
-			renderer,
-			(SDL_PixelFormatEnum) SDL_PIXELFORMAT_RGBA8888,
-			(SDL_TextureAccess) SDL_TEXTUREACCESS_TARGET,
-			internal_width,
-			internal_height
-			);
-
-	setScaling(CONTEXT_SCALING_BESTFIT);
 }
 
 void Context::setScaling(size_t scaling_flag){
@@ -84,6 +64,9 @@ void Context::setWindowedMode(void){
 void Context::setWindowSize(int width, int height){
 	SDL_SetWindowSize(window, width, height);
 	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
+	window_width = width;
+	window_height = height;
 }
 
 void Context::maximizeWindow(void){
@@ -224,29 +207,9 @@ uint64_t Context::getTicks(void){
 }
 
 void Context::clearScreen(uint8_t r, uint8_t g, uint8_t b, uint8_t a){
-	SDL_SetRenderDrawColor(renderer, r, g, b, a);
-	SDL_RenderClear(renderer);
-
-	SDL_SetRenderTarget(renderer, framebuffer);
 }
 
 void Context::renderPresent(void){
-	SDL_SetRenderTarget(renderer, NULL);
-	
-	switch(scaling){
-		case CONTEXT_SCALING_EXPAND:
-			SDL_RenderCopy(renderer, framebuffer, NULL, NULL);
-			break;
-
-		case CONTEXT_SCALING_PIXELPERFECT:
-			renderPixelPerfect();
-			break;
-
-		case CONTEXT_SCALING_BESTFIT:
-			renderBestFit();
-			break;
-	}
-	SDL_RenderPresent(renderer);
 }
 
 bool Context::getKey(const std::string& key){
@@ -334,13 +297,15 @@ bool Context::getMouseButtonUp(const std::string& mouse_button){
 	return !mouse_button_state[mouse_button] && (mouse_button_tick_released[mouse_button] == getTicks());
 }
 
+SDL_Window * Context::getWindow(void){
+	return window;
+}
+
 SDL_Renderer * Context::getRenderer(void){
 	return renderer;
 }
 
 Context::~Context(void){
-	SDL_DestroyTexture(framebuffer);
-	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
 	Mix_CloseAudio();
@@ -417,44 +382,6 @@ void Context::setUpKeys(void){
 	mouse_button_tick_released["left"] = 0;
 	mouse_button_tick_released["right"] = 0;
 	mouse_button_tick_released["middle"] = 0;
-}
-
-void Context::renderPixelPerfect(void){
-	int scale_factor = std::min(window_width / internal_width, window_height / internal_height);
-
-	int defacto_width = scale_factor * internal_width;
-	int defacto_height = scale_factor * internal_height;
-
-	SDL_Rect defacto_rect = {
-		(window_width - defacto_width) / 2,
-		(window_height - defacto_height) / 2,
-		defacto_width,
-		defacto_height
-	};
-
-	SDL_RenderCopy(renderer, framebuffer, NULL, &defacto_rect);
-}
-
-void Context::renderBestFit(void){
-	int defacto_width, defacto_height;
-
-	if(window_width * internal_height < window_height * internal_width){
-		defacto_width = window_width;
-		defacto_height = internal_height * window_width / internal_width;
-	}
-	else{
-		defacto_width = internal_width * window_height / internal_height;
-		defacto_height = window_height;
-	}
-
-	SDL_Rect defacto_rect = {
-		(window_width - defacto_width) / 2,
-		(window_height - defacto_height) / 2,
-		defacto_width,
-		defacto_height
-	};
-
-	SDL_RenderCopy(renderer, framebuffer, NULL, &defacto_rect);
 }
 
 };

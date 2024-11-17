@@ -54,7 +54,7 @@ template <typename T> class ComponentArray : public BaseComponentArray {
 			return true;
 		}
 
-		bool removeComponent(Entity entity) override{
+		bool removeComponent(Entity entity){
 			if(entity_to_index.find(entity) == entity_to_index.end()){
 				return false;
 			}
