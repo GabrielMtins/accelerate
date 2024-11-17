@@ -19,7 +19,7 @@ SpriteComponent::SpriteComponent(Resource *texture){
 	if(texture == NULL)
 		this->texture = NULL;
 	else
-		this->texture = (Texture *) texture;
+		this->texture = (BaseTexture *) texture;
 
 	id = -1;
 	layer = 0;
@@ -32,11 +32,11 @@ SpriteComponent::SpriteComponent(Resource *texture){
 	angle = 0.0f;
 }
 
-SpriteComponent::SpriteComponent(Texture *texture){
+SpriteComponent::SpriteComponent(BaseTexture *texture){
 	if(texture == NULL)
 		this->texture = NULL;
 	else
-		this->texture = (Texture *) texture;
+		this->texture = (BaseTexture *) texture;
 
 	id = -1;
 	layer = 0;

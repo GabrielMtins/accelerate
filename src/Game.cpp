@@ -9,15 +9,12 @@
 
 namespace acc {
 
-Game::Game(const char *title, int internal_width, int internal_height){
-	context = new Context(title, internal_width, internal_height);
+Game::Game(Context *context){
+	this->context = context;
 	resource_manager = new ResourceManager();
 	current_scene = NULL;
 	next_scene = NULL;
 	swap_scene = NULL;
-
-	loadResource((Resource *) new Texture(context, DEV_TEXTURE_WHITE));
-	loadResource((Resource *) new Texture(context, DEV_TEXTURE_XOR));
 
 	bg_color[0] = bg_color[1] = bg_color[2] = 100;
 	bg_color[3] = 0xff;

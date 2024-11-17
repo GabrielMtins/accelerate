@@ -13,7 +13,7 @@ namespace acc {
 struct TextComponent {
 	Font *font;
 
-	std::shared_ptr<Texture> texture;
+	std::shared_ptr<BaseTexture> texture;
 
 	std::string text;
 	std::string old_text;

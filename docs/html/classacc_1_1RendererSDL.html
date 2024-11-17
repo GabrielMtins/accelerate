@@ -115,6 +115,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afb35aabd355dfcef1a087c3bda486076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dbf716df7307a417bc41d6aa5fe7cc8" id="r_a3dbf716df7307a417bc41d6aa5fe7cc8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classacc_1_1ComponentArray.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classacc_1_1RendererSDL.html#a3dbf716df7307a417bc41d6aa5fe7cc8">renderPresent</a> (<a class="el" href="classacc_1_1ComponentArray.html">void</a>)</td></tr>
 <tr class="separator:a3dbf716df7307a417bc41d6aa5fe7cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8562d31c785a01685a1d8b4c6b03ffd" id="r_aa8562d31c785a01685a1d8b4c6b03ffd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classacc_1_1ComponentArray.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classacc_1_1RendererSDL.html#aa8562d31c785a01685a1d8b4c6b03ffd">renderRect</a> (<a class="el" href="classacc_1_1ComponentArray.html">int</a> x, <a class="el" href="classacc_1_1ComponentArray.html">int</a> y, <a class="el" href="classacc_1_1ComponentArray.html">int</a> w, <a class="el" href="classacc_1_1ComponentArray.html">int</a> h, <a class="el" href="classacc_1_1ComponentArray.html">uint8_t</a> r, <a class="el" href="classacc_1_1ComponentArray.html">uint8_t</a> g, <a class="el" href="classacc_1_1ComponentArray.html">uint8_t</a> b, <a class="el" href="classacc_1_1ComponentArray.html">uint8_t</a> a)</td></tr>
+<tr class="separator:aa8562d31c785a01685a1d8b4c6b03ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53efc99754fa72558bb413a6213a58ab" id="r_a53efc99754fa72558bb413a6213a58ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classacc_1_1BaseTexture.html">BaseTexture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classacc_1_1RendererSDL.html#a53efc99754fa72558bb413a6213a58ab">loadTexture</a> (<a class="el" href="classacc_1_1Context.html">Context</a> *context, <a class="el" href="classacc_1_1ComponentArray.html">const</a> std::string &amp;filename, <a class="el" href="classacc_1_1ComponentArray.html">int</a> cell_width, <a class="el" href="classacc_1_1ComponentArray.html">int</a> cell_height)</td></tr>
+<tr class="separator:a53efc99754fa72558bb413a6213a58ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb572e3d845bf636c512666b9541cc60" id="r_adb572e3d845bf636c512666b9541cc60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classacc_1_1BaseTexture.html">BaseTexture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classacc_1_1RendererSDL.html#adb572e3d845bf636c512666b9541cc60">loadTexture</a> (<a class="el" href="classacc_1_1Context.html">Context</a> *context, <a class="el" href="classacc_1_1Font.html">Font</a> *font, <a class="el" href="classacc_1_1ComponentArray.html">const</a> std::string &amp;text, <a class="el" href="classacc_1_1ComponentArray.html">const</a> <a class="el" href="structacc_1_1Color.html">Color</a> &amp;color, <a class="el" href="classacc_1_1ComponentArray.html">bool</a> anti_aliasing)</td></tr>
+<tr class="separator:adb572e3d845bf636c512666b9541cc60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf918fd2dfe0289d5046cecac4562dfd" id="r_acf918fd2dfe0289d5046cecac4562dfd"><td class="memItemLeft" align="right" valign="top"><a id="acf918fd2dfe0289d5046cecac4562dfd" name="acf918fd2dfe0289d5046cecac4562dfd"></a>
+<a class="el" href="classacc_1_1ComponentArray.html">SDL_Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getSDLRenderer</b> (<a class="el" href="classacc_1_1ComponentArray.html">void</a>)</td></tr>
+<tr class="separator:acf918fd2dfe0289d5046cecac4562dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="afb35aabd355dfcef1a087c3bda486076" name="afb35aabd355dfcef1a087c3bda486076"></a>
@@ -167,6 +176,112 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a53efc99754fa72558bb413a6213a58ab" name="a53efc99754fa72558bb413a6213a58ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53efc99754fa72558bb413a6213a58ab">&#9670;&#160;</a></span>loadTexture() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classacc_1_1BaseTexture.html">BaseTexture</a> * acc::RendererSDL::loadTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classacc_1_1Context.html">Context</a> *&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">const</a> std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">int</a>&#160;</td>
+          <td class="paramname"><em>cell_width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">int</a>&#160;</td>
+          <td class="paramname"><em>cell_height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classacc_1_1Renderer.html">acc::Renderer</a>.</p>
+
+</div>
+</div>
+<a id="adb572e3d845bf636c512666b9541cc60" name="adb572e3d845bf636c512666b9541cc60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb572e3d845bf636c512666b9541cc60">&#9670;&#160;</a></span>loadTexture() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classacc_1_1BaseTexture.html">BaseTexture</a> * acc::RendererSDL::loadTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classacc_1_1Context.html">Context</a> *&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1Font.html">Font</a> *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">const</a> std::string &amp;&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">const</a> <a class="el" href="structacc_1_1Color.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">bool</a>&#160;</td>
+          <td class="paramname"><em>anti_aliasing</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classacc_1_1Renderer.html">acc::Renderer</a>.</p>
+
+</div>
+</div>
 <a id="a3dbf716df7307a417bc41d6aa5fe7cc8" name="a3dbf716df7307a417bc41d6aa5fe7cc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3dbf716df7307a417bc41d6aa5fe7cc8">&#9670;&#160;</a></span>renderPresent()</h2>
 
@@ -182,6 +297,80 @@ Public Member Functions</h2></td></tr>
           <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">void</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classacc_1_1Renderer.html">acc::Renderer</a>.</p>
+
+</div>
+</div>
+<a id="aa8562d31c785a01685a1d8b4c6b03ffd" name="aa8562d31c785a01685a1d8b4c6b03ffd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8562d31c785a01685a1d8b4c6b03ffd">&#9670;&#160;</a></span>renderRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classacc_1_1ComponentArray.html">void</a> acc::RendererSDL::renderRect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">int</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">int</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">int</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">int</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">uint8_t</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">uint8_t</a>&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">uint8_t</a>&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classacc_1_1ComponentArray.html">uint8_t</a>&#160;</td>
+          <td class="paramname"><em>a</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>

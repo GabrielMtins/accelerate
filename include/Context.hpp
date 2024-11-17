@@ -8,6 +8,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
+#include "Renderer.hpp"
+
 namespace acc {
 
 class Context {
@@ -23,8 +25,9 @@ class Context {
 		 * a internal width of (320x240) and can use that system coordinates.
 		 * It'll scale accordly.
 		 */
-		Context(const char *title, int internal_width, int internal_height);
-		void setScaling(size_t scaling_flag);
+		Context(const char *title, int internal_width, int internal_height, uint32_t flags);
+		void setRenderer(Renderer *renderer);
+		void setScaling(RendererScaling scaling_flag);
 		void close(void);
 		void setMinimumFps(uint32_t fps);
 		void setFps(uint32_t fps);
@@ -52,15 +55,13 @@ class Context {
 		bool getMouseButtonDown(const std::string& mouse_button);
 		bool getMouseButtonUp(const std::string& mouse_button);
 		SDL_Window * getWindow(void);
-		SDL_Renderer * getRenderer(void);
+		Renderer * getRenderer(void);
 		~Context(void);
 
 	private:
 		void setUpKeys(void);
 
 		SDL_Window *window;
-		SDL_Renderer *renderer;
-		SDL_Texture *framebuffer;
 
 		bool key_state[SDL_NUM_SCANCODES];
 		uint64_t key_tick_pressed[SDL_NUM_SCANCODES];
@@ -79,11 +80,11 @@ class Context {
 		uint32_t fps;
 		float minimum_delta;
 		bool quit;
-		int scaling;
 
 		int window_width, window_height;
-
 		int internal_width, internal_height;
+
+		Renderer *renderer;
 };
 
 };

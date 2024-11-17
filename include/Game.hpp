@@ -16,7 +16,7 @@ class Game {
 		/**
 		 * The same constructor as the Context class.
 		 */
-		Game(const char *title, int internal_width, int internal_height);
+		Game(Context *context);
 		/**
 		 * Set the background color of the scene.
 		 */

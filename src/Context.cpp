@@ -3,7 +3,7 @@
 
 namespace acc {
 
-Context::Context(const char *title, int internal_width, int internal_height){
+Context::Context(const char *title, int internal_width, int internal_height, uint32_t flags){
 	SDL_Init(SDL_INIT_EVERYTHING);
 	IMG_Init(IMG_INIT_PNG);
 	TTF_Init();
@@ -25,20 +25,28 @@ Context::Context(const char *title, int internal_width, int internal_height){
 			SDL_WINDOWPOS_CENTERED,
 			this->window_width,
 			this->window_height,
-			SDL_WINDOW_RESIZABLE
+			SDL_WINDOW_RESIZABLE | flags
 			);
 
 	this->quit = false;
 	this->delta_time = 0;
 	this->first_time = SDL_GetTicks64();
+	this->renderer = NULL;
 
 	setUpKeys();
 	setFps(165);
 	minimum_delta = 1000;
 }
 
-void Context::setScaling(size_t scaling_flag){
-	scaling = scaling_flag;
+void Context::setRenderer(Renderer *renderer){
+	this->renderer = renderer;
+
+	renderer->setInternalSize(internal_width, internal_height);
+	renderer->setWindowSize(window_width, window_height);
+}
+
+void Context::setScaling(RendererScaling scaling_flag){
+	renderer->setScaling(scaling_flag);
 }
 
 void Context::close(void){
@@ -64,6 +72,9 @@ void Context::setWindowedMode(void){
 void Context::setWindowSize(int width, int height){
 	SDL_SetWindowSize(window, width, height);
 	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
+	if(renderer != NULL)
+		renderer->setWindowSize(width, height);
 
 	window_width = width;
 	window_height = height;
@@ -114,6 +125,8 @@ void Context::pollEvent(void){
 						&window_width,
 						&window_height
 						);
+
+				renderer->setWindowSize(window_width, window_height);
 			}
 		}
 		else if(event.type == SDL_TEXTINPUT){
@@ -207,9 +220,13 @@ uint64_t Context::getTicks(void){
 }
 
 void Context::clearScreen(uint8_t r, uint8_t g, uint8_t b, uint8_t a){
+	if(renderer != NULL)
+		renderer->clear(r, g, b, a);
 }
 
 void Context::renderPresent(void){
+	if(renderer != NULL)
+		renderer->renderPresent();
 }
 
 bool Context::getKey(const std::string& key){
@@ -301,11 +318,12 @@ SDL_Window * Context::getWindow(void){
 	return window;
 }
 
-SDL_Renderer * Context::getRenderer(void){
+Renderer * Context::getRenderer(void){
 	return renderer;
 }
 
 Context::~Context(void){
+	delete renderer;
 	SDL_DestroyWindow(window);
 
 	Mix_CloseAudio();

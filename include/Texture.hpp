@@ -1,23 +1,18 @@
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 
+#include "BaseTexture.hpp"
 #include "Resource.hpp"
 #include "Context.hpp"
 #include "Font.hpp"
-#include "Mesh.hpp"
 #include "Canvas.hpp"
 
 namespace acc {
 
-enum DEV_TEXTURE_TYPE {
-	DEV_TEXTURE_WHITE,
-	DEV_TEXTURE_XOR
-};
-
 /**
  * This class manages the creation, loading and rendering of textures.
  */
-class Texture : Resource{
+class Texture : public BaseTexture {
 	public:
 		/**
 		 * Creates a texture with a given Canvas.
@@ -27,14 +22,6 @@ class Texture : Resource{
 		 * Loads a texture from a given file name, cell width and cell height.
 		 */
 		Texture(Context *context, const std::string& filename, int cell_width, int cell_height);
-		/**
-		 * Loads a texture from a given file name.
-		 */
-		Texture(Context *context, const std::string& filename);
-		/**
-		 * Creates a custom dev texture.
-		 */
-		Texture(Context *context, int dev_texture);
 		/**
 		 * Creates a texture from a given string and font.
 		 */
@@ -61,10 +48,6 @@ class Texture : Resource{
 		 */
 		void renderRect(Context *context, int src[], int dst[]);
 
-		void renderTriangle(Context *context, const Triangle& triangle);
-
-		void renderMesh(Context *context, const Mesh& mesh);
-
 		int getTextureWidth(void);
 		int getTextureHeight(void);
 		int getCellWidth(void);
@@ -76,6 +59,7 @@ class Texture : Resource{
 		SDL_Rect getIdRect(int id);
 		SDL_Rect getDstRect(int x, int y, int id);
 
+		SDL_Renderer *renderer;
 		SDL_Texture *texture;
 		int texture_width, texture_height;
 		int cell_width, cell_height;

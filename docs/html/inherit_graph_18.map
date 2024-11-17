@@ -1,15 +1,17 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" href="$classacc_1_1Resource.html" title=" " alt="" coords="5,129,117,155"/>
-<area shape="rect" id="Node000001" href="$classacc_1_1Canvas.html" title=" " alt="" coords="176,5,276,31"/>
-<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="80,117,117,78,164,40,185,29,188,33,167,44,120,82,84,121"/>
-<area shape="rect" id="Node000002" href="$classacc_1_1Font.html" title=" " alt="" coords="186,55,266,80"/>
-<area shape="poly" id="edge4_Node000000_Node000002" title=" " alt="" coords="98,121,164,89,191,78,193,83,166,94,100,125"/>
-<area shape="rect" id="Node000003" href="$classacc_1_1JsonObject.html" title=" " alt="" coords="165,104,287,129"/>
-<area shape="poly" id="edge5_Node000000_Node000003" title=" " alt="" coords="131,129,164,123,165,129,131,134"/>
-<area shape="rect" id="Node000004" href="$classacc_1_1Music.html" title=" " alt="" coords="181,153,271,179"/>
-<area shape="poly" id="edge6_Node000000_Node000004" title=" " alt="" coords="131,149,181,157,180,162,130,155"/>
-<area shape="rect" id="Node000005" href="$classacc_1_1Sfx.html" title=" " alt="" coords="189,203,263,228"/>
-<area shape="poly" id="edge7_Node000000_Node000005" title=" " alt="" coords="103,158,166,188,195,200,193,205,164,192,100,163"/>
-<area shape="rect" id="Node000006" href="$classacc_1_1Texture.html" title=" " alt="" coords="176,252,276,277"/>
-<area shape="poly" id="edge8_Node000000_Node000006" title=" " alt="" coords="84,163,121,200,167,237,190,250,188,254,164,242,117,204,81,167"/>
+<area shape="rect" id="Node000001" href="$classacc_1_1BaseTexture.html" title=" " alt="" coords="165,5,297,31"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="80,117,116,78,164,40,187,28,189,33,167,44,120,82,83,120"/>
+<area shape="rect" id="Node000003" href="$classacc_1_1Canvas.html" title=" " alt="" coords="181,55,281,80"/>
+<area shape="poly" id="edge5_Node000000_Node000003" title=" " alt="" coords="98,121,164,89,193,78,195,82,166,94,100,125"/>
+<area shape="rect" id="Node000004" href="$classacc_1_1Font.html" title=" " alt="" coords="191,104,271,129"/>
+<area shape="poly" id="edge6_Node000000_Node000004" title=" " alt="" coords="130,129,191,120,191,125,131,134"/>
+<area shape="rect" id="Node000005" href="$classacc_1_1JsonObject.html" title=" " alt="" coords="171,153,292,179"/>
+<area shape="poly" id="edge7_Node000000_Node000005" title=" " alt="" coords="131,149,171,155,170,160,131,154"/>
+<area shape="rect" id="Node000006" href="$classacc_1_1Music.html" title=" " alt="" coords="186,203,277,228"/>
+<area shape="poly" id="edge8_Node000000_Node000006" title=" " alt="" coords="102,158,166,188,197,200,195,205,164,192,100,163"/>
+<area shape="rect" id="Node000007" href="$classacc_1_1Sfx.html" title=" " alt="" coords="195,252,268,277"/>
+<area shape="poly" id="edge9_Node000000_Node000007" title=" " alt="" coords="84,163,121,201,167,237,196,251,193,256,164,242,117,205,80,167"/>
+<area shape="rect" id="Node000002" href="$classacc_1_1Texture.html" title=" " alt="" coords="345,5,445,31"/>
+<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="311,15,345,15,345,21,311,21"/>
 </map>

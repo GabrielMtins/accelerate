@@ -20,6 +20,7 @@
 #include "ComponentArray.hpp"
 #include "global.hpp"
 #include "ComponentManager.hpp"
+#include "BaseTexture.hpp"
 #include "Animator.hpp"
 #include "Gamepad.hpp"
 #include "Vec3.hpp"

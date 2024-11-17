@@ -1,8 +1,11 @@
 #include "RendererSDL.hpp"
+#include "Texture.hpp"
 
 namespace acc {
 
 RendererSDL::RendererSDL(Context *context){
+	framebuffer = NULL;
+
 	renderer = SDL_CreateRenderer(
 			context->getWindow(),
 			-1,
@@ -12,6 +15,7 @@ RendererSDL::RendererSDL(Context *context){
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
 	setScaling(RENDERER_SCALING_BESTFIT);
+	setInternalSize(context->getWidth(), context->getHeight());
 }
 
 void RendererSDL::setWindowSize(int width, int height){
@@ -64,6 +68,25 @@ void RendererSDL::renderPresent(void){
 	}
 
 	SDL_RenderPresent(renderer);
+}
+
+void RendererSDL::renderRect(int x, int y, int w, int h, uint8_t r, uint8_t g, uint8_t b, uint8_t a){
+	SDL_Rect rect = {x, y, w, h};
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
+
+	SDL_RenderFillRect(renderer, &rect);
+}
+
+BaseTexture * RendererSDL::loadTexture(Context *context, const std::string& filename, int cell_width, int cell_height){
+	return new Texture(context, filename, cell_width, cell_height);
+}
+
+BaseTexture * RendererSDL::loadTexture(Context *context, Font *font, const std::string& text, const Color& color, bool anti_aliasing){
+	return new Texture(context, font, text, color, anti_aliasing);
+}
+
+SDL_Renderer * RendererSDL::getSDLRenderer(void){
+	return renderer;
 }
 
 RendererSDL::~RendererSDL(){

@@ -3,7 +3,7 @@
 
 #include <array>
 
-#include "Texture.hpp"
+#include "BaseTexture.hpp"
 
 #define DEFAULT_TILESET_SIZE 256
 
@@ -13,7 +13,7 @@ struct TilesetComponent {
 	/**
 	 * The tileset texture of the component
 	 */
-	Texture *tileset_texture;
+	BaseTexture *tileset_texture;
 	/**
 	 * The vector that contains the tiles of the level.
 	 */
@@ -44,7 +44,7 @@ struct TilesetComponent {
 	int draw_layer;
 
 	TilesetComponent(void);
-	TilesetComponent(Texture *tileset_texture, int tileset_width, int tileset_height, int width, int height);
+	TilesetComponent(BaseTexture *tileset_texture, int tileset_width, int tileset_height, int width, int height);
 	TilesetComponent(Resource *tileset_texture, int tileset_width, int tileset_height, int width, int height);
 
 	void setCollisionLayer(int layer);

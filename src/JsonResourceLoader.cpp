@@ -59,7 +59,7 @@ bool JsonResourceLoader::loadTextures(Game *game, JsonObject *main_object){
 		}
 
 		if(filename != ""){
-			game->loadResource((Resource *) new Texture(context, filename, cell_width, cell_height));
+			game->loadResource((Resource *) context->getRenderer()->loadTexture(context, filename, cell_width, cell_height));
 		}
 	}
 

@@ -1,7 +1,7 @@
 #ifndef SPRITE_COMPONENT_HPP
 #define SPRITE_COMPONENT_HPP
 
-#include "Texture.hpp"
+#include "BaseTexture.hpp"
 #include "Vec3.hpp"
 #include "Color.hpp"
 
@@ -33,7 +33,7 @@ struct SpriteComponent {
 	 * The texture of the sprite.
 	 * Default: NULL.
 	 */
-	Texture *texture;
+	BaseTexture *texture;
 	/**
 	 * The id of the texture to be drawn.
 	 */
@@ -63,7 +63,7 @@ struct SpriteComponent {
 
 	SpriteComponent(void);
 	SpriteComponent(Resource *texture);
-	SpriteComponent(Texture *texture);
+	SpriteComponent(BaseTexture *texture);
 };
 
 };

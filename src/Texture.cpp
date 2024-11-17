@@ -1,4 +1,5 @@
 #include "Texture.hpp"
+#include "RendererSDL.hpp"
 
 #include <algorithm>
 
@@ -9,8 +10,10 @@ static SDL_Vertex Vertex_ConvertToSDL(Vertex vertex);
 Texture::Texture(Context *context, const std::string& filename, Canvas* canvas){
 	setName(filename);
 
+	renderer = ((RendererSDL *) context->getRenderer())->getSDLRenderer();
+
 	texture = SDL_CreateTextureFromSurface(
-			context->getRenderer(),
+			renderer,
 			canvas->getSurface()
 			);
 
@@ -22,13 +25,14 @@ Texture::Texture(Context *context, const std::string& filename, int cell_width, 
 	setName(filename);
 
 	SDL_Surface *surface = IMG_Load(filename.c_str());
+	renderer = ((RendererSDL *) context->getRenderer())->getSDLRenderer();
 
 	if(surface == NULL){
 		fprintf(stderr, "Failed to load texture: %s\n", filename.c_str());
 		texture = NULL;
 	}
 	else{
-		texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
 
 		texture_width = surface->w;
 		texture_height = surface->h;
@@ -47,70 +51,6 @@ Texture::Texture(Context *context, const std::string& filename, int cell_width, 
 
 }
 
-Texture::Texture(Context *context, const std::string& filename){
-	setName(filename);
-
-	SDL_Surface *surface = IMG_Load(filename.c_str());
-
-	if(surface == NULL){
-		fprintf(stderr, "Failed to load texture: %s\n", filename.c_str());
-		texture = NULL;
-	}
-	else{
-		texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
-
-		texture_width = surface->w;
-		texture_height = surface->h;
-
-		cell_width = surface->w;
-		cell_height = surface->h;
-
-		SDL_FreeSurface(surface);
-	}
-}
-
-Texture::Texture(Context *context, int dev_texture){
-	texture_width = 64;
-	texture_height = 64;
-	cell_width = 64;
-	cell_height = 64;
-
-	SDL_Surface *surface = SDL_CreateRGBSurface(0, texture_width, texture_height, 32, 0, 0, 0, 0);
-	uint32_t *pixels = (uint32_t *) surface->pixels;
-
-	switch(dev_texture){
-		case DEV_TEXTURE_WHITE:
-			setName("dev_texture_white");
-
-			SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, 255, 255, 255, 255));
-			break;
-
-		case DEV_TEXTURE_XOR:
-		default:
-			setName("dev_texture_xor");
-
-			for(int i = 0; i < texture_width; i++){
-				for(int j = 0; j < texture_height; j++){
-					int c = (i ^ j);
-					pixels[i + j * texture_width] = 
-						SDL_MapRGBA(
-								surface->format,
-								c * 160 / 64,
-								c * 32 / 64,
-								c * 240 / 64,
-								255
-								);
-				}
-			}
-				
-			break;
-	}
-
-	texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
-
-	SDL_FreeSurface(surface);
-}
-
 Texture::Texture(Context *context, Font *font, const std::string& text, const Color& color, bool anti_aliasing){
 	if(text == ""){
 		texture = NULL;
@@ -119,6 +59,8 @@ Texture::Texture(Context *context, Font *font, const std::string& text, const Co
 
 	SDL_Color fg = {color.r, color.g, color.b, color.a};
 	SDL_Surface *surface = NULL;
+
+	renderer = ((RendererSDL *) context->getRenderer())->getSDLRenderer();
 
 	if(anti_aliasing)
 		surface = TTF_RenderUTF8_Blended_Wrapped(font->getFont(), text.c_str(), fg, 0);
@@ -131,7 +73,7 @@ Texture::Texture(Context *context, Font *font, const std::string& text, const Co
 		return;
 	}
 
-	texture = SDL_CreateTextureFromSurface(context->getRenderer(), surface);
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
 	
 	texture_width = surface->w;
 	texture_height = surface->h;
@@ -147,19 +89,23 @@ void Texture::updateCanvas(Context *context, Canvas *canvas){
 		SDL_DestroyTexture(texture);
 
 	texture = SDL_CreateTextureFromSurface(
-			context->getRenderer(),
+			renderer,
 			canvas->getSurface()
 			);
 }
 
 void Texture::renderCell(Context *context, int x, int y, int id){
+	(void) context;
+
 	SDL_Rect src_rect = getIdRect(id);
 	SDL_Rect dst_rect = getDstRect(x, y, id);
 
-	SDL_RenderCopy(context->getRenderer(), texture, &src_rect, &dst_rect);
+	SDL_RenderCopy(renderer, texture, &src_rect, &dst_rect);
 }
 
 void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle, bool flip_x, bool flip_y){
+	(void) context;
+
 	if(context == NULL || texture == NULL) return;
 
 	SDL_Rect src_rect = getIdRect(id);
@@ -181,7 +127,7 @@ void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x
 		flip = flip | SDL_FLIP_VERTICAL;
 
 	SDL_RenderCopyEx(
-			context->getRenderer(),
+			renderer,
 			texture,
 			&src_rect,
 			&dst_rect,
@@ -192,6 +138,8 @@ void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x
 }
 
 void Texture::renderRect(Context *context, int src[], int dst[]){
+	(void) context;
+
 	if(context == NULL || texture == NULL) return;
 
 	SDL_Rect src_rect, dst_rect;
@@ -209,43 +157,16 @@ void Texture::renderRect(Context *context, int src[], int dst[]){
 	}
 
 	if(dst == NULL){
-		SDL_RenderCopy(context->getRenderer(), texture, &src_rect, NULL);
+		SDL_RenderCopy(renderer, texture, &src_rect, NULL);
 	}
 	else{
 		dst_rect.x = dst[0];
 		dst_rect.y = dst[1];
 		dst_rect.w = dst[2];
 		dst_rect.h = dst[3];
-		SDL_RenderCopy(context->getRenderer(), texture, &src_rect, &dst_rect);
+		SDL_RenderCopy(renderer, texture, &src_rect, &dst_rect);
 	}
 
-}
-
-void Texture::renderTriangle(Context *context, const Triangle& triangle){
-	std::vector<SDL_Vertex> sdl_vertices_vector;
-	sdl_vertices_vector.reserve(3);
-
-	std::transform(
-			triangle.vertices.begin(),
-			triangle.vertices.end(),
-			std::back_inserter(sdl_vertices_vector),
-			Vertex_ConvertToSDL
-			);
-
-	SDL_RenderGeometry(
-			context->getRenderer(),
-			texture,
-			sdl_vertices_vector.data(),
-			sdl_vertices_vector.size(),
-			NULL,
-			0
-			);
-}
-
-void Texture::renderMesh(Context *context, const Mesh& mesh){
-	for(const Triangle& i : mesh.triangles){
-		renderTriangle(context, i);
-	}
 }
 
 int Texture::getTextureWidth(void){

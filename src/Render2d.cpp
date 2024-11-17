@@ -217,10 +217,7 @@ void Render2dSystem::renderAll(void){
 					);
 		}
 		else if(i.type == RENDER_DATA_RECT) {
-			SDL_Renderer *renderer = context->getRenderer();
 			DrawRectComponent *rect = i.data.rect;
-
-			SDL_SetRenderDrawColor(renderer, rect->color.r, rect->color.g, rect->color.b, rect->color.a);
 
 			float x_pos = rect->x, y_pos = rect->y;
 
@@ -229,14 +226,16 @@ void Render2dSystem::renderAll(void){
 				y_pos -= camera_position->y;
 			}
 
-			SDL_Rect sdl_rect = {
-				(int) roundf(x_pos),
-				(int) roundf(y_pos),
-				rect->w,
-				rect->h
-			};
-
-			SDL_RenderFillRect(renderer, &sdl_rect);
+			context->getRenderer()->renderRect(
+					(int) roundf(x_pos),
+					(int) roundf(y_pos),
+					rect->w,
+					rect->h,
+					rect->color.r,
+					rect->color.g,
+					rect->color.b,
+					rect->color.a
+					);
 		}
 		else if(i.type == RENDER_DATA_TILESET){
 			renderTilesetComponent(i.data.tileset);

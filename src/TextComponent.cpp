@@ -41,7 +41,8 @@ bool TextComponent::updateTexture(Context *context){
 		texture = nullptr;
 	}
 	else{
-		texture = std::make_shared<Texture>(context, font, text, color, anti_aliasing);
+		texture.reset(context->getRenderer()->loadTexture(context, font, text, color, anti_aliasing));
+		//texture = std::make_shared<Texture>(context, font, text, color, anti_aliasing);
 	}
 
 	return true;
