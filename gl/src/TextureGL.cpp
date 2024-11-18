@@ -151,12 +151,16 @@ void TextureGL::renderCellEx(Context *context, int x, int y, int id, float scale
 	if(!loaded)
 		return;
 
+	angle = angle / 180 * 3.141592;
+
 	RendererGL *renderer = (RendererGL *) context->getRenderer();
 
 	Mat4 model = Mat4::Identity();
 
-	float center_fx = 2.0f * center_x * scale_x / context->getWidth();
-	float center_fy = 2.0f * center_y * scale_y / context->getHeight();
+	/*
+	float center_fx = 2.0f * center_x / context->getWidth();
+	float center_fy = 2.0f * center_y / context->getHeight();
+	float aspect_ratio = context->getWidth() / context->getHeight();
 
 	float ix, iy, iw, ih;
 
@@ -165,11 +169,30 @@ void TextureGL::renderCellEx(Context *context, int x, int y, int id, float scale
 	else
 		model = Mat4::Scale(2.0f * cell_width / context->getWidth(), 2.0f * cell_height / context->getHeight(), 0.0f) * model;
 
-	model = Mat4::Scale(scale_x, scale_y, 0.0f) * model;
 	model = Mat4::Transform(-center_fx, -center_fy, 0.0f) * model;
 	model = Mat4::RotateZ(angle) * model;
 	model = Mat4::Transform(center_fx, center_fy, 0.0f) * model;
+	model = Mat4::Scale(scale_x, scale_y, 0.0f) * model;
 	model = Mat4::Transform(2.0f * x / context->getWidth() - 1.0f, 2.0f * y / context->getHeight() - 1.0f, 0.0f) * model;
+	*/
+
+	float center_fx = center_x;
+	float center_fy = center_y;
+
+	float ix, iy, iw, ih;
+
+	if(id == -1)
+		model = Mat4::Scale(texture_width, texture_height, 0.0f) * model;
+	else
+		model = Mat4::Scale(cell_width, cell_height, 0.0f) * model;
+
+	model = Mat4::Transform(-center_fx, -center_fy, 0.0f) * model;
+	model = Mat4::RotateZ(angle) * model;
+	model = Mat4::Transform(center_fx, center_fy, 0.0f) * model;
+	model = Mat4::Scale(scale_x, scale_y, 0.0f) * model;
+	model = Mat4::Transform(x, y, 0.0f) * model;
+	model = Mat4::Scale(2.0f / context->getWidth(), 2.0f / context->getHeight(), 1.0f) * model;
+	model = Mat4::Transform(-1.0f, -1.0f, 0.0f) * model;
 
 	renderer->default_texture_shader->setUniform("model", model);
 	

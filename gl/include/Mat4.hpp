@@ -18,7 +18,7 @@ struct Mat4 {
 	static Mat4 Transform(const acc::Vec3& vec);
 	static Mat4 Scale(float x, float y, float z);
 	static Mat4 RotateZ(float angle);
-	static Mat4 PerspectiveProjection(float fov, float far, float near);
+	static Mat4 PerspectiveProjection(float aspect_ratio, float fov, float far, float near);
 };
 
 };
