@@ -1,5 +1,6 @@
 #include "Systems/Render3d.hpp"
 #include "Components/Sprite3d.hpp"
+#include "Components/Brush3dComponent.hpp"
 #include "Components/Components.hpp"
 #include "RendererGL.hpp"
 
@@ -16,7 +17,7 @@ Render3dSystem::Render3dSystem(Context *context, Mat4 *view){
 
 	projection = Mat4::PerspectiveProjection(
 			(float) context->getWidth() / context->getHeight(),
-			pi / 4,
+			pi / 3,
 			100.0f,
 			0.1f
 			);
@@ -28,6 +29,7 @@ void Render3dSystem::update(ComponentManager *component_manager){
 
 	gl->setDepthBuffer(true);
 
+	updateBrushes(component_manager);
 	updateSprites(component_manager);
 
 	gl->setDepthBuffer(false);
@@ -42,6 +44,9 @@ void Render3dSystem::updateSprites(ComponentManager *component_manager){
 	for(size_t i = 0; i < sprite_array->getSize(); i++){
 		Entity entity = sprite_array->indexToEntity(i);
 		auto& current_sprite = sprite_array->atIndex(i);
+
+		if(current_sprite.texture == NULL)
+			continue;
 
 		if(!component_manager->hasComponent<TransformComponent>(entity))
 			continue;
@@ -71,6 +76,23 @@ void Render3dSystem::updateSprites(ComponentManager *component_manager){
 
 		current_sprite.shader->setUniform("mapping", ix, iy, iw, ih);
 		sprite_mesh->render(current_sprite.shader);
+	}
+}
+
+void Render3dSystem::updateBrushes(ComponentManager *component_manager){
+	if(!component_manager->hasComponentArray<Brush3dComponent>())
+		return;
+
+	auto brush_array = component_manager->getComponentArray<Brush3dComponent>();
+
+	for(size_t i = 0; i < brush_array->getSize(); i++){
+		auto& current_brush = brush_array->atIndex(i);
+
+		current_brush.shader->setUniform("model", current_brush.model);
+		current_brush.shader->setUniform("projection", projection);
+		current_brush.shader->setUniform("view", *view);
+
+		current_brush.model3d->render(current_brush.shader);
 	}
 }
 

@@ -10,10 +10,12 @@
 namespace acc {
 
 struct Vertex {
-	float x, y, z, s, t;
-	float nx, ny, nz;
+	Vec3 position;
+	float s, t;
+	Vec3 normal;
 
 	Vertex(float x, float y, float z, float s, float t);
+	Vertex(float x, float y, float z, float s, float t, float nx, float ny, float nz);
 };
 
 class Mesh : public Resource {
@@ -30,6 +32,7 @@ class Mesh : public Resource {
 		std::vector<unsigned int> indices;
 
 	private:
+		void computeNormals(void);
 		void setUp(void);
 
 		unsigned int vao, vbo, ebo;

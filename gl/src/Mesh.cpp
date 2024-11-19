@@ -6,13 +6,21 @@
 namespace acc {
 
 Vertex::Vertex(float x, float y, float z, float s, float t){
-	this->x = x;
-	this->y = y;
-	this->z = z;
+	position = Vec3(x, y, z);
+
 	this->s = s;
 	this->t = t;
 
-	nx = ny = nz = 0.0f;
+	normal = Vec3(1.0f, 1.0f, 1.0f);
+}
+
+Vertex::Vertex(float x, float y, float z, float s, float t, float nx, float ny, float nz){
+	position = Vec3(x, y, z);
+
+	this->s = s;
+	this->t = t;
+
+	normal = Vec3(nx, ny, nz);
 }
 
 Mesh::Mesh(void){
@@ -47,10 +55,10 @@ void Mesh::render(Shader* shader){
 void Mesh::buildUnitQuad(void){
 	loaded = true;
 
-	vertices.emplace_back(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f);
-	vertices.emplace_back(+0.5f, -0.5f, 0.0f, 1.0f, 0.0f);
-	vertices.emplace_back(-0.5f, +0.5f, 0.0f, 0.0f, 1.0f);
-	vertices.emplace_back(+0.5f, +0.5f, 0.0f, 1.0f, 1.0f);
+	vertices.emplace_back(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+	vertices.emplace_back(+0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+	vertices.emplace_back(-0.5f, +0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f);
+	vertices.emplace_back(+0.5f, +0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f);
 
 	indices.push_back(0);
 	indices.push_back(1);
@@ -95,6 +103,45 @@ Mesh::~Mesh(void){
 		glDeleteBuffers(1, &vbo);
 		glDeleteBuffers(1, &ebo);
 		glDeleteVertexArrays(1, &vao);
+	}
+}
+
+void Mesh::computeNormals(void){
+	Vec3 center;
+
+	for(size_t i = 0; i < indices.size(); i += 3){
+		Vec3 opposite;
+
+		Vec3 a = vertices[indices[i]].position;
+		Vec3 b = vertices[indices[i + 1]].position;
+		Vec3 c = vertices[indices[i + 2]].position;
+
+		for(size_t j = 0; j < vertices.size(); j++){
+			if(j == i)
+				continue;
+
+			if(j == i + 1)
+				continue;
+
+			if(j == i + 2)
+				continue;
+
+			opposite = vertices[indices[j]].position;
+		}
+
+		Vec3 normal = Vec3::cross(a - b, a - c).normalize();
+
+		if(Vec3::dot(normal, opposite - a) > 0.0f){
+			normal *= -1.0f;
+		}
+		
+		vertices[indices[i]].normal += normal;
+		vertices[indices[i + 1]].normal += normal;
+		vertices[indices[i + 2]].normal += normal;
+	}
+
+	for(auto i : indices){
+		vertices[i].normal = vertices[i].normal.normalize() * (-1.0f);
 	}
 }
 

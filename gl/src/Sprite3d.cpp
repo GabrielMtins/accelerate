@@ -22,8 +22,15 @@ Sprite3dComponent::Sprite3dComponent(Resource *shader, Resource *texture){
 	scale = Mat4::Identity();
 	rotation = Mat4::Identity();
 
-	this->shader = (Shader *) shader;
-	this->texture = (TextureGL *) texture;
+	if(shader == NULL)
+		this->shader = NULL;
+	else
+		this->shader = (Shader *) shader;
+
+	if(texture == NULL)
+		this->texture = NULL;
+	else
+		this->texture = (TextureGL *) texture;
 }
 
 };
