@@ -8,6 +8,11 @@ void System::update(ComponentManager *component_manager){
 	(void) component_manager;
 }
 
+bool SystemManager::addSystemFront(System *system){
+	systems.insert(systems.begin(), system);
+	return true;
+}
+
 bool SystemManager::addSystem(System *system){
 	systems.push_back(system);
 	return true;

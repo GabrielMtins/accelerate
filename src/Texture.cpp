@@ -135,38 +135,6 @@ void Texture::renderCellEx(Context *context, int x, int y, int id, float scale_x
 			);
 }
 
-void Texture::renderRect(Context *context, int src[], int dst[]){
-	(void) context;
-
-	if(context == NULL || texture == NULL) return;
-
-	SDL_Rect src_rect, dst_rect;
-
-	if(src == NULL){
-		src_rect.x = src_rect.y = 0;
-		src_rect.w = texture_width;
-		src_rect.h = texture_height;
-	}
-	else{
-		src_rect.x = src[0];
-		src_rect.y = src[1];
-		src_rect.w = src[2];
-		src_rect.h = src[3];
-	}
-
-	if(dst == NULL){
-		SDL_RenderCopy(renderer, texture, &src_rect, NULL);
-	}
-	else{
-		dst_rect.x = dst[0];
-		dst_rect.y = dst[1];
-		dst_rect.w = dst[2];
-		dst_rect.h = dst[3];
-		SDL_RenderCopy(renderer, texture, &src_rect, &dst_rect);
-	}
-
-}
-
 int Texture::getTextureWidth(void){
 	return texture_width;
 }

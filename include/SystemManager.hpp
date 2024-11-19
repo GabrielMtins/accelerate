@@ -19,6 +19,7 @@ class System {
 
 class SystemManager {
 	public:
+		bool addSystemFront(System *system);
 		bool addSystem(System *system);
 		bool update(ComponentManager *component_manager);
 		~SystemManager(void);

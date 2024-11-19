@@ -43,10 +43,6 @@ class Texture : public BaseTexture {
 		 * parameters.
 		 */
 		void renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle, bool flip_x, bool flip_y);
-		/**
-		 * Renders a texture with a given src rect and dst rect.
-		 */
-		void renderRect(Context *context, int src[], int dst[]);
 
 		int getTextureWidth(void);
 		int getTextureHeight(void);

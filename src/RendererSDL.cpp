@@ -48,6 +48,7 @@ void RendererSDL::clear(uint8_t r, uint8_t g, uint8_t b, uint8_t a){
 	SDL_RenderClear(renderer);
 
 	SDL_SetRenderTarget(renderer, framebuffer);
+	SDL_RenderClear(renderer);
 }
 
 void RendererSDL::renderPresent(void){
