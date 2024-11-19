@@ -38,6 +38,15 @@ Context::Context(const char *title, int internal_width, int internal_height, uin
 	minimum_delta = 1000;
 }
 
+void Context::setRelativeMode(bool enabled){
+	if(enabled){
+		SDL_SetRelativeMouseMode(SDL_TRUE);
+	}
+	else{
+		SDL_SetRelativeMouseMode(SDL_FALSE);
+	}
+}
+
 void Context::setRenderer(Renderer *renderer){
 	this->renderer = renderer;
 
@@ -114,23 +123,35 @@ float Context::getDeltaTime(void){
 void Context::pollEvent(void){
 	SDL_Event event;
 
-	while(SDL_PollEvent(&event)){
-		if(event.type == SDL_QUIT){
-			quit = true;
-		}
-		else if(event.type == SDL_WINDOWEVENT){
-			if(event.window.event == SDL_WINDOWEVENT_RESIZED){
-				SDL_GetWindowSize(
-						window,
-						&window_width,
-						&window_height
-						);
+	xrel = yrel = 0.0f;
 
-				renderer->setWindowSize(window_width, window_height);
-			}
-		}
-		else if(event.type == SDL_TEXTINPUT){
-			text_input = event.text.text;
+	while(SDL_PollEvent(&event)){
+		switch(event.type){
+			case SDL_QUIT:
+				quit = true;
+				break;
+
+			case SDL_WINDOWEVENT:
+				if(event.window.event == SDL_WINDOWEVENT_RESIZED){
+					SDL_GetWindowSize(
+							window,
+							&window_width,
+							&window_height
+							);
+
+					renderer->setWindowSize(window_width, window_height);
+				}
+				break;
+
+			case SDL_TEXTINPUT:
+				text_input = event.text.text;
+				break;
+
+			case SDL_MOUSEMOTION:
+				xrel = (float) event.motion.xrel;
+				yrel = (float) event.motion.yrel;
+				break;
+
 		}
 	}
 
@@ -261,36 +282,9 @@ std::string Context::getTextInput(void){
 	return text_input;
 }
 
-void Context::getMousePosition(int *x, int *y){
-	int mx, my, board_x, board_y;
-	double scale = 0;
-
-	board_x = 0;
-	board_y = 0;
-
-	if(window_width > internal_width * window_height / internal_height){
-		board_x = window_width - internal_width * window_height / internal_height;
-		board_x /= 2;
-
-		scale = (double) internal_height / window_height;
-	}
-	else{
-		board_y = window_height - internal_height * window_width / internal_width;
-		board_y /= 2;
-
-		scale = (double) internal_width / window_width;
-	}
-
-	SDL_GetMouseState(&mx, &my);
-
-	mx -= board_x;
-	my -= board_y;
-	
-	mx = scale * mx;
-	my = scale * my;
-
-	*x = mx;
-	*y = my;
+void Context::getMouseMotion(float *x, float *y){
+	*x = xrel;
+	*y = yrel;
 }
 
 bool Context::getMouseButton(const std::string& mouse_button){

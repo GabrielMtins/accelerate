@@ -26,6 +26,7 @@ class Context {
 		 * It'll scale accordly.
 		 */
 		Context(const char *title, int internal_width, int internal_height, uint32_t flags);
+		void setRelativeMode(bool enabled);
 		void setRenderer(Renderer *renderer);
 		void setScaling(RendererScaling scaling_flag);
 		void close(void);
@@ -50,7 +51,7 @@ class Context {
 		bool getKeyUp(const std::string& key);
 		std::unordered_map<std::string, int>& getStringToKeys(void);
 		std::string getTextInput(void);
-		void getMousePosition(int *x, int *y);
+		void getMouseMotion(float *x, float *y);
 		bool getMouseButton(const std::string& mouse_button);
 		bool getMouseButtonDown(const std::string& mouse_button);
 		bool getMouseButtonUp(const std::string& mouse_button);
@@ -79,6 +80,7 @@ class Context {
 		uint64_t first_time;
 		uint32_t fps;
 		float minimum_delta;
+		float xrel, yrel;
 		bool quit;
 
 		int window_width, window_height;

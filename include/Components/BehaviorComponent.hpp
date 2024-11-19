@@ -111,9 +111,9 @@ class BehaviorFunction {
 		bool sendMessage(Entity receiver, const std::string& message);
 
 		/**
-		 * Returns a Vec3 containing the mouse position.
+		 * Returns a Vec3 containing the relative motion of the mouse position.
 		 */
-		Vec3 getMousePosition(void);
+		Vec3 getMouseMotion(void);
 
 		/**
 		 * Returns the time between frames in seconds.

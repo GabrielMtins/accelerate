@@ -115,10 +115,10 @@ bool BehaviorFunction::sendMessage(Entity receiver, const std::string& message){
 	return true;
 }
 
-Vec3 BehaviorFunction::getMousePosition(void){
-	int x, y;
+Vec3 BehaviorFunction::getMouseMotion(void){
+	float x, y;
 
-	context->getMousePosition(&x, &y);
+	context->getMouseMotion(&x, &y);
 
 	return Vec3(x, y);
 }
