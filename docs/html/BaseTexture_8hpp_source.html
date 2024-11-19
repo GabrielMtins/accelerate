@@ -96,20 +96,19 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> renderCell(<a class="code hl_class" href="classacc_1_1Context.html">Context</a> *context, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> <span class="keywordtype">id</span>) = 0;</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> renderCellEx(<a class="code hl_class" href="classacc_1_1Context.html">Context</a> *context, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">float</span> scale_x, <span class="keywordtype">float</span> scale_y, <span class="keywordtype">int</span> center_x, <span class="keywordtype">int</span> center_y, <span class="keywordtype">float</span> angle, <span class="keywordtype">bool</span> flip_x, <span class="keywordtype">bool</span> flip_y) = 0;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> renderRect(<a class="code hl_class" href="classacc_1_1Context.html">Context</a> *context, <span class="keywordtype">int</span> src[], <span class="keywordtype">int</span> dst[]) = 0;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getTextureWidth(<span class="keywordtype">void</span>) = 0;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getTextureHeight(<span class="keywordtype">void</span>) = 0;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getCellWidth(<span class="keywordtype">void</span>) = 0;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getCellHeight(<span class="keywordtype">void</span>) = 0;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">virtual</span> <a class="code hl_class" href="classacc_1_1BaseTexture.html">~BaseTexture</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getTextureWidth(<span class="keywordtype">void</span>) = 0;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getTextureHeight(<span class="keywordtype">void</span>) = 0;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getCellWidth(<span class="keywordtype">void</span>) = 0;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getCellHeight(<span class="keywordtype">void</span>) = 0;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">virtual</span> <a class="code hl_class" href="classacc_1_1BaseTexture.html">~BaseTexture</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>};</div>
 </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>};</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassacc_1_1BaseTexture_html"><div class="ttname"><a href="classacc_1_1BaseTexture.html">acc::BaseTexture</a></div><div class="ttdef"><b>Definition</b> BaseTexture.hpp:11</div></div>
 <div class="ttc" id="aclassacc_1_1Context_html"><div class="ttname"><a href="classacc_1_1Context.html">acc::Context</a></div><div class="ttdef"><b>Definition</b> Context.hpp:15</div></div>
 <div class="ttc" id="aclassacc_1_1Resource_html"><div class="ttname"><a href="classacc_1_1Resource.html">acc::Resource</a></div><div class="ttdef"><b>Definition</b> Resource.hpp:16</div></div>

@@ -103,29 +103,28 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classacc_1_1Texture.html#a6b3f3f7b90dc7af538f2ec4972e5c028">renderCell</a>(<a class="code hl_class" href="classacc_1_1Context.html">Context</a> *context, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classacc_1_1Texture.html#a1634b7d39653d60fbee5d19e407e7ea0">renderCellEx</a>(<a class="code hl_class" href="classacc_1_1Context.html">Context</a> *context, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">float</span> <a class="code hl_class" href="classacc_1_1ComponentArray.html">scale_x</a>, <span class="keywordtype">float</span> <a class="code hl_class" href="classacc_1_1ComponentArray.html">scale_y</a>, <span class="keywordtype">int</span> <a class="code hl_class" href="classacc_1_1ComponentArray.html">center_x</a>, <span class="keywordtype">int</span> <a class="code hl_class" href="classacc_1_1ComponentArray.html">center_y</a>, <span class="keywordtype">float</span> angle, <span class="keywordtype">bool</span> <a class="code hl_class" href="classacc_1_1ComponentArray.html">flip_x</a>, <span class="keywordtype">bool</span> <a class="code hl_class" href="classacc_1_1ComponentArray.html">flip_y</a>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classacc_1_1Texture.html#a911ed6f5dd672c7ea5b92ba4f374c149">renderRect</a>(<a class="code hl_class" href="classacc_1_1Context.html">Context</a> *context, <span class="keywordtype">int</span> <a class="code hl_class" href="classacc_1_1ComponentArray.html">src</a>[], <span class="keywordtype">int</span> <a class="code hl_class" href="classacc_1_1ComponentArray.html">dst</a>[]);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">int</span> getTextureWidth(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">int</span> getTextureHeight(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordtype">int</span> getCellWidth(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">int</span> getCellHeight(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_class" href="classacc_1_1Texture.html">~Texture</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_class" href="classacc_1_1ComponentArray.html">SDL_Rect</a> getIdRect(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_class" href="classacc_1_1ComponentArray.html">SDL_Rect</a> getDstRect(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_class" href="classacc_1_1ComponentArray.html">SDL_Renderer</a> *renderer;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_class" href="classacc_1_1ComponentArray.html">SDL_Texture</a> *texture;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">int</span> texture_width, texture_height;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">int</span> cell_width, cell_height;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">int</span> getTextureWidth(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">int</span> getTextureHeight(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">int</span> getCellWidth(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">int</span> getCellHeight(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_class" href="classacc_1_1Texture.html">~Texture</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_class" href="classacc_1_1ComponentArray.html">SDL_Rect</a> getIdRect(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_class" href="classacc_1_1ComponentArray.html">SDL_Rect</a> getDstRect(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_class" href="classacc_1_1ComponentArray.html">SDL_Renderer</a> *renderer;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_class" href="classacc_1_1ComponentArray.html">SDL_Texture</a> *texture;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">int</span> texture_width, texture_height;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordtype">int</span> cell_width, cell_height;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
 </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassacc_1_1BaseTexture_html"><div class="ttname"><a href="classacc_1_1BaseTexture.html">acc::BaseTexture</a></div><div class="ttdef"><b>Definition</b> BaseTexture.hpp:11</div></div>
 <div class="ttc" id="aclassacc_1_1Canvas_html"><div class="ttname"><a href="classacc_1_1Canvas.html">acc::Canvas</a></div><div class="ttdef"><b>Definition</b> Canvas.hpp:10</div></div>
 <div class="ttc" id="aclassacc_1_1ComponentArray_html"><div class="ttname"><a href="classacc_1_1ComponentArray.html">acc::ComponentArray</a></div><div class="ttdef"><b>Definition</b> ComponentArray.hpp:18</div></div>
@@ -135,7 +134,6 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aclassacc_1_1Texture_html_a1634b7d39653d60fbee5d19e407e7ea0"><div class="ttname"><a href="classacc_1_1Texture.html#a1634b7d39653d60fbee5d19e407e7ea0">acc::Texture::renderCellEx</a></div><div class="ttdeci">void renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle, bool flip_x, bool flip_y)</div><div class="ttdef"><b>Definition</b> Texture.cpp:104</div></div>
 <div class="ttc" id="aclassacc_1_1Texture_html_a5dfe44ebb16f81f2696732e2158c413c"><div class="ttname"><a href="classacc_1_1Texture.html#a5dfe44ebb16f81f2696732e2158c413c">acc::Texture::updateCanvas</a></div><div class="ttdeci">void updateCanvas(Context *context, Canvas *canvas)</div><div class="ttdef"><b>Definition</b> Texture.cpp:85</div></div>
 <div class="ttc" id="aclassacc_1_1Texture_html_a6b3f3f7b90dc7af538f2ec4972e5c028"><div class="ttname"><a href="classacc_1_1Texture.html#a6b3f3f7b90dc7af538f2ec4972e5c028">acc::Texture::renderCell</a></div><div class="ttdeci">void renderCell(Context *context, int x, int y, int id)</div><div class="ttdef"><b>Definition</b> Texture.cpp:95</div></div>
-<div class="ttc" id="aclassacc_1_1Texture_html_a911ed6f5dd672c7ea5b92ba4f374c149"><div class="ttname"><a href="classacc_1_1Texture.html#a911ed6f5dd672c7ea5b92ba4f374c149">acc::Texture::renderRect</a></div><div class="ttdeci">void renderRect(Context *context, int src[], int dst[])</div><div class="ttdef"><b>Definition</b> Texture.cpp:138</div></div>
 <div class="ttc" id="astructacc_1_1Color_html"><div class="ttname"><a href="structacc_1_1Color.html">acc::Color</a></div><div class="ttdef"><b>Definition</b> Color.hpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

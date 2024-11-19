@@ -1,0 +1,16 @@
+<map id="acc::Sprite3dComponent" name="acc::Sprite3dComponent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="109,281,291,307"/>
+<area shape="rect" id="Node000002" href="$structacc_1_1Vec3.html" title=" " alt="" coords="5,179,88,204"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,214,79,236,100,255,125,269,151,279,149,284,122,274,97,259,75,239,58,217"/>
+<area shape="rect" id="Node000003" href="$structacc_1_1Mat4.html" title=" " alt="" coords="112,179,197,204"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,217,173,256,190,280,186,283,168,259,156,219"/>
+<area shape="rect" id="Node000004" href="$classacc_1_1Shader.html" title=" " alt="" coords="203,129,301,155"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="252,169,245,211,229,259,213,283,209,280,224,256,239,210,247,168"/>
+<area shape="rect" id="Node000005" href="$classacc_1_1Resource.html" title=" " alt="" coords="225,5,337,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="278,45,257,130,252,129,273,43"/>
+<area shape="rect" id="Node000007" href="$classacc_1_1BaseTexture.html" title=" " alt="" coords="307,80,439,105"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="308,37,360,77,357,82,305,41"/>
+<area shape="rect" id="Node000006" href="$classacc_1_1TextureGL.html" title=" " alt="" coords="319,179,436,204"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="347,213,265,260,222,284,220,279,263,255,344,209"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="377,119,380,179,374,179,372,119"/>
+</map>
