@@ -20,6 +20,7 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(CC) -I$(ACC_INCLUDE_DIR) -I$(INCLUDE_DIR) $(CCFLAGS) -c $< -o $@ $(CCFLAGS)
 
 $(EXEC): $(OBJECTS)
+	./generate_include.sh
 	mkdir -p lib
 	ar rcs ../lib/$(EXEC) $(OBJECTS)
 

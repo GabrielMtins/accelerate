@@ -12,12 +12,14 @@ class TextureGL : public BaseTexture {
 
 		void renderCell(Context *context, int x, int y, int id);
 		void renderCellEx(Context *context, int x, int y, int id, float scale_x, float scale_y, int center_x, int center_y, float angle, bool flip_x, bool flip_y);
-		void renderRect(Context *context, int src[], int dst[]);
+
+		void getIdMap(int id, bool flip_x, bool flip_y, float *x, float *y, float *w, float *h);
 
 		int getTextureWidth(void);
 		int getTextureHeight(void);
 		int getCellWidth(void);
 		int getCellHeight(void);
+		unsigned int getId(void);
 
 		~TextureGL(void);
 	

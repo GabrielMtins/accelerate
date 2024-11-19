@@ -86,6 +86,40 @@ Mat4 Mat4::Scale(float x, float y, float z){
 	return scale;
 }
 
+Mat4 Mat4::RotateX(float angle){
+	Mat4 rotate_x;
+
+	float cos_angle = cosf(angle);
+	float sin_angle = sinf(angle);
+
+	rotate_x.arr[0] = 1.0f;
+	rotate_x.arr[15] = 1.0f;
+
+	rotate_x.arr[5] = cos_angle;
+	rotate_x.arr[6] = -sin_angle;
+	rotate_x.arr[9] = sin_angle;
+	rotate_x.arr[10] = cos_angle;
+
+	return rotate_x;
+}
+
+Mat4 Mat4::RotateY(float angle){
+	Mat4 rotate_y;
+
+	float cos_angle = cosf(angle);
+	float sin_angle = sinf(angle);
+
+	rotate_y.arr[0] = cos_angle;
+	rotate_y.arr[2] = sin_angle;
+	rotate_y.arr[5] = 1.0f;
+	rotate_y.arr[8] = -sin_angle;
+	rotate_y.arr[10] = cos_angle;
+
+	rotate_y.arr[15] = 1.0f;
+	
+	return rotate_y;
+}
+
 Mat4 Mat4::RotateZ(float angle){
 	Mat4 rotate_z;
 	float cos_angle = cosf(angle);
@@ -105,9 +139,8 @@ Mat4 Mat4::PerspectiveProjection(float aspect_ratio, float fov, float far, float
 	Mat4 perspective_projection;
 
 	float s = 1.0f / tanf(0.5f * fov);
-	float a1 = -far / (far - near);
-	float a2 = - far * near / (far - near);
-
+	float a1 = -(far + near)/ (far - near);
+	float a2 = - 2.0f * far * near / (far - near);
 
 	perspective_projection.arr[0] = s / aspect_ratio;
 	perspective_projection.arr[5] = s;

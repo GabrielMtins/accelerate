@@ -25,6 +25,8 @@ class RendererGL : public Renderer {
 		void setViewportBestFit(void);
 		void setViewportPixelPerfect(void);
 
+		void setDepthBuffer(bool enable);
+
 		~RendererGL();
 
 		Mesh *default_texture_mesh;

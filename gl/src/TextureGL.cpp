@@ -157,25 +157,6 @@ void TextureGL::renderCellEx(Context *context, int x, int y, int id, float scale
 
 	Mat4 model = Mat4::Identity();
 
-	/*
-	float center_fx = 2.0f * center_x / context->getWidth();
-	float center_fy = 2.0f * center_y / context->getHeight();
-	float aspect_ratio = context->getWidth() / context->getHeight();
-
-	float ix, iy, iw, ih;
-
-	if(id == -1)
-		model = Mat4::Scale(2.0f * texture_width / context->getWidth(), 2.0f * texture_height / context->getHeight(), 0.0f) * model;
-	else
-		model = Mat4::Scale(2.0f * cell_width / context->getWidth(), 2.0f * cell_height / context->getHeight(), 0.0f) * model;
-
-	model = Mat4::Transform(-center_fx, -center_fy, 0.0f) * model;
-	model = Mat4::RotateZ(angle) * model;
-	model = Mat4::Transform(center_fx, center_fy, 0.0f) * model;
-	model = Mat4::Scale(scale_x, scale_y, 0.0f) * model;
-	model = Mat4::Transform(2.0f * x / context->getWidth() - 1.0f, 2.0f * y / context->getHeight() - 1.0f, 0.0f) * model;
-	*/
-
 	float center_fx = center_x;
 	float center_fy = center_y;
 
@@ -196,6 +177,17 @@ void TextureGL::renderCellEx(Context *context, int x, int y, int id, float scale
 
 	renderer->default_texture_shader->setUniform("model", model);
 	
+	getIdMap(id, flip_x, flip_y, &ix, &iy, &iw, &ih);
+	renderer->default_texture_shader->setUniform("offset_tex_coords", ix, iy, iw, ih);
+
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+	renderer->default_texture_mesh->render(renderer->default_texture_shader);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void TextureGL::getIdMap(int id, bool flip_x, bool flip_y, float *x, float *y, float *w, float *h){
+	float ix, iy, iw, ih;
+
 	if(id == -1){
 		ix = iy = 0.0f;
 		iw = 1.0f;
@@ -234,14 +226,10 @@ void TextureGL::renderCellEx(Context *context, int x, int y, int id, float scale
 		}
 	}
 
-	renderer->default_texture_shader->setUniform("offset_tex_coords", ix, iy, iw, ih);
-
-	glBindTexture(GL_TEXTURE_2D, texture_id);
-	renderer->default_texture_mesh->render(renderer->default_texture_shader);
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void TextureGL::renderRect(Context *context, int src[], int dst[]){
+	*x = ix;
+	*y = iy;
+	*w = iw;
+	*h = ih;
 }
 
 int TextureGL::getTextureWidth(void){
@@ -258,6 +246,10 @@ int TextureGL::getCellWidth(void){
 
 int TextureGL::getCellHeight(void){
 	return cell_height;
+}
+
+unsigned int TextureGL::getId(void){
+	return texture_id;
 }
 
 TextureGL::~TextureGL(void){

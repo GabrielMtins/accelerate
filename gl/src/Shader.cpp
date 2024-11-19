@@ -10,6 +10,20 @@ Shader::Shader(void){
 	id = 0;
 }
 
+Shader::Shader(const std::string& name){
+	setName(name);
+	loaded = false;
+	id = 0;
+}
+
+Shader::Shader(const std::string &name, const std::string &vertex_filename, const std::string& fragment_filename){
+	setName(name);
+	loaded = false;
+	id = 0;
+
+	loadFile(vertex_filename, fragment_filename);
+}
+
 bool Shader::loadShader(const char *vertex_src, const char *fragment_src){
 	unsigned int vertex_shader = 0, fragment_shader = 0;
 	loaded = true;
@@ -130,6 +144,25 @@ bool Shader::setUniform(const std::string& name, const Mat4& mat4){
 	glUniformMatrix4fv(location, 1, GL_TRUE, mat4.arr);
 
 	return true;
+}
+
+bool Shader::setUniform(const std::string& name, int index){
+	int location = getLocation(name);
+
+	if(location < 0)
+		return false;
+
+	glUseProgram(id);
+	glUniform1i(location, index);
+
+	return true;
+}
+
+void Shader::setTexture(const std::string& name, int texture_id, int index){
+	glActiveTexture(GL_TEXTURE0 + index);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+
+	setUniform(name, index);
 }
 
 Shader::~Shader(void){

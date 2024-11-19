@@ -108,13 +108,15 @@ RendererGL::RendererGL(Context *context){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_ALWAYS);
+
 	scaling = RENDERER_SCALING_BESTFIT;
 }
 
 void RendererGL::setWindowSize(int width, int height){
 	window_width = width;
 	window_height = height;
-
 
 	switch(scaling){
 		case RENDERER_SCALING_EXPAND:
@@ -211,6 +213,15 @@ void RendererGL::setViewportPixelPerfect(void){
 			defacto_width,
 			defacto_height
 		);
+}
+
+void RendererGL::setDepthBuffer(bool enable){
+	if(enable){
+		glDepthFunc(GL_LESS);
+	}
+	else{
+		glDepthFunc(GL_ALWAYS);
+	}
 }
 
 RendererGL::~RendererGL(){
