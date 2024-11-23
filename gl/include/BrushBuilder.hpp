@@ -21,6 +21,7 @@ class BrushBuilder {
 		void setBottomRamp(float inclination, int wall_index);
 
 		bool checkCollisionCylinder(Vec3 position, float radius, float height, float tolerance, Vec3 *delta);
+		void getBoundingBox(Vec3 *start, Vec3 *size);
 
 		std::vector<Vec3> vertices;
 		std::vector<Vec3> normals;

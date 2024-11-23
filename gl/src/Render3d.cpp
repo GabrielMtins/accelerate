@@ -18,6 +18,8 @@ Render3dSystem::Render3dSystem(Context *context, Mat4 *view){
 
 	this->sprite_mesh = new Mesh();
 	this->sprite_mesh->buildUnitQuad();
+	this->cube_mesh = new Mesh();
+	this->cube_mesh->buildUnitCube();
 
 	projection = Mat4::PerspectiveProjection(
 			(float) context->getWidth() / context->getHeight(),
@@ -127,6 +129,20 @@ void Render3dSystem::updateWorld(ComponentManager *component_manager){
 
 	for(size_t i = 0; i < world_array->getSize(); i++){
 		auto& current_world = world_array->atIndex(i);
+
+		if(current_world.debug_render_octree){
+			current_world.octree_shader->setUniform("projection", projection);
+			current_world.octree_shader->setUniform("view", *view);
+
+			for(OctreeNode *node : current_world.octree->getNodes()){
+				if(node->brushes.size() == 0)
+					continue;
+
+				current_world.octree_shader->setUniform("model", Mat4::Transform(node->start) * Mat4::Scale(node->size) * Mat4::Transform(0.5f, 0.5f, 0.5f));
+				
+				cube_mesh->render(current_world.octree_shader);
+			}
+		}
 
 		current_world.shader->setUniform("model", Mat4::Identity());
 		current_world.shader->setUniform("projection", projection);

@@ -122,6 +122,18 @@ void Shader::use(void){
 	}
 }
 
+bool Shader::setUniform(const std::string& name, float x, float y, float z){
+	int location = getLocation(name);
+
+	if(location < 0)
+		return false;
+
+	glUseProgram(id);
+	glUniform3f(location, x, y, z);
+
+	return true;
+}
+
 bool Shader::setUniform(const std::string& name, float x, float y, float z, float w){
 	int location = getLocation(name);
 

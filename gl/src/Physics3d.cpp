@@ -103,7 +103,7 @@ void Physics3dSystem::updateWorld(ComponentManager *component_manager){
 	}
 }
 
-bool Physics3dSystem::checkCollisionWorld(ComponentManager *component_manager, Entity entity, std::vector<BrushBuilder *> *found_intersections){
+bool Physics3dSystem::checkCollisionWorld(ComponentManager *component_manager, Entity entity, std::unordered_set<BrushBuilder *> *found_intersections){
 	bool found_collision = false;
 
 	if(!component_manager->hasComponentArray<World3dComponent>())
@@ -118,6 +118,11 @@ bool Physics3dSystem::checkCollisionWorld(ComponentManager *component_manager, E
 		if(((body.collision_trigger & world.collision_layer) == 0) && ((body.collision_mask & world.collision_layer) == 0))
 			continue;
 
+		if(world.octree != NULL){
+			found_collision = world.octree->findCollision(body, found_intersections);
+			continue;
+		}
+
 		for(BrushBuilder *brush : world.brushes){
 			Vec3 delta;
 
@@ -125,7 +130,9 @@ bool Physics3dSystem::checkCollisionWorld(ComponentManager *component_manager, E
 				found_collision = true;
 
 				if(found_intersections != NULL)
-					found_intersections->push_back(brush);
+					found_intersections->insert(brush);
+				else
+					return true;
 			}
 		}
 	}
@@ -190,18 +197,13 @@ bool Physics3dSystem::checkCollisionBody(ComponentManager *component_manager, En
 		auto& phy2 = arr->atIndex(i);
 
 		if(phy1.checkCollision(phy2)){
-			//printf("found\n");
-
 			if(found_intersections != NULL)
 				found_intersections->push_back(other);
+			else
+				return true;
 
 			found_collision = true;
 		}
-		else{
-			//printf("%u %u\n", phy1.collision_mask, phy1.collision_trigger);
-			//printf("not found\n");
-		}
-
 	}
 
 	return found_collision;

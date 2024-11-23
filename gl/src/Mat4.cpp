@@ -96,6 +96,10 @@ Mat4 Mat4::Scale(float x, float y, float z){
 	return scale;
 }
 
+Mat4 Mat4::Scale(const acc::Vec3& vec){
+	return Mat4::Scale(vec.x, vec.y, vec.z);
+}
+
 Mat4 Mat4::RotateX(float angle){
 	Mat4 rotate_x;
 

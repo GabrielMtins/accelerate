@@ -225,6 +225,11 @@ Scene3d::Scene3d(Game *game) : Scene2d(game){
 		world.brushes.push_back(builder);
 		world.brushes.push_back(other_builder);
 		world.setCollisionLayer(1);
+		world.octree = new Octree(10, 4, Vec3(-32.0f, -32.0f, -32.0f), Vec3(64.0f, 64.0f, 64.0f));
+		world.octree->build(world.brushes);
+
+		world.debug_render_octree = true;
+		world.octree_shader = (Shader *) game->getResource("cube_shader");
 	}
 
 	{

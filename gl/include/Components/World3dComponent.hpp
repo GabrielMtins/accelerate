@@ -3,12 +3,16 @@
 
 #include "BrushBuilder.hpp"
 #include "Shader.hpp"
+#include "Octree.hpp"
 
 namespace acc {
 
 struct World3dComponent {
 	std::vector<BrushBuilder *> brushes;
 	Shader *shader;
+	Octree *octree;
+	Shader *octree_shader;
+	bool debug_render_octree;
 
 	uint32_t collision_layer;
 

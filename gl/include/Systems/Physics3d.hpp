@@ -3,6 +3,7 @@
 
 #include "SystemManager.hpp"
 #include "Scene.hpp"
+#include <unordered_set>
 
 namespace acc {
 
@@ -18,7 +19,7 @@ class Physics3dSystem : public System {
 		void updateCollisions(ComponentManager *component_manager);
 		void updateWorld(ComponentManager *component_manager);
 
-		bool checkCollisionWorld(ComponentManager *component_manager, Entity entity, std::vector<BrushBuilder *> *found_intersections);
+		bool checkCollisionWorld(ComponentManager *component_manager, Entity entity, std::unordered_set<BrushBuilder *> *found_intersections);
 		bool checkCollisionMovBrush(ComponentManager *component_manager, Entity entity, bool solve);
 		bool checkCollisionBody(ComponentManager *component_manager, Entity entity, std::vector<Entity> *found_intersections);
 		void updateTransform(ComponentManager *component_manager, Entity entity);
@@ -26,7 +27,7 @@ class Physics3dSystem : public System {
 
 		Scene *scene;
 		std::vector<Entity> found_intersections;
-		std::vector<BrushBuilder *> found_brushes;
+		std::unordered_set<BrushBuilder *> found_brushes;
 };
 
 };

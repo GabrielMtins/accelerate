@@ -23,6 +23,7 @@ class Render3dSystem : public System {
 		Mat4 projection;
 
 		Mesh *sprite_mesh;
+		Mesh *cube_mesh;
 };
 
 };

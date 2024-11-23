@@ -24,6 +24,7 @@ class Mesh : public Resource {
 		Mesh(const std::string& name);
 		void buildUnitQuad(void);
 		void buildUnitTetrahedron(void);
+		void buildUnitCube(void);
 		void load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 		void render(Shader* shader);
 		~Mesh(void);

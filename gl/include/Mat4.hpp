@@ -18,6 +18,7 @@ struct Mat4 {
 	static Mat4 Transform(float x, float y, float z);
 	static Mat4 Transform(const acc::Vec3& vec);
 	static Mat4 Scale(float x, float y, float z);
+	static Mat4 Scale(const acc::Vec3& vec);
 	static Mat4 RotateX(float angle);
 	static Mat4 RotateY(float angle);
 	static Mat4 RotateZ(float angle);

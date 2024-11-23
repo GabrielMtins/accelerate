@@ -8,6 +8,7 @@
 #include "Components/Object3dComponent.hpp"
 #include "Components/MovBrush3dComponent.hpp"
 #include "Model.hpp"
+#include "Octree.hpp"
 #include "Scene3d.hpp"
 #include "Systems/Render3d.hpp"
 #include "Systems/Physics3d.hpp"

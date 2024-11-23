@@ -40,7 +40,7 @@ void Body3dComponent::setOnCollisionTrigger(size_t layer, bool is_on){
 	}
 }
 
-bool Body3dComponent::checkCollision(const Body3dComponent& other){
+bool Body3dComponent::checkCollision(const Body3dComponent& other) const{
 	if(!((collision_mask & other.collision_layer) != 0 || (collision_trigger & other.collision_layer) != 0))
 		return false;
 
@@ -59,7 +59,7 @@ bool Body3dComponent::checkCollision(const Body3dComponent& other){
 	return true;
 }
 
-bool Body3dComponent::checkCollision(BrushBuilder *brush){
+bool Body3dComponent::checkCollision(BrushBuilder *brush) const{
 	return brush->checkCollisionCylinder(
 			position,
 			cylinder.radius,

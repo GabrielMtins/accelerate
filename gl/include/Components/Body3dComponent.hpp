@@ -30,8 +30,8 @@ struct Body3dComponent {
 	void setOnCollisionMask(size_t layer, bool is_on);
 	void setOnCollisionTrigger(size_t layer, bool is_on);
 
-	bool checkCollision(const Body3dComponent& other);
-	bool checkCollision(BrushBuilder *brush);
+	bool checkCollision(const Body3dComponent& other) const;
+	bool checkCollision(BrushBuilder *brush) const;
 	bool checkCollision(BrushBuilder *brush, const Vec3& position);
 	void solveCollision(const Body3dComponent& other);
 	bool solveCollision(BrushBuilder *brush);
