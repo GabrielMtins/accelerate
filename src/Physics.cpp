@@ -212,6 +212,8 @@ bool PhysicsSystem::checkCollisionBody(ComponentManager *component_manager, Enti
 		if(phy1.checkCollision(phy2)){
 			if(found_intersections != NULL)
 				found_intersections->push_back(other);
+			else
+				return true;
 
 			found_collision = true;
 		}
