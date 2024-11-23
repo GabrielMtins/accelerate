@@ -14,6 +14,8 @@ struct Sprite3dComponent {
 	Mat4 scale;
 	Mat4 rotation;
 
+	Mat4 model;
+
 	Shader *shader;
 	TextureGL *texture;
 

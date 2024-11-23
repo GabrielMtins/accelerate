@@ -1,15 +1,15 @@
-#include "Components/Brush3dComponent.hpp"
+#include "Components/Object3dComponent.hpp"
 
 namespace acc {
 
-Brush3dComponent::Brush3dComponent(Model3d *model3d, Shader *shader){
+Object3dComponent::Object3dComponent(Model3d *model3d, Shader *shader){
 	model = Mat4::Identity();
 
 	this->model3d = model3d;
 	this->shader = shader;
 }
 
-Brush3dComponent::Brush3dComponent(Model3d *model3d, Resource *shader){
+Object3dComponent::Object3dComponent(Model3d *model3d, Resource *shader){
 	model = Mat4::Identity();
 
 	this->model3d = model3d;

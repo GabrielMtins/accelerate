@@ -6,14 +6,14 @@
 
 namespace acc {
 
-struct Brush3dComponent {
+struct Object3dComponent {
 	Mat4 model;
 
 	Model3d *model3d;
 	Shader *shader;
 
-	Brush3dComponent(Model3d *model3d, Shader *shader);
-	Brush3dComponent(Model3d *model3d, Resource *shader);
+	Object3dComponent(Model3d *model3d, Shader *shader);
+	Object3dComponent(Model3d *model3d, Resource *shader);
 };
 
 };

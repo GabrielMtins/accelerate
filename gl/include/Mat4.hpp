@@ -12,6 +12,7 @@ struct Mat4 {
 	Mat4 operator+(const Mat4& obj) const;
 	Mat4 operator-(const Mat4& obj) const;
 	Mat4 operator*(const Mat4& obj) const;
+	Vec3 operator*(const Vec3& obj) const;
 
 	static Mat4 Identity(void);
 	static Mat4 Transform(float x, float y, float z);

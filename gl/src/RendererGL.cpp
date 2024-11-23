@@ -216,12 +216,11 @@ void RendererGL::setViewportPixelPerfect(void){
 }
 
 void RendererGL::setDepthBuffer(bool enable){
-	if(enable){
-		glDepthFunc(GL_LESS);
-	}
-	else{
-		glDepthFunc(GL_ALWAYS);
-	}
+	glDepthFunc(enable ? GL_LESS : GL_ALWAYS);
+}
+
+void RendererGL::setDepthMask(bool enable){
+	glDepthMask(enable ? GL_TRUE : GL_FALSE);
 }
 
 RendererGL::~RendererGL(){

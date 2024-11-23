@@ -47,6 +47,16 @@ Mat4 Mat4::operator*(const Mat4& obj) const{
 	return other;
 }
 
+Vec3 Mat4::operator*(const Vec3& obj) const{
+	Vec3 ret;
+
+	ret.x = arr[0] * obj.x + arr[1] * obj.y + arr[2] * obj.z + arr[3];
+	ret.y = arr[4] * obj.x + arr[5] * obj.y + arr[6] * obj.z + arr[7];
+	ret.z = arr[8] * obj.x + arr[9] * obj.y + arr[10] * obj.z + arr[11];
+
+	return ret;
+}
+
 Mat4 Mat4::Identity(void){
 	Mat4 identity;
 

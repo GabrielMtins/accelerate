@@ -18,6 +18,7 @@ class Shader : public Resource{
 		bool setUniform(const std::string& name, float x, float y, float z, float w);
 		bool setUniform(const std::string& name, const Mat4& mat4);
 		bool setUniform(const std::string& name, int index);
+		bool setUniform(const std::string& name, float index);
 		void setTexture(const std::string& name, int texture_id, int index);
 
 		~Shader(void);

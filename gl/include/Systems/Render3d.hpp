@@ -14,7 +14,9 @@ class Render3dSystem : public System {
 
 	private:
 		void updateSprites(ComponentManager *component_manager);
-		void updateBrushes(ComponentManager *component_manager);
+		void updateObjects(ComponentManager *component_manager);
+		void updateWorld(ComponentManager *component_manager);
+		void updateMovBrush(ComponentManager *component_manager);
 
 		Context *context;
 		Mat4 *view;

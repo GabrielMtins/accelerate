@@ -26,6 +26,7 @@ class RendererGL : public Renderer {
 		void setViewportPixelPerfect(void);
 
 		void setDepthBuffer(bool enable);
+		void setDepthMask(bool enable);
 
 		~RendererGL();
 

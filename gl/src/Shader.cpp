@@ -158,6 +158,18 @@ bool Shader::setUniform(const std::string& name, int index){
 	return true;
 }
 
+bool Shader::setUniform(const std::string& name, float index){
+	int location = getLocation(name);
+
+	if(location < 0)
+		return false;
+
+	glUseProgram(id);
+	glUniform1f(location, index);
+
+	return true;
+}
+
 void Shader::setTexture(const std::string& name, int texture_id, int index){
 	glActiveTexture(GL_TEXTURE0 + index);
 	glBindTexture(GL_TEXTURE_2D, texture_id);
