@@ -18,9 +18,11 @@ struct OctreeNode {
 
 	int child;
 	size_t depth;
+	bool stop_subdivide;
 
 	OctreeNode(const Vec3& start, const Vec3& size, size_t depth, size_t max_elements);
 	bool checkCollision(const Vec3& other_start, const Vec3& other_size);
+	bool checkIfNodeIsTotallyInside(const Vec3& other_start, const Vec3& other_size);
 };
 
 class Octree {

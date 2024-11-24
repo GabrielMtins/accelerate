@@ -46,6 +46,7 @@ class BrushBuilder {
 		void buildBoundingCylinder(void);
 
 		Vec3 center;
+		Vec3 aabb_start, aabb_size;
 		float radius, min_height, max_height;
 
 		Model3d *model3d;

@@ -11,6 +11,7 @@ OctreeNode::OctreeNode(const Vec3& start, const Vec3& size, size_t depth, size_t
 	this->size = size;
 	this->depth = depth;
 	child = -1;
+	stop_subdivide = false;
 
 	brushes.reserve(max_elements);
 }
@@ -35,6 +36,14 @@ bool OctreeNode::checkCollision(const Vec3& other_start, const Vec3& other_size)
 		return false;
 
 	return true;
+}
+
+bool OctreeNode::checkIfNodeIsTotallyInside(const Vec3& other_start, const Vec3& other_size){
+	bool check_x = start.x >= other_start.x && start.x + size.x <= other_start.x + other_size.x;
+	bool check_y = start.y >= other_start.y && start.y + size.y <= other_start.y + other_size.y;
+	bool check_z = start.z >= other_start.z && start.z + size.z <= other_start.z + other_size.z;
+
+	return check_x && check_y && check_z;
 }
 
 Octree::Octree(size_t max_elements, size_t max_depth, const Vec3& max_start, const Vec3& max_size){
@@ -73,7 +82,7 @@ void Octree::insert(BrushBuilder *brush){
 
 		if(current_node->checkCollision(brush_start, brush_end)){
 			if(current_node->child == -1){
-				if(current_node->brushes.size() < max_elements || current_node->depth == max_depth){
+				if(current_node->brushes.size() < max_elements || current_node->stop_subdivide || current_node->depth == max_depth){
 					current_node->brushes.push_back(brush);
 				}
 				else{
@@ -144,6 +153,23 @@ Octree::~Octree(void){
 
 void Octree::split(size_t parent){
 	OctreeNode *split_node = nodes[parent];
+
+	split_node->stop_subdivide = true;
+
+	for(BrushBuilder *brush : split_node->brushes){
+		Vec3 brush_start, brush_size;
+		brush->getBoundingBox(&brush_start, &brush_size);
+
+		if(!split_node->checkIfNodeIsTotallyInside(brush_start, brush_size)){
+			split_node->stop_subdivide = false;
+			break;
+		}
+	}
+
+	if(split_node->stop_subdivide){
+		return;
+	}
+	
 	split_node->child = nodes.size();
 
 	for(size_t i = 0; i < 8; i++){

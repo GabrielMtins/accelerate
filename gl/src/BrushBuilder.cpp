@@ -112,8 +112,13 @@ bool BrushBuilder::checkCollisionCylinder(Vec3 position, float radius, float hei
 }
 
 void BrushBuilder::getBoundingBox(Vec3 *start, Vec3 *size){
+	/*
 	*start = Vec3(center.x - radius, min_height, center.z - radius);
 	*size = Vec3(2.0f * radius, max_height - min_height, 2.0f * radius);
+	*/
+
+	*start = aabb_start;
+	*size = aabb_size;
 }
 
 Vec3 BrushBuilder::normal2D(Vec3 t){
@@ -404,6 +409,9 @@ void BrushBuilder::buildBoundingCylinder(void){
 		max_height = fmaxf(max_height, actual_bottom_height);
 		max_height = fmaxf(max_height, actual_top_height);
 	}
+
+	aabb_start = Vec3(min_x, min_height, min_z);
+	aabb_size = Vec3(max_x - min_x, max_height - min_height, max_z - min_z);
 
 	radius = sqrt((min_x - max_x) * (min_x - max_x) + (min_z - max_z) * (min_z - max_z)) / 2;
 	center = Vec3(min_x + max_x, 0.0f, min_z + max_z) * 0.5f;

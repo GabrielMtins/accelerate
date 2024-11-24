@@ -23,7 +23,7 @@ Render3dSystem::Render3dSystem(Context *context, Mat4 *view){
 
 	projection = Mat4::PerspectiveProjection(
 			(float) context->getWidth() / context->getHeight(),
-			pi * 60.0f / 180.0f,
+			pi * 90.0f / 180.0f,
 			100.0f,
 			0.1f
 			);
