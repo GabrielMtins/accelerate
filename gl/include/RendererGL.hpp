@@ -27,6 +27,7 @@ class RendererGL : public Renderer {
 
 		void setDepthBuffer(bool enable);
 		void setDepthMask(bool enable);
+		void setWireframe(bool enable);
 
 		~RendererGL();
 

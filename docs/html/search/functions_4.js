@@ -17,7 +17,7 @@ var searchData=
   ['getmousebutton_14',['getMouseButton',['../classacc_1_1BehaviorFunction.html#ad9d64797f73c76a640e0849ffccad56b',1,'acc::BehaviorFunction']]],
   ['getmousebuttondown_15',['getMouseButtonDown',['../classacc_1_1BehaviorFunction.html#a583a2bb3c110d4e2b5b92b993af34637',1,'acc::BehaviorFunction']]],
   ['getmousebuttonup_16',['getMouseButtonUp',['../classacc_1_1BehaviorFunction.html#a41407c0290d0c6ab2ef5e27ce8caa7b6',1,'acc::BehaviorFunction']]],
-  ['getmouseposition_17',['getMousePosition',['../classacc_1_1BehaviorFunction.html#a0d5bb2cc1b0990f8849095574f5a111e',1,'acc::BehaviorFunction']]],
+  ['getmousemotion_17',['getMouseMotion',['../classacc_1_1BehaviorFunction.html#aadbe0a80b7ebd5e45f1772b04c2f098d',1,'acc::BehaviorFunction']]],
   ['getname_18',['getName',['../classacc_1_1Resource.html#a3df66f325774166e7b4134e2720aac29',1,'acc::Resource']]],
   ['getnextentity_19',['getnextentity',['../classacc_1_1EntityManager.html#aeaa0fad42185f38fd6e32975481053e7',1,'acc::EntityManager::getNextEntity()'],['../classacc_1_1Scene.html#a63ea875dfed9da9268a3da982351edb4',1,'acc::Scene::getNextEntity()']]],
   ['getnumber_20',['getNumber',['../structacc_1_1JsonType.html#a62856f2b2fc1d5e003003b4c69db09b3',1,'acc::JsonType']]],

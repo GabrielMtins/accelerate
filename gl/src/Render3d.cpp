@@ -126,6 +126,7 @@ void Render3dSystem::updateWorld(ComponentManager *component_manager){
 		return;
 
 	auto world_array = component_manager->getComponentArray<World3dComponent>();
+	auto gl = (RendererGL *) context->getRenderer();
 
 	for(size_t i = 0; i < world_array->getSize(); i++){
 		auto& current_world = world_array->atIndex(i);
@@ -135,12 +136,16 @@ void Render3dSystem::updateWorld(ComponentManager *component_manager){
 			current_world.octree_shader->setUniform("view", *view);
 
 			for(OctreeNode *node : current_world.octree->getNodes()){
+				gl->setWireframe(true);
+
 				if(node->brushes.size() == 0)
 					continue;
 
 				current_world.octree_shader->setUniform("model", Mat4::Transform(node->start) * Mat4::Scale(node->size) * Mat4::Transform(0.5f, 0.5f, 0.5f));
 				
 				cube_mesh->render(current_world.octree_shader);
+
+				gl->setWireframe(false);
 			}
 		}
 

@@ -12,12 +12,15 @@ class Model3d : public Resource {
 		Model3d(const std::string &name);
 		void addMesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, TextureGL *texture);
 		void addMesh(Mesh *mesh, TextureGL *texture);
+		void addModel(Model3d *other_model);
 		void render(Shader *shader);
 		~Model3d(void);
 
 	private:
 		std::vector<Mesh *> meshes;
 		std::vector<TextureGL *> textures;
+
+		bool unload;
 };
 
 };

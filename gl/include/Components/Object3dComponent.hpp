@@ -1,7 +1,7 @@
 #ifndef BRUSH3D_COMPONENT_HPP
 #define BRUSH3D_COMPONENT_HPP
 
-#include "Model.hpp"
+#include "Model3d.hpp"
 #include "TextureGL.hpp"
 
 namespace acc {

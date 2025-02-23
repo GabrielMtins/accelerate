@@ -223,6 +223,11 @@ void RendererGL::setDepthMask(bool enable){
 	glDepthMask(enable ? GL_TRUE : GL_FALSE);
 }
 
+
+void RendererGL::setWireframe(bool enable){
+	glPolygonMode(GL_FRONT_AND_BACK, enable ? GL_LINE : GL_FILL);
+}
+
 RendererGL::~RendererGL(){
 	delete default_rectangle_shader;
 	delete default_rectangle_mesh;

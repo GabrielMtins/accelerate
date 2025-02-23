@@ -57,8 +57,6 @@ void Octree::build(const std::vector<BrushBuilder *>& brushes){
 	for(BrushBuilder *brush : brushes){
 		insert(brush);
 	}
-
-	printf("%lu\n", nodes.size());
 }
 
 void Octree::insert(BrushBuilder *brush){

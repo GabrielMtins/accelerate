@@ -1,7 +1,7 @@
 #ifndef BRUSH_BUILDER_HPP
 #define BRUSH_BUILDER_HPP
 
-#include "Model.hpp"
+#include "Model3d.hpp"
 
 namespace acc {
 

@@ -68,6 +68,8 @@ void BrushBuilder::setBottomRamp(float angle, int wall_index){
 }
 
 bool BrushBuilder::checkCollisionCylinder(Vec3 position, float radius, float height, float tolerance, Vec3 *delta){
+	(void) tolerance;
+
 	if(!checkBoundingCylinder(position, radius, height))
 		return false;
 

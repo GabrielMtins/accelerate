@@ -1,13 +1,13 @@
 #ifndef ACC_GL_HPP
 #define ACC_GL_HPP
 
+#include "Model3d.hpp"
 #include "Shader.hpp"
 #include "Components/Body3dComponent.hpp"
 #include "Components/World3dComponent.hpp"
 #include "Components/Sprite3d.hpp"
 #include "Components/Object3dComponent.hpp"
 #include "Components/MovBrush3dComponent.hpp"
-#include "Model.hpp"
 #include "Octree.hpp"
 #include "Scene3d.hpp"
 #include "Systems/Render3d.hpp"

@@ -85,12 +85,12 @@ void Physics3dSystem::updateWorld(ComponentManager *component_manager){
 		return;
 
 	auto arr = component_manager->getComponentArray<Body3dComponent>();
-	found_brushes.clear();
 
 	for(size_t i = 0; i < arr->getSize(); i++){
 		Entity entity = arr->indexToEntity(i);
 		auto& body = arr->atIndex(i);
 
+		found_brushes.clear();
 		checkCollisionWorld(component_manager, entity, &found_brushes);
 
 		for(BrushBuilder *brush : found_brushes){
@@ -119,20 +119,27 @@ bool Physics3dSystem::checkCollisionWorld(ComponentManager *component_manager, E
 			continue;
 
 		if(world.octree != NULL){
-			found_collision = world.octree->findCollision(body, found_intersections);
+			if((body.collision_trigger & world.collision_layer) == 0){
+				found_collision = found_collision || world.octree->findCollision(body, found_intersections);
+				callCollisionFunction(component_manager, entity, arr->indexToEntity(i));
+			}
+
 			continue;
 		}
 
 		for(BrushBuilder *brush : world.brushes){
-			Vec3 delta;
-
 			if(body.checkCollision(brush)){
-				found_collision = true;
+				if(found_intersections != NULL){
+					if((body.collision_trigger & world.collision_layer) == 0){
+						found_intersections->insert(brush);
+						found_collision = true;
+					}
 
-				if(found_intersections != NULL)
-					found_intersections->insert(brush);
-				else
+					callCollisionFunction(component_manager, entity, arr->indexToEntity(i));
+				}
+				else{
 					return true;
+				}
 			}
 		}
 	}
@@ -166,6 +173,7 @@ bool Physics3dSystem::checkCollisionMovBrush(ComponentManager *component_manager
 			old_pos = body.position;
 
 			found_collision = found_collision || body.solveCollision(brush.brush, brush.position);
+			callCollisionFunction(component_manager, entity, current_entity);
 
 			if(checkCollisionWorld(component_manager, entity, NULL)){
 				body.position = old_pos;

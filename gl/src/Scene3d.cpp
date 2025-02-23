@@ -81,10 +81,13 @@ class PlayerBehavior : public acc::BehaviorFunction {
 			acc::Vec3 my_position = getComponent<acc::TransformComponent>().position;
 
 			scene->setViewMatrix(acc::Mat4::RotateX(angle_y) * acc::Mat4::RotateY(angle) * acc::Mat4::Transform(my_position * (-1.0f)));
+			//scene->setViewMatrix(acc::Mat4::RotateY(angle) * acc::Mat4::Transform(my_position * (-1.0f)));
 
+			/*
 			auto& sprite = getComponent<acc::Sprite3dComponent>(mini_sprite);
 			sprite.rotation = acc::Mat4::RotateY(-angle);
 			sprite.id = (getTicks() / 200) % 2;
+			*/
 		}
 
 	private:
@@ -227,7 +230,7 @@ Scene3d::Scene3d(Game *game) : Scene2d(game){
 		world.setCollisionLayer(1);
 
 		/*
-		world.octree = new Octree(50, 4, Vec3(-32.0f, -32.0f, -32.0f), Vec3(64.0f, 64.0f, 64.0f));
+		world.octree = new Octree(1, 8, Vec3(-32.0f, -32.0f, -32.0f), Vec3(64.0f, 64.0f, 64.0f));
 		world.octree->build(world.brushes);
 
 		world.debug_render_octree = true;
